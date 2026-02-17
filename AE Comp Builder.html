@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AE Comp Builder</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e4e4e7;min-height:100vh;display:flex}
+.sidebar{width:440px;min-width:440px;border-right:1px solid #27272a;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.sidebar-header{padding:16px 20px;border-bottom:1px solid #27272a}
+.sidebar-header h1{font-size:17px;display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.sidebar-header p{font-size:11px;color:#71717a}
+.sidebar-body{flex:1;overflow-y:auto;padding:0}
+.section{border-bottom:1px solid #27272a;padding:14px 20px}
+.section.collapsed-section{padding:10px 20px;cursor:pointer;transition:background 0.15s}
+.section.collapsed-section:hover{background:#18181b}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.section-header.collapsed-header{margin-bottom:0}
+.section-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;display:flex;align-items:center;gap:6px;cursor:pointer}
+.section-hint{font-size:11px;color:#52525b;margin-bottom:8px;line-height:1.4}
+.collapsed-hint{font-size:10px;color:#3f3f46;font-style:italic}
+.header-right{display:flex;align-items:center;gap:6px}
+.tag-list{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.tag{display:flex;align-items:center;gap:3px;padding:3px 8px;border-radius:6px;font-size:11px;cursor:default}
+.tag-remove{background:none;border:none;color:inherit;cursor:pointer;font-size:13px;opacity:0.5;padding:0 0 0 2px;line-height:1}
+.tag-remove:hover{opacity:1}
+.input-row{display:flex;gap:5px}
+.input-row input{flex:1;background:#18181b;border:1px solid #3f3f46;border-radius:7px;padding:6px 10px;font-size:11px;color:#e4e4e7;outline:none}
+.input-row input:focus{border-color:#52525b}
+.input-row input::placeholder{color:#52525b}
+.btn-add{background:#27272a;border:1px solid #3f3f46;border-radius:7px;padding:6px 10px;color:#a1a1aa;cursor:pointer;font-size:11px;white-space:nowrap;transition:all 0.15s}
+.btn-add:hover{background:#3f3f46;color:#e4e4e7}
+.btn-clear{background:none;border:1px solid #3f3f46;border-radius:5px;padding:2px 8px;color:#71717a;cursor:pointer;font-size:10px;transition:all 0.15s}
+.btn-clear:hover{border-color:#71717a;color:#a1a1aa}
+/* Suffix row */
+.suffix-row{display:flex;align-items:center;gap:6px;margin-top:6px;padding:6px 10px;background:#18181b;border:1px solid #27272a;border-radius:7px}
+.suffix-row label{font-size:10px;color:#71717a;white-space:nowrap}
+.suffix-row input{flex:1;background:#0a0a0a;border:1px solid #3f3f46;border-radius:4px;padding:3px 8px;font-size:11px;color:#fbbf24;font-family:'SF Mono','Consolas',monospace;outline:none}
+.suffix-row input:focus{border-color:#52525b}
+.suffix-row input::placeholder{color:#3f3f46}
+/* Tier cards */
+.tier-card{background:#111113;border:1px solid #27272a;border-radius:9px;margin-bottom:6px;overflow:hidden}
+.tier-header{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid #1e1e20}
+.tier-label{font-size:11px;font-weight:700;flex:1}
+.tier-actions{display:flex;gap:2px;align-items:center}
+.tier-btn{background:none;border:1px solid #3f3f46;border-radius:4px;padding:2px 6px;color:#52525b;cursor:pointer;font-size:10px;transition:all 0.15s;line-height:1}
+.tier-btn:hover{color:#a1a1aa;border-color:#52525b}
+.tier-btn:disabled{opacity:0.15;cursor:default}
+.tier-btn.remove{color:#f87171;border-color:#7f1d1d}
+.tier-btn.remove:hover{background:rgba(127,29,29,0.15)}
+.tier-body{padding:8px 10px}
+.tier-comps{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.tier-comp-tag{display:flex;align-items:center;gap:3px;padding:3px 8px;border-radius:6px;font-size:11px;font-family:'SF Mono','Consolas',monospace;cursor:default}
+.tier-settings-row{padding:4px 10px;border-bottom:1px solid #1e1e20;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.tier-settings-row label{font-size:9px;color:#71717a;display:flex;align-items:center;gap:3px;cursor:pointer}
+.tier-settings-row input[type="checkbox"]{accent-color:#22d3ee;width:11px;height:11px;cursor:pointer}
+.tier-settings-row input[type="number"]{background:#0a0a0a;border:1px solid #3f3f46;border-radius:3px;padding:2px 4px;font-size:10px;color:#e4e4e7;width:48px;outline:none}
+.tier-settings-row input[type="number"]:focus{border-color:#52525b}
+.tier-settings-row .mirror-summary{font-size:9px;color:#3f3f46;font-style:italic}
+/* Source rows per comp */
+.source-row{display:flex;align-items:center;gap:6px;padding:4px 0;flex-wrap:wrap}
+.source-comp-label{font-size:10px;font-weight:600;color:#a1a1aa;min-width:60px;font-family:'SF Mono','Consolas',monospace}
+.source-chips{display:flex;gap:3px;flex-wrap:wrap}
+.source-hint{font-size:10px;color:#3f3f46;font-style:italic;padding:2px 0}
+/* Global comp rows */
+.global-row{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#111113;border:1px solid #27272a;border-radius:7px;margin-bottom:4px;flex-wrap:wrap}
+.global-top{display:flex;align-items:center;gap:8px;width:100%}
+.global-name{font-size:12px;font-weight:600;color:#fb7185;flex-shrink:0}
+.global-arrow{font-size:10px;color:#3f3f46;flex-shrink:0}
+.global-targets{display:flex;gap:3px;flex-wrap:wrap;flex:1}
+.guide-check{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.guide-check input{accent-color:#fb7185;width:12px;height:12px;cursor:pointer}
+.guide-check label{font-size:9px;color:#71717a;cursor:pointer}
+/* Source chips: green active, grey inactive */
+.target-chip{font-size:10px;padding:2px 6px;border-radius:4px;cursor:pointer;border:1px solid #52525b;color:#71717a;transition:all 0.15s;user-select:none}
+.target-chip:hover{color:#a1a1aa;border-color:#71717a}
+.target-chip.active{background:rgba(52,211,153,0.12);color:#34d399;border-color:rgba(52,211,153,0.3)}
+.target-sep{width:1px;height:14px;background:#27272a;flex-shrink:0;margin:0 1px}
+/* Settings */
+.settings-check{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:6px 10px;background:#18181b;border-radius:7px;border:1px solid #27272a}
+.settings-check label{display:flex;align-items:center;gap:8px;font-size:11px;color:#a1a1aa;cursor:pointer;flex:1}
+.settings-check input[type="checkbox"]{accent-color:#22d3ee;width:14px;height:14px;cursor:pointer}
+.comp-settings{display:flex;gap:8px;flex-wrap:wrap;padding:8px 10px;background:#18181b;border-radius:7px;border:1px solid #27272a;margin-top:6px}
+.comp-settings label{font-size:10px;color:#71717a;display:flex;align-items:center;gap:4px}
+.comp-settings input{background:#0a0a0a;border:1px solid #3f3f46;border-radius:4px;padding:3px 6px;font-size:11px;color:#e4e4e7;width:55px;outline:none}
+.comp-settings input:focus{border-color:#52525b}
+/* Output */
+.output-section{padding:14px 20px;border-top:1px solid #27272a}
+.btn-export{width:100%;padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;background:#7c3aed;color:white;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s}
+.btn-export:hover:not(:disabled){background:#8b5cf6}
+.btn-export:disabled{background:#3f3f46;color:#71717a;cursor:not-allowed}
+.help{font-size:10px;color:#52525b;margin-top:6px;text-align:center}
+/* Preview */
+.preview-header{padding:14px 20px;border-bottom:1px solid #27272a;display:flex;align-items:center;justify-content:space-between}
+.preview-header h2{font-size:14px;font-weight:600}
+.preview-controls{display:flex;align-items:center;gap:8px}
+.badge{font-size:11px;background:#27272a;color:#a1a1aa;padding:2px 10px;border-radius:10px}
+.view-tabs{display:flex;gap:2px;background:#18181b;border-radius:7px;padding:2px;border:1px solid #27272a}
+.view-tab{font-size:11px;padding:4px 10px;border-radius:5px;cursor:pointer;color:#52525b;border:none;background:none;font-weight:500;transition:all 0.15s}
+.view-tab:hover{color:#a1a1aa}
+.view-tab.active{color:#e4e4e7;background:#27272a}
+.preview-body{flex:1;overflow:auto;padding:16px 20px;font-family:'SF Mono','Consolas',monospace;font-size:12px}
+.preview-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#3f3f46;gap:8px;font-family:-apple-system,sans-serif}
+.preview-empty span{font-size:32px}
+.preview-empty p{font-size:13px}
+/* Tree view */
+.tree-row{display:flex;align-items:center;gap:5px;padding:1.5px 0;white-space:nowrap;cursor:pointer;border-radius:4px}
+.tree-row:hover{background:rgba(255,255,255,0.03)}
+.tree-toggle{width:14px;flex-shrink:0;text-align:center;font-size:9px;color:#52525b;transition:transform 0.15s}
+.tree-toggle.open{transform:rotate(90deg)}
+.tree-toggle.leaf{visibility:hidden}
+.tc{color:#3f3f46;width:18px;flex-shrink:0;text-align:center;font-size:11px}
+.fi{width:13px;height:13px;flex-shrink:0}
+.tree-badge{font-size:9px;padding:1px 6px;border-radius:3px;margin-left:4px}
+.tree-badge.chain{background:rgba(34,211,238,0.12);color:#22d3ee}
+.tree-badge.merge{background:rgba(251,191,36,0.12);color:#fbbf24}
+.tree-badge.global{background:rgba(251,113,133,0.12);color:#fb7185}
+.tree-badge.root-badge{background:rgba(251,191,36,0.12);color:#fbbf24}
+/* DAG Flowchart view */
+.sunburst-container{flex:1;overflow:auto;position:relative;padding:24px}
+.dag-wrap{display:inline-flex;min-width:max-content;position:relative}
+.dag-shot-row{display:flex;align-items:flex-start;gap:0;margin-bottom:20px;position:relative}
+.dag-column{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:100px;padding:0 30px}
+.dag-col-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#52525b;margin-bottom:6px;text-align:center}
+.dag-node{padding:6px 12px;border-radius:7px;font-size:11px;white-space:nowrap;border:1px solid #27272a;background:#18181b;display:inline-flex;align-items:center;gap:5px;position:relative;z-index:1}
+.dag-node.root-node{border-color:rgba(251,191,36,0.4);color:#fbbf24}
+.dag-node.precomp-node{border-color:rgba(52,211,153,0.4);color:#34d399}
+.dag-node.global-node{border-color:rgba(251,113,133,0.4);color:#fb7185;font-size:10px;padding:4px 8px}
+.dag-svg{position:absolute;top:0;left:0;pointer-events:none;z-index:0;overflow:visible}
+.dag-svg path{fill:none;stroke:#3f3f46;stroke-width:1.5}
+.dag-svg path.global-line{stroke:#fb718540;stroke-dasharray:4,3;stroke-width:1}
+@media(max-width:900px){body{flex-direction:column}.sidebar{width:100%;min-width:0;height:auto;max-height:55vh;border-right:none;border-bottom:1px solid #27272a}.main{height:45vh}}
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <h1>🎬 AE Comp Builder</h1>
+    <p>Build comp pipelines, export as ExtendScript.</p>
+  </div>
+  <div class="sidebar-body" id="sidebarBody"></div>
+  <div class="output-section">
+    <button class="btn-export" id="exportBtn" onclick="exportScript()" disabled>📜 Generate ExtendScript</button>
+    <p class="help">Run in After Effects: File → Scripts → Run Script File</p>
+  </div>
+</div>
+<div class="main">
+  <div class="preview-header">
+    <div style="display:flex;align-items:center;gap:8px">
+      <h2>Project Preview</h2>
+      <span class="badge" id="countBadge">0 items</span>
+    </div>
+    <div class="preview-controls">
+      <div class="view-tabs">
+        <button class="view-tab active" onclick="setView('tree')">Tree</button>
+        <button class="view-tab" onclick="setView('htree')">Flowchart</button>
+      </div>
+    </div>
+  </div>
+  <div class="preview-body" id="previewBody">
+    <div class="preview-empty"><span>🎬</span><p>Add root comps and precomp tiers to see your AE project</p></div>
+  </div>
+  <div id="sunburstView" class="sunburst-container" style="display:none">
+    <div class="dag-wrap" id="htreeWrap"></div>
+  </div>
+</div>
+
+<script>
+// ========================================
+// COLORS
+// ========================================
+const COLORS=[
+  {name:"amber",dot:"#fbbf24",text:"#fbbf24",tagBg:"rgba(251,191,36,0.12)",tagBorder:"rgba(251,191,36,0.2)"},
+  {name:"blue",dot:"#60a5fa",text:"#60a5fa",tagBg:"rgba(96,165,250,0.12)",tagBorder:"rgba(96,165,250,0.2)"},
+  {name:"green",dot:"#34d399",text:"#34d399",tagBg:"rgba(52,211,153,0.12)",tagBorder:"rgba(52,211,153,0.2)"},
+  {name:"purple",dot:"#c084fc",text:"#c084fc",tagBg:"rgba(192,132,252,0.12)",tagBorder:"rgba(192,132,252,0.2)"},
+  {name:"rose",dot:"#fb7185",text:"#fb7185",tagBg:"rgba(251,113,133,0.12)",tagBorder:"rgba(251,113,133,0.2)"},
+  {name:"cyan",dot:"#22d3ee",text:"#22d3ee",tagBg:"rgba(34,211,238,0.12)",tagBorder:"rgba(34,211,238,0.2)"},
+];
+const SHOT_COL=COLORS[0];// amber
+const TIER_COL=COLORS[2];// green
+const GLOB_COL=COLORS[4];// rose
+const SET_COL=COLORS[5]; // cyan
+const FOLDER_COL={icon:"#fbbf24",text:"#fafafa",weight:"600"};
+const ROOT_COL={icon:"#fbbf24",text:"#fbbf24",weight:"600"};
+const PRECOMP_COL={icon:"#34d399",text:"#34d399",weight:"600"};
+const GLOBAL_PREV={icon:"#fb7185",text:"#fecdd3",weight:"normal"};
+
+// ========================================
+// DATA MODEL
+// ========================================
+let shots=[];
+let rootSuffix='';
+let tiers=[];
+let tierIdCounter=0;
+let compIdCounter=0;
+let globals=[];
+let globalIdCounter=0;
+let settings={wrapInFolder:true,width:1920,height:1080,fps:30,duration:10};
+
+let currentView='tree',treeCollapsed={},editingTag=null;
+let sectionOpen={shots:true,tiers:true,globals:true,settings:false};
+let addingCompToTier=null;
+
+// ========================================
+// TIER HELPERS
+// ========================================
+function tierById(id){return tiers.find(t=>t.id===id)}
+function compById(id){for(const t of tiers)for(const c of t.comps)if(c.id===id)return c;return null}
+function tierOfComp(compId){return tiers.find(t=>t.comps.some(c=>c.id===compId))}
+function prevTier(tierId){const idx=tiers.findIndex(t=>t.id===tierId);return idx>0?tiers[idx-1]:null}
+function getEffectiveSources(comp,tierIdx){
+  if(tierIdx===0)return['root'];
+  if(comp.sources.length)return comp.sources;
+  return tiers[tierIdx-1].comps.map(c=>c.id);
+}
+function tierColor(tierIdx){return COLORS[(tierIdx+1)%COLORS.length]}
+function getAllCompOptions(){
+  const opts=[{id:'root',label:rootSuffix?rootSuffix.replace(/^_/,''):'Root',tierLabel:'Root'}];
+  tiers.forEach((t,i)=>t.comps.forEach(c=>opts.push({id:c.id,label:c.label,tierLabel:'Tier '+(i+1)})));
+  return opts;
+}
+function validateAllSources(){
+  tiers.forEach((tier,idx)=>{
+    if(idx===0){tier.comps.forEach(c=>{c.sources=[]});return}
+    const prevIds=new Set(tiers[idx-1].comps.map(c=>c.id));
+    tier.comps.forEach(c=>{c.sources=c.sources.filter(s=>prevIds.has(s))});
+  });
+}
+
+// ========================================
+// PER-TIER SETTINGS HELPERS
+// ========================================
+function makeTierSettings(){
+  return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration,mirrorRoot:true};
+}
+function getTierSettings(tier){
+  if(!tier.settings||tier.settings.mirrorRoot){
+    return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration};
+  }
+  return{width:tier.settings.width,height:tier.settings.height,fps:tier.settings.fps,duration:tier.settings.duration};
+}
+function syncMirroredTiers(){
+  tiers.forEach(t=>{
+    if(t.settings&&t.settings.mirrorRoot){
+      t.settings.width=settings.width;
+      t.settings.height=settings.height;
+      t.settings.fps=settings.fps;
+      t.settings.duration=settings.duration;
+    }
+  });
+}
+function updateTierSetting(tierId,key,value){
+  const tier=tierById(tierId);
+  if(tier){tier.settings[key]=value;renderAll()}
+}
+function toggleTierMirrorRoot(tierId){
+  const tier=tierById(tierId);if(!tier)return;
+  tier.settings.mirrorRoot=!tier.settings.mirrorRoot;
+  if(tier.settings.mirrorRoot){
+    tier.settings.width=settings.width;
+    tier.settings.height=settings.height;
+    tier.settings.fps=settings.fps;
+    tier.settings.duration=settings.duration;
+  }
+  renderAll();
+}
+function toggleTierFolder(tierId){
+  const t=tierById(tierId);if(t)t.wrapInFolder=!t.wrapInFolder;renderAll();
+}
+
+// ========================================
+// UTILITIES
+// ========================================
+function san(n){return n.replace(/[<>:"/\\|?*]/g,"_").trim()}
+function pi(raw){return raw.split(/[\n\r\t,]+/).map(s=>s.trim()).filter(Boolean).map(san).filter(Boolean)}
+function esc(s){return s.replace(/'/g,"\\'").replace(/\\/g,"\\\\")}
+function natSort(a){return[...a].sort((x,y)=>x.localeCompare(y,undefined,{numeric:true,sensitivity:'base'}))}
+
+document.addEventListener('paste',function(e){
+  const el=document.activeElement;
+  if(el&&el.tagName==='INPUT'&&el.id&&(el.id.startsWith('inp-'))){
+    const txt=(e.clipboardData||window.clipboardData).getData('text');
+    if(txt.includes('\n')||txt.includes('\r')||txt.includes('\t')){
+      e.preventDefault();el.value=txt;el.dataset.rawPaste=txt;
+    }
+  }
+});
+
+// ========================================
+// TAG EDITING
+// ========================================
+function startEditShot(idx){editingTag={type:'shot',idx};renderAll()}
+function startEditGlobal(idx){editingTag={type:'global',idx};renderAll()}
+function startEditCompSuffix(compId){editingTag={type:'compSuffix',compId};renderAll()}
+
+function commitEdit(inputEl){
+  if(!editingTag)return;
+  const val=san(inputEl.value.trim());
+  if(editingTag.type==='shot'){
+    if(val&&val!==shots[editingTag.idx]){if(!shots.includes(val))shots[editingTag.idx]=val}
+    else if(!val){shots.splice(editingTag.idx,1)}
+  } else if(editingTag.type==='global'){
+    if(val&&val!==globals[editingTag.idx].name){
+      if(!globals.find(g=>g.name===val))globals[editingTag.idx].name=val;
+    } else if(!val){globals.splice(editingTag.idx,1)}
+  } else if(editingTag.type==='compSuffix'){
+    const comp=compById(editingTag.compId);
+    if(comp){
+      let s=val;
+      if(s&&!s.startsWith('_'))s='_'+s;
+      comp.suffix=s||'_unnamed';
+      comp.label=comp.suffix.replace(/^_/,'').replace(/_/g,' ');
+    }
+  }
+  editingTag=null;renderAll();
+}
+function cancelEdit(){editingTag=null;renderAll()}
+function editKeyHandler(e){if(e.key==='Enter'){e.preventDefault();commitEdit(e.target)}else if(e.key==='Escape'){cancelEdit()}}
+
+// ========================================
+// SHOT / ROOT COMP OPERATIONS
+// ========================================
+function addShot(){
+  const inp=document.getElementById('inp-shots');if(!inp)return;
+  const raw=inp.dataset.rawPaste||inp.value;
+  pi(raw).forEach(v=>{if(!shots.includes(v))shots.push(v)});
+  inp.value='';delete inp.dataset.rawPaste;renderAll();
+}
+function removeShot(idx){shots.splice(idx,1);renderAll()}
+function clearShots(){shots=[];renderAll()}
+function updateRootSuffix(val){
+  let s=san(val.trim());
+  if(s&&!s.startsWith('_'))s='_'+s;
+  rootSuffix=s;
+  renderAll();
+}
+
+// ========================================
+// TIER OPERATIONS
+// ========================================
+function addTier(){
+  const t={id:'tier_'+tierIdCounter++,comps:[],wrapInFolder:false,settings:makeTierSettings()};
+  tiers.push(t);
+  addingCompToTier=t.id;
+  renderAll();
+  requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp');if(inp)inp.focus()});
+}
+function removeTier(tierId){
+  const idx=tiers.findIndex(t=>t.id===tierId);
+  const removedIds=new Set(tiers[idx].comps.map(c=>c.id));
+  tiers.splice(idx,1);
+  tiers.forEach(t=>t.comps.forEach(c=>{c.sources=c.sources.filter(s=>!removedIds.has(s))}));
+  globals.forEach(g=>{g.targetComps=g.targetComps.filter(id=>!removedIds.has(id))});
+  validateAllSources();
+  renderAll();
+}
+function moveTier(tierId,dir){
+  const idx=tiers.findIndex(t=>t.id===tierId);
+  const ni=idx+dir;
+  if(ni<0||ni>=tiers.length)return;
+  [tiers[idx],tiers[ni]]=[tiers[ni],tiers[idx]];
+  validateAllSources();
+  renderAll();
+}
+function clearTiers(){
+  tiers=[];
+  globals.forEach(g=>{g.targetComps=g.targetComps.filter(id=>id==='root')});
+  addingCompToTier=null;
+  renderAll();
+}
+
+// ========================================
+// COMP-WITHIN-TIER OPERATIONS
+// ========================================
+function addCompToTier(tierId){
+  addingCompToTier=tierId;
+  renderAll();
+  requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp');if(inp)inp.focus()});
+}
+function confirmAddComp(){
+  const inp=document.getElementById('inp-tier-comp');
+  if(!inp){cancelAddComp();return}
+  let s=san(inp.value.trim());
+  if(!s){cancelAddComp();return}
+  if(!s.startsWith('_'))s='_'+s;
+  const label=s.replace(/^_/,'').replace(/_/g,' ');
+  const tier=tierById(addingCompToTier);
+  if(tier)tier.comps.push({id:'comp_'+compIdCounter++,suffix:s,label,sources:[]});
+  // Keep addingCompToTier set — chain to next input
+  renderAll();
+  requestAnimationFrame(()=>{const newInp=document.getElementById('inp-tier-comp');if(newInp){newInp.value='';newInp.focus()}});
+}
+function cancelAddComp(){addingCompToTier=null;renderAll()}
+function addCompKeyHandler(e){
+  if(e.key==='Enter'){e.preventDefault();confirmAddComp()}
+  else if(e.key==='Escape'){cancelAddComp()}
+}
+function removeCompFromTier(compId){
+  tiers.forEach(t=>{t.comps=t.comps.filter(c=>c.id!==compId)});
+  tiers.forEach(t=>t.comps.forEach(c=>{c.sources=c.sources.filter(s=>s!==compId)}));
+  globals.forEach(g=>{g.targetComps=g.targetComps.filter(id=>id!==compId)});
+  renderAll();
+}
+function toggleCompSource(compId,sourceId){
+  const comp=compById(compId);if(!comp)return;
+  const tier=tierOfComp(compId);if(!tier)return;
+  const tierIdx=tiers.indexOf(tier);
+  if(comp.sources.length===0&&tierIdx>0){
+    // "all by default" → populate with all EXCEPT clicked (deselect one)
+    const prevComps=tiers[tierIdx-1].comps;
+    comp.sources=prevComps.filter(c=>c.id!==sourceId).map(c=>c.id);
+  } else {
+    const i=comp.sources.indexOf(sourceId);
+    if(i>=0)comp.sources.splice(i,1);else comp.sources.push(sourceId);
+  }
+  renderAll();
+}
+
+// ========================================
+// GLOBAL COMP OPERATIONS
+// ========================================
+function addGlobal(){
+  const inp=document.getElementById('inp-globals');if(!inp)return;
+  const raw=inp.dataset.rawPaste||inp.value;
+  pi(raw).forEach(name=>{
+    if(!globals.find(g=>g.name===name)){
+      globals.push({id:'glob_'+globalIdCounter++,name,targetComps:['root'],guideLayer:false});
+    }
+  });
+  inp.value='';delete inp.dataset.rawPaste;renderAll();
+}
+function removeGlobal(idx){globals.splice(idx,1);renderAll()}
+function clearGlobals(){globals=[];renderAll()}
+function toggleGlobalTarget(globalId,compId){
+  const g=globals.find(x=>x.id===globalId);if(!g)return;
+  const i=g.targetComps.indexOf(compId);
+  if(i>=0)g.targetComps.splice(i,1);else g.targetComps.push(compId);
+  renderAll();
+}
+function toggleGuideLayer(globalId){
+  const g=globals.find(x=>x.id===globalId);if(!g)return;
+  g.guideLayer=!g.guideLayer;
+  renderAll();
+}
+function toggleSection(key){sectionOpen[key]=!sectionOpen[key];renderAll()}
+
+// ========================================
+// TREE BUILDING
+// ========================================
+function buildDataTree(){
+  const root={name:'root',children:[],type:null};
+
+  natSort(shots).forEach(shotName=>{
+    let shotParent=root;
+
+    if(settings.wrapInFolder){
+      const folder={name:shotName,type:'folder',children:[]};
+      root.children.push(folder);
+      shotParent=folder;
+    }
+
+    // Root comp
+    const rootCompName=shotName+rootSuffix;
+    const rootNode={name:rootCompName,type:'comp',compType:'root',children:[]};
+
+    // Track all comp nodes by ID for source-linking
+    const nodeMap={'root':rootNode};
+
+    // Build tiers
+    tiers.forEach((tier,tierIdx)=>{
+      tier.comps.forEach(comp=>{
+        const compName=shotName+comp.suffix;
+        const node={name:compName,type:'comp',compType:'precomp',children:[],compId:comp.id};
+        nodeMap[comp.id]=node;
+
+        // Attach to source(s): child of first source, badge for extras
+        const sources=getEffectiveSources(comp,tierIdx);
+        const extraSources=sources.length>1?sources.slice(1).map(sid=>{
+          const sc=compById(sid);
+          return sc?sc.label:(sid==='root'?'Root':'?');
+        }):[];
+        if(extraSources.length)node.mergeSources=extraSources;
+
+        const primarySrc=sources[0];
+        if(nodeMap[primarySrc]){
+          nodeMap[primarySrc].children.push(node);
+        } else {
+          rootNode.children.push(node);
+        }
+      });
+    });
+
+    // Add globals
+    globals.forEach(g=>{
+      g.targetComps.forEach(targetId=>{
+        if(nodeMap[targetId]){
+          nodeMap[targetId].children.push({name:g.name,type:'global',guideLayer:g.guideLayer,children:[]});
+        }
+      });
+    });
+
+    shotParent.children.push(rootNode);
+  });
+
+  return root;
+}
+
+function countItems(tree){
+  let folders=0,comps=0,globs=0;
+  function walk(n){
+    if(n.type==='folder')folders++;
+    else if(n.type==='comp')comps++;
+    else if(n.type==='global')globs++;
+    n.children.forEach(walk);
+  }
+  tree.children.forEach(walk);
+  return{folders,comps,globals:globs};
+}
+
+// ========================================
+// ICONS
+// ========================================
+function fSVG(c){return`<svg class="fi" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5z"/></svg>`}
+function compSVG(c){return`<svg class="fi" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg>`}
+function globSVG(c){return`<svg class="fi" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`}
+
+function nodeIcon(n){
+  if(n.type==='folder')return fSVG(FOLDER_COL.icon);
+  if(n.type==='global')return globSVG(GLOBAL_PREV.icon);
+  if(n.type==='comp'&&n.compType==='root')return compSVG(ROOT_COL.icon);
+  if(n.type==='comp'&&n.compType==='precomp')return compSVG(PRECOMP_COL.icon);
+  if(n.type==='comp')return compSVG('#a855f7');
+  return'';
+}
+function nodeStyle(n){
+  if(n.type==='folder')return`color:${FOLDER_COL.text};font-weight:${FOLDER_COL.weight}`;
+  if(n.type==='global')return`color:${GLOBAL_PREV.text};font-weight:${GLOBAL_PREV.weight}`;
+  if(n.type==='comp'&&n.compType==='root')return`color:${ROOT_COL.text};font-weight:${ROOT_COL.weight}`;
+  if(n.type==='comp'&&n.compType==='precomp')return`color:${PRECOMP_COL.text};font-weight:${PRECOMP_COL.weight}`;
+  return'';
+}
+function nodeBadge(n){
+  if(n.type==='folder')return'';
+  if(n.type==='global'){
+    let b=`<span class="tree-badge global">global</span>`;
+    if(n.guideLayer)b+=`<span class="tree-badge global">guide</span>`;
+    return b;
+  }
+  if(n.type==='comp'&&n.compType==='root')return`<span class="tree-badge root-badge">root</span>`;
+  if(n.type==='comp'&&n.mergeSources){
+    return`<span class="tree-badge merge">also ← ${n.mergeSources.join(', ')}</span>`;
+  }
+  return'';
+}
+function cardClass(n){
+  if(n.type==='folder')return'folder-card';
+  if(n.type==='global')return'global-card';
+  if(n.type==='comp'&&n.compType==='root')return'root-card';
+  if(n.type==='comp'&&n.compType==='precomp')return'precomp-card';
+  return'comp-card';
+}
+
+// ========================================
+// VIEW
+// ========================================
+function setView(v){
+  currentView=v;
+  document.querySelectorAll('.view-tab').forEach(t=>{
+    t.classList.toggle('active',t.textContent.toLowerCase()===v||(v==='htree'&&t.textContent==='Flowchart'));
+  });
+  document.getElementById('previewBody').style.display=v==='tree'?'':'none';
+  document.getElementById('sunburstView').style.display=v==='htree'?'':'none';
+  renderPreview();
+}
+function toggleTreeNode(p){treeCollapsed[p]=!treeCollapsed[p];renderPreview()}
+
+// ========================================
+// TREE VIEW
+// ========================================
+function renderTreeView(){
+  const box=document.getElementById('previewBody');
+  const tree=buildDataTree();
+  let html='';
+  function renderNode(node,connectors,isLast,parentPath){
+    if(!node.type){node.children.forEach((ch,i)=>renderNode(ch,[],i===node.children.length-1,''));return}
+    const path=parentPath?parentPath+'/'+node.name:node.name;
+    const hasKids=node.children.length>0;
+    const collapsed=treeCollapsed[path]===true;
+    let h='<div class="tree-row" onclick="toggleTreeNode(\''+esc(path)+'\')">';
+    connectors.forEach(c=>{h+=`<span class="tc">${c}</span>`});
+    h+=hasKids?`<span class="tree-toggle ${collapsed?'':'open'}">▶</span>`:`<span class="tree-toggle leaf"></span>`;
+    h+=nodeIcon(node)+` <span style="${nodeStyle(node)}">${node.name}</span>${nodeBadge(node)}</div>`;
+    html+=h;
+    if(hasKids&&!collapsed){
+      node.children.forEach((ch,i)=>{
+        renderNode(ch,[...connectors,i===node.children.length-1?'&nbsp;':'│'],i===node.children.length-1,path);
+      });
+    }
+  }
+  tree.children.forEach((ch,i)=>{renderNode(ch,[],i===tree.children.length-1,'');html+='<div style="height:4px"></div>'});
+  box.innerHTML=html||`<div class="preview-empty"><span>🎬</span><p>Add root comps and precomp tiers to see your AE project</p></div>`;
+  return tree;
+}
+
+// ========================================
+// DAG FLOWCHART VIEW
+// ========================================
+function renderDAGView(){
+  const container=document.getElementById('htreeWrap');
+  const tree=buildDataTree();
+
+  if(!shots.length||(!tiers.length&&!globals.length)){
+    container.innerHTML=`<div class="preview-empty"><span>🎬</span><p>Add root comps and precomp tiers to see your AE project</p></div>`;
+    return tree;
+  }
+
+  // Build column structure: Root | Tier0 | Tier1 | ... | Globals
+  const hasGlobals=globals.length>0;
+  const colCount=1+tiers.length+(hasGlobals?1:0);
+
+  let html='';
+
+  natSort(shots).forEach((shotName,shotIdx)=>{
+    html+=`<div class="dag-shot-row" id="dag-shot-${shotIdx}">`;
+
+    // Root column
+    html+=`<div class="dag-column">`;
+    if(shotIdx===0)html+=`<div class="dag-col-label" style="color:#fbbf24">Root</div>`;
+    const rootName=shotName+rootSuffix;
+    html+=`<div class="dag-node root-node" data-dag-id="root" data-dag-shot="${shotIdx}">${compSVG('#fbbf24')} ${rootName}</div>`;
+    html+=`</div>`;
+
+    // Tier columns
+    tiers.forEach((tier,tierIdx)=>{
+      const col=tierColor(tierIdx);
+      html+=`<div class="dag-column">`;
+      if(shotIdx===0)html+=`<div class="dag-col-label" style="color:${col.dot}">Tier ${tierIdx+1}</div>`;
+      if(tier.comps.length===0){
+        html+=`<div style="min-height:28px"></div>`;
+      } else {
+        tier.comps.forEach(comp=>{
+          const compName=shotName+comp.suffix;
+          const sources=getEffectiveSources(comp,tierIdx);
+          html+=`<div class="dag-node precomp-node" data-dag-id="${comp.id}" data-dag-shot="${shotIdx}" data-dag-sources="${sources.join(',')}">${compSVG('#34d399')} ${compName}</div>`;
+        });
+      }
+      html+=`</div>`;
+    });
+
+    // Globals column
+    if(hasGlobals){
+      html+=`<div class="dag-column">`;
+      if(shotIdx===0)html+=`<div class="dag-col-label" style="color:#fb7185">Globals</div>`;
+      globals.forEach(g=>{
+        const targets=g.targetComps.filter(tid=>{
+          if(tid==='root')return true;
+          return compById(tid)!==null;
+        });
+        if(targets.length){
+          html+=`<div class="dag-node global-node" data-dag-id="${g.id}" data-dag-shot="${shotIdx}" data-dag-global-targets="${targets.join(',')}">${globSVG('#fb7185')} ${g.name}${g.guideLayer?' (guide)':''}</div>`;
+        }
+      });
+      html+=`</div>`;
+    }
+
+    html+=`<svg class="dag-svg" id="dag-svg-${shotIdx}"></svg>`;
+    html+=`</div>`;
+  });
+
+  container.innerHTML=html;
+
+  requestAnimationFrame(drawDAGLines);
+  return tree;
+}
+
+function drawDAGLines(){
+  natSort(shots).forEach((shotName,shotIdx)=>{
+    const row=document.getElementById('dag-shot-'+shotIdx);
+    const svg=document.getElementById('dag-svg-'+shotIdx);
+    if(!row||!svg)return;
+    const rr=row.getBoundingClientRect();
+    svg.setAttribute('width',row.scrollWidth);
+    svg.setAttribute('height',row.scrollHeight);
+    svg.innerHTML='';
+
+    // Draw source→target lines for precomp nodes
+    row.querySelectorAll('[data-dag-sources]').forEach(node=>{
+      const shot=node.dataset.dagShot;
+      const sources=node.dataset.dagSources.split(',').filter(Boolean);
+      const tr=node.getBoundingClientRect();
+      const tx=tr.left-rr.left;
+      const ty=tr.top-rr.top+tr.height/2;
+
+      sources.forEach(srcId=>{
+        const src=row.querySelector('[data-dag-id="'+srcId+'"][data-dag-shot="'+shot+'"]');
+        if(!src)return;
+        const sr=src.getBoundingClientRect();
+        const sx=sr.right-rr.left;
+        const sy=sr.top-rr.top+sr.height/2;
+        const mx=(sx+tx)/2;
+        const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d','M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ty+' '+tx+','+ty);
+        svg.appendChild(path);
+      });
+    });
+
+    // Draw global→target lines
+    row.querySelectorAll('[data-dag-global-targets]').forEach(gNode=>{
+      const shot=gNode.dataset.dagShot;
+      const targets=gNode.dataset.dagGlobalTargets.split(',').filter(Boolean);
+      const gr=gNode.getBoundingClientRect();
+      const gx=gr.left-rr.left;
+      const gy=gr.top-rr.top+gr.height/2;
+
+      targets.forEach(tid=>{
+        const tgt=row.querySelector('[data-dag-id="'+tid+'"][data-dag-shot="'+shot+'"]');
+        if(!tgt)return;
+        const tr2=tgt.getBoundingClientRect();
+        const tx2=tr2.right-rr.left;
+        const ty2=tr2.top-rr.top+tr2.height/2;
+        const mx2=(tx2+gx)/2;
+        const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+        path.setAttribute('d','M'+tx2+','+ty2+' C'+mx2+','+ty2+' '+mx2+','+gy+' '+gx+','+gy);
+        path.classList.add('global-line');
+        svg.appendChild(path);
+      });
+    });
+  });
+}
+
+window.addEventListener('resize',()=>{if(currentView==='htree')requestAnimationFrame(drawDAGLines)});
+
+// ========================================
+// PREVIEW
+// ========================================
+function renderPreview(){
+  let tree;
+  if(currentView==='tree')tree=renderTreeView();
+  else if(currentView==='htree')tree=renderDAGView();
+  else tree=buildDataTree();
+
+  const c=countItems(tree);
+  const parts=[];
+  if(c.folders)parts.push(c.folders+' folder'+(c.folders!==1?'s':''));
+  if(c.comps)parts.push(c.comps+' comp'+(c.comps!==1?'s':''));
+  if(c.globals)parts.push(globals.length+' global'+(globals.length!==1?'s':''));
+  document.getElementById('countBadge').textContent=parts.join(' · ')||'0 items';
+  document.getElementById('exportBtn').disabled=shots.length===0;
+}
+
+// ========================================
+// SIDEBAR RENDERING
+// ========================================
+function renderShotTags(){
+  if(!shots.length)return'';
+  const sorted=shots.map((v,i)=>({v,i})).sort((a,b)=>a.v.localeCompare(b.v,undefined,{numeric:true,sensitivity:'base'}));
+  return`<div class="tag-list">${sorted.map(o=>{
+    const{v,i}=o;
+    if(editingTag&&editingTag.type==='shot'&&editingTag.idx===i){
+      return`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder};padding:0"><input type="text" id="edit-tag" value="${v}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${SHOT_COL.text};font-size:11px;padding:3px 8px;width:${Math.max(40,v.length*7+16)}px;outline:none;font-family:inherit"></span>`;
+    }
+    return`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder}" ondblclick="startEditShot(${i})">${v}<button class="tag-remove" onclick="removeShot(${i})">&times;</button></span>`;
+  }).join('')}</div>`;
+}
+
+function renderTierCard(tier,tierIdx){
+  const col=tierColor(tierIdx);
+  const prev=tierIdx>0?tiers[tierIdx-1]:null;
+  const ts=tier.settings||{mirrorRoot:true};
+  const tset=getTierSettings(tier);
+  let h=`<div class="tier-card" style="border-color:${col.dot}30">`;
+
+  // Header
+  h+=`<div class="tier-header">`;
+  h+=`<span class="tier-label" style="color:${col.dot}">Tier ${tierIdx+1}</span>`;
+  h+=`<div class="tier-actions">`;
+  h+=`<label style="font-size:9px;color:#71717a;display:flex;align-items:center;gap:3px;cursor:pointer;margin-right:4px"><input type="checkbox" ${tier.wrapInFolder?'checked':''} onchange="toggleTierFolder('${tier.id}')" style="accent-color:${col.dot};width:11px;height:11px;cursor:pointer">Folder</label>`;
+  h+=`<button class="tier-btn" onclick="moveTier('${tier.id}',-1)" ${tierIdx===0?'disabled':''}>↑</button>`;
+  h+=`<button class="tier-btn" onclick="moveTier('${tier.id}',1)" ${tierIdx===tiers.length-1?'disabled':''}>↓</button>`;
+  h+=`<button class="tier-btn remove" onclick="removeTier('${tier.id}')">×</button>`;
+  h+=`</div></div>`;
+
+  // Settings row
+  h+=`<div class="tier-settings-row">`;
+  h+=`<label><input type="checkbox" ${ts.mirrorRoot?'checked':''} onchange="toggleTierMirrorRoot('${tier.id}')">Mirror Root</label>`;
+  if(!ts.mirrorRoot){
+    h+=`<label>W:<input type="number" value="${tset.width}" onchange="updateTierSetting('${tier.id}','width',parseInt(this.value)||1920)"></label>`;
+    h+=`<label>H:<input type="number" value="${tset.height}" onchange="updateTierSetting('${tier.id}','height',parseInt(this.value)||1080)"></label>`;
+    h+=`<label>FPS:<input type="number" value="${tset.fps}" step="0.01" onchange="updateTierSetting('${tier.id}','fps',parseFloat(this.value)||30)"></label>`;
+    h+=`<label>Dur:<input type="number" value="${tset.duration}" onchange="updateTierSetting('${tier.id}','duration',parseFloat(this.value)||10)">s</label>`;
+  } else {
+    h+=`<span class="mirror-summary">${tset.width}×${tset.height} ${tset.fps}fps ${tset.duration}s</span>`;
+  }
+  h+=`</div>`;
+
+  // Body
+  h+=`<div class="tier-body">`;
+
+  // Comp tags
+  if(tier.comps.length){
+    h+=`<div class="tier-comps">`;
+    tier.comps.forEach(comp=>{
+      const isEditing=editingTag&&editingTag.type==='compSuffix'&&editingTag.compId===comp.id;
+      if(isEditing){
+        h+=`<span class="tier-comp-tag" style="background:${col.tagBg};color:${col.text};border:1px solid ${col.tagBorder};padding:0"><input type="text" id="edit-tag" value="${comp.suffix}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${col.text};font-size:11px;padding:3px 8px;width:${Math.max(50,comp.suffix.length*7+16)}px;outline:none;font-family:'SF Mono','Consolas',monospace"></span>`;
+      } else {
+        h+=`<span class="tier-comp-tag" style="background:${col.tagBg};color:${col.text};border:1px solid ${col.tagBorder}" ondblclick="startEditCompSuffix('${comp.id}')">${comp.suffix}<button class="tag-remove" onclick="removeCompFromTier('${comp.id}')">&times;</button></span>`;
+      }
+    });
+    h+=`</div>`;
+  }
+
+  // Sources (green active / grey inactive)
+  if(tierIdx===0){
+    if(tier.comps.length)h+=`<div class="source-hint">Each sources from Root comp</div>`;
+  } else if(prev&&prev.comps.length&&tier.comps.length){
+    tier.comps.forEach(comp=>{
+      h+=`<div class="source-row">`;
+      h+=`<span class="source-comp-label" style="color:${col.dot}">${comp.suffix}</span>`;
+      h+=`<div class="source-chips">`;
+      prev.comps.forEach(srcComp=>{
+        const active=comp.sources.includes(srcComp.id);
+        const isDefault=comp.sources.length===0;
+        h+=`<span class="target-chip ${active||isDefault?'active':''}" onclick="toggleCompSource('${comp.id}','${srcComp.id}')">${srcComp.label}</span>`;
+      });
+      h+=`</div></div>`;
+    });
+  }
+
+  // Add precomp input
+  if(addingCompToTier===tier.id){
+    h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-tier-comp" placeholder="Suffix e.g. _Overlay" onkeydown="addCompKeyHandler(event)" onblur="setTimeout(()=>{if(addingCompToTier==='${tier.id}')cancelAddComp()},200)"><button class="btn-add" onclick="confirmAddComp()">✓</button><button class="btn-add" onclick="cancelAddComp()">✗</button></div>`;
+  } else {
+    h+=`<div style="margin-top:4px"><button class="btn-add" onclick="addCompToTier('${tier.id}')" style="width:100%;text-align:center">+ Add Precomp</button></div>`;
+  }
+
+  h+=`</div></div>`;
+  return h;
+}
+
+function renderSidebar(){
+  const sb=document.getElementById('sidebarBody');
+  let h='';
+
+  // === ROOT COMPS ===
+  if(!sectionOpen.shots){
+    h+=`<div class="section collapsed-section" onclick="toggleSection('shots')"><div class="section-header collapsed-header"><span class="section-label" style="color:${SHOT_COL.text}">● Root Comps</span><div class="header-right">${shots.length?`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder}">${shots.length} comp${shots.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
+  } else {
+    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${SHOT_COL.text}" onclick="toggleSection('shots')">● Root Comps</span><div class="header-right">${shots.length?`<button class="btn-clear" onclick="clearShots()">Clear</button>`:''}</div></div>`;
+    h+=`<p class="section-hint">Paste shot codes or type individually. Each gets the full precomp pipeline.</p>`;
+    h+=renderShotTags();
+    h+=`<div class="input-row"><input type="text" id="inp-shots" placeholder="Paste from spreadsheet or type names..." onkeydown="if(event.key==='Enter'){addShot();return;}"><button class="btn-add" onclick="addShot()">+ Add</button></div>`;
+    h+=`<div class="suffix-row"><label>Suffix:</label><input type="text" id="inp-root-suffix" value="${rootSuffix}" placeholder="e.g. _Animation (optional)" onchange="updateRootSuffix(this.value)" onkeydown="if(event.key==='Enter')this.blur()"></div>`;
+    // Root comp settings
+    h+=`<div class="comp-settings">`;
+    h+=`<label>W:<input type="number" id="setW" value="${settings.width}" onchange="settings.width=parseInt(this.value)||1920;syncMirroredTiers();renderAll()"></label>`;
+    h+=`<label>H:<input type="number" id="setH" value="${settings.height}" onchange="settings.height=parseInt(this.value)||1080;syncMirroredTiers();renderAll()"></label>`;
+    h+=`<label>FPS:<input type="number" id="setFPS" value="${settings.fps}" step="0.01" onchange="settings.fps=parseFloat(this.value)||30;syncMirroredTiers();renderAll()"></label>`;
+    h+=`<label>Dur:<input type="number" id="setDur" value="${settings.duration}" onchange="settings.duration=parseFloat(this.value)||10;syncMirroredTiers();renderAll()">s</label>`;
+    h+=`</div>`;
+    h+=`</div>`;
+  }
+
+  // === PRECOMPS ===
+  const totalComps=tiers.reduce((s,t)=>s+t.comps.length,0);
+  if(!sectionOpen.tiers){
+    h+=`<div class="section collapsed-section" onclick="toggleSection('tiers')"><div class="section-header collapsed-header"><span class="section-label" style="color:${TIER_COL.text}">● Precomps</span><div class="header-right"><span class="tag" style="background:${TIER_COL.tagBg};color:${TIER_COL.text};border:1px solid ${TIER_COL.tagBorder}">${tiers.length} tier${tiers.length!==1?'s':''}, ${totalComps} comp${totalComps!==1?'s':''}</span></div></div></div>`;
+  } else {
+    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${TIER_COL.text}" onclick="toggleSection('tiers')">● Precomps</span><div class="header-right">${tiers.length?`<button class="btn-clear" onclick="clearTiers()">Reset</button>`:''}</div></div>`;
+    h+=`<p class="section-hint">Add tiers of precomps. Each tier wraps the previous via layers.add().</p>`;
+
+    tiers.forEach((tier,idx)=>{h+=renderTierCard(tier,idx)});
+
+    h+=`<div style="margin-top:4px"><button class="btn-add" onclick="addTier()" style="width:100%;text-align:center;padding:8px">+ Add Precomp Tier</button></div>`;
+    h+=`</div>`;
+  }
+
+  // === GLOBAL COMPS ===
+  if(!sectionOpen.globals){
+    h+=`<div class="section collapsed-section" onclick="toggleSection('globals')"><div class="section-header collapsed-header"><span class="section-label" style="color:${GLOB_COL.text}">● Global Comps</span><div class="header-right">${globals.length?`<span class="tag" style="background:${GLOB_COL.tagBg};color:${GLOB_COL.text};border:1px solid ${GLOB_COL.tagBorder}">${globals.length} global${globals.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
+  } else {
+    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${GLOB_COL.text}" onclick="toggleSection('globals')">● Global Comps</span><div class="header-right">${globals.length?`<button class="btn-clear" onclick="clearGlobals()">Clear</button>`:''}</div></div>`;
+    h+=`<p class="section-hint">Shared comps added as layers into specific comps.</p>`;
+
+    const allOpts=getAllCompOptions();
+
+    globals.forEach((g,gi)=>{
+      const isEditing=editingTag&&editingTag.type==='global'&&editingTag.idx===gi;
+      h+=`<div class="global-row">`;
+      h+=`<div class="global-top">`;
+      if(isEditing){
+        h+=`<input type="text" id="edit-tag" value="${g.name}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:#fb7185;font-size:12px;font-weight:600;outline:none;width:${Math.max(60,g.name.length*8+16)}px;font-family:inherit">`;
+      } else {
+        h+=`<span class="global-name" ondblclick="startEditGlobal(${gi})">${g.name}</span>`;
+      }
+      h+=`<div class="guide-check"><input type="checkbox" id="guide-${g.id}" ${g.guideLayer?'checked':''} onchange="toggleGuideLayer('${g.id}')"><label for="guide-${g.id}">Guide</label></div>`;
+      h+=`<button class="tag-remove" style="color:#f87171" onclick="removeGlobal(${gi})">&times;</button>`;
+      h+=`</div>`;
+      h+=`<span class="global-arrow">into</span>`;
+      h+=`<div class="global-targets">`;
+      let lastTierLabel='';
+      allOpts.forEach(opt=>{
+        if(opt.tierLabel!==lastTierLabel){
+          if(lastTierLabel)h+=`<span class="target-sep"></span>`;
+          lastTierLabel=opt.tierLabel;
+        }
+        const active=g.targetComps.includes(opt.id);
+        // Global chips use rose color (inline override of green CSS)
+        h+=`<span class="target-chip ${active?'active':''}" onclick="toggleGlobalTarget('${g.id}','${opt.id}')" ${active?'style="background:rgba(251,113,133,0.12);color:#fb7185;border-color:rgba(251,113,133,0.3)"':''}>${opt.label}</span>`;
+      });
+      h+=`</div>`;
+      h+=`</div>`;
+    });
+
+    h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-globals" placeholder="e.g. FX_Overlay, Template_Guide" onkeydown="if(event.key==='Enter'){addGlobal();return;}"><button class="btn-add" onclick="addGlobal()">+ Add</button></div>`;
+    h+=`</div>`;
+  }
+
+  // === SETTINGS ===
+  if(!sectionOpen.settings){
+    const sum=[];
+    if(settings.wrapInFolder)sum.push('folders on');
+    h+=`<div class="section collapsed-section" onclick="toggleSection('settings')"><div class="section-header collapsed-header"><span class="section-label" style="color:${SET_COL.text}">● Settings</span><div class="header-right"><span class="collapsed-hint">${sum.join(', ')||'defaults'}</span></div></div></div>`;
+  } else {
+    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${SET_COL.text}" onclick="toggleSection('settings')">● Settings</span></div>`;
+    h+=`<div class="settings-check"><label><input type="checkbox" ${settings.wrapInFolder?'checked':''} onchange="settings.wrapInFolder=this.checked;renderAll()">Wrap each shot's comps in a folder</label></div>`;
+    h+=`</div>`;
+  }
+
+  sb.innerHTML=h;
+}
+
+// ========================================
+// RENDER ALL
+// ========================================
+function renderAll(){
+  const ae=document.activeElement;
+  const aId=ae&&ae.tagName==='INPUT'?ae.id:null;
+  const aVal=aId?ae.value:'';
+  const aSel=aId?[ae.selectionStart,ae.selectionEnd]:null;
+  renderSidebar();renderPreview();
+  if(aId){const el=document.getElementById(aId);if(el){el.value=aVal;el.focus();if(aSel)el.setSelectionRange(aSel[0],aSel[1])}}
+  if(editingTag){const ed=document.getElementById('edit-tag');if(ed){ed.focus();ed.select()}}
+}
+
+// ========================================
+// EXTENDSCRIPT GENERATION
+// ========================================
+function generateScript(){
+  const RW=settings.width,RH=settings.height,RFPS=settings.fps,RDUR=settings.duration;
+  let lines=[];
+  let vc=0;
+  function v(){return'v'+(vc++)}
+  function safe(s){return s.replace(/"/g,'\\"')}
+
+  lines.push('// AE Comp Builder - Generated ExtendScript');
+  lines.push('(function() {');
+  lines.push('  app.beginUndoGroup("Create Comp Pipeline");');
+  lines.push('  var p = app.project;');
+  lines.push('');
+
+  // Root comp settings
+  lines.push('  // Root comp settings');
+  lines.push(`  var RW = ${RW}, RH = ${RH}, RFPS = ${RFPS}, RDUR = ${RDUR};`);
+
+  // Per-tier settings (only emit if different from root)
+  tiers.forEach((tier,idx)=>{
+    if(!tier.settings||tier.settings.mirrorRoot)return;
+    const ts=getTierSettings(tier);
+    lines.push(`  var T${idx}W = ${ts.width}, T${idx}H = ${ts.height}, T${idx}FPS = ${ts.fps}, T${idx}DUR = ${ts.duration};`);
+  });
+  lines.push('');
+
+  // Create global comps at root (label=1 Red) — use root settings
+  const globalVars={};
+  globals.forEach(g=>{
+    const vn=v();
+    globalVars[g.id]=vn;
+    lines.push(`  // Global: ${safe(g.name)}`);
+    lines.push(`  var ${vn} = p.items.addComp("${safe(g.name)}", RW, RH, 1, RDUR, RFPS);`);
+    lines.push(`  ${vn}.label = 1;`);
+  });
+  if(globals.length)lines.push('');
+
+  // Per shot
+  natSort(shots).forEach(shotName=>{
+    const sn=safe(shotName);
+    lines.push(`  // --- ${sn} ---`);
+
+    let folderVar=null;
+    if(settings.wrapInFolder){
+      folderVar=v();
+      lines.push(`  var ${folderVar} = p.rootFolder.items.addFolder("${sn}");`);
+    }
+
+    // Root comp (label=3 Yellow)
+    const rootVar=v();
+    const rootCompName=safe(shotName+rootSuffix);
+    lines.push(`  var ${rootVar} = p.items.addComp("${rootCompName}", RW, RH, 1, RDUR, RFPS);`);
+    lines.push(`  ${rootVar}.label = 3;`);
+    if(folderVar)lines.push(`  ${rootVar}.parentFolder = ${folderVar};`);
+
+    // Track comp vars
+    const compVarMap={'root':rootVar};
+
+    // Create precomps per tier (label=4 Green)
+    tiers.forEach((tier,tierIdx)=>{
+      // Tier folder
+      let tierFolderVar=null;
+      if(tier.wrapInFolder&&folderVar){
+        tierFolderVar=v();
+        lines.push(`  var ${tierFolderVar} = ${folderVar}.items.addFolder("Tier ${tierIdx+1}");`);
+      }
+
+      // Tier settings prefix
+      const useTierVars=tier.settings&&!tier.settings.mirrorRoot;
+      const pfx=useTierVars?'T'+tierIdx:'R';
+
+      tier.comps.forEach(comp=>{
+        const cv=v();
+        compVarMap[comp.id]=cv;
+        const cn=safe(shotName+comp.suffix);
+        lines.push(`  var ${cv} = p.items.addComp("${cn}", ${pfx}W, ${pfx}H, 1, ${pfx}DUR, ${pfx}FPS);`);
+        lines.push(`  ${cv}.label = 4;`);
+        if(tierFolderVar)lines.push(`  ${cv}.parentFolder = ${tierFolderVar};`);
+        else if(folderVar)lines.push(`  ${cv}.parentFolder = ${folderVar};`);
+
+        // Chain: layers.add each source
+        const sources=getEffectiveSources(comp,tierIdx);
+        sources.forEach(srcId=>{
+          if(compVarMap[srcId]){
+            lines.push(`  ${cv}.layers.add(${compVarMap[srcId]});`);
+          }
+        });
+      });
+    });
+
+    // Add globals to targets
+    globals.forEach(g=>{
+      g.targetComps.forEach(targetId=>{
+        if(compVarMap[targetId]&&globalVars[g.id]){
+          if(g.guideLayer){
+            const lv='lyr'+(vc++);
+            lines.push(`  var ${lv} = ${compVarMap[targetId]}.layers.add(${globalVars[g.id]});`);
+            lines.push(`  ${lv}.guideLayer = true;`);
+          } else {
+            lines.push(`  ${compVarMap[targetId]}.layers.add(${globalVars[g.id]});`);
+          }
+        }
+      });
+    });
+
+    lines.push('');
+  });
+
+  const totalComps=shots.length*(1+tiers.reduce((s,t)=>s+t.comps.length,0))+globals.length;
+  lines.push('  app.endUndoGroup();');
+  lines.push(`  alert("Created ${totalComps} compositions!");`);
+  lines.push('})();');
+
+  return lines.join('\n');
+}
+
+function exportScript(){
+  const script=generateScript();
+  const blob=new Blob([script],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='ae_comp_structure.jsx';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ========================================
+// INIT
+// ========================================
+(function(){
+  // Default Tier 1 with input ready
+  const t={id:'tier_'+tierIdCounter++,comps:[],wrapInFolder:false,settings:makeTierSettings()};
+  tiers.push(t);
+  addingCompToTier=t.id;
+  renderAll();
+  requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp');if(inp)inp.focus()});
+})();
+</script>
+</body>
+</html>
