@@ -120,6 +120,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dag-svg path{fill:none;stroke:#3f3f46;stroke-width:2}
 .dag-svg path.global-line{stroke:#fb718540;stroke-dasharray:5,4;stroke-width:1.5}
 .dag-count{font-size:12px;color:#52525b;margin-left:6px;font-weight:normal}
+.drag-grip{cursor:grab;color:#3f3f46;font-size:14px;user-select:none;padding:0 4px;line-height:1}
+.drag-grip:hover{color:#71717a}
+.dragging{opacity:0.4}
+.drag-over-top{border-top:2px solid #3b82f6 !important}
+.drag-over-bottom{border-bottom:2px solid #3b82f6 !important}
 @media(max-width:900px){body{flex-direction:column}.sidebar{width:100%;min-width:0;height:auto;max-height:55vh;border-right:none;border-bottom:1px solid #27272a}.main{height:45vh}}
 </style>
 </head>
@@ -173,6 +178,7 @@ const GLOBAL_PREV={icon:"#fb7185",text:"#fecdd3",weight:"normal"};
 // ========================================
 let shots=[];
 let rootSuffix='';
+let rootDisplayLabel=null;
 let tiers=[];
 let tierIdCounter=0;
 let compIdCounter=0;
@@ -195,21 +201,21 @@ function compById(id){for(const t of tiers)for(const c of t.comps)if(c.id===id)r
 function tierOfComp(compId){return tiers.find(t=>t.comps.some(c=>c.id===compId))}
 function prevTier(tierId){const idx=tiers.findIndex(t=>t.id===tierId);return idx>0?tiers[idx-1]:null}
 function getEffectiveSources(comp,tierIdx){
-  if(tierIdx===0)return['root'];
   if(comp.sources.length)return comp.sources;
+  if(tierIdx===0)return['root'];
   return tiers[tierIdx-1].comps.map(c=>c.id);
 }
 function tierColor(tierIdx){return COLORS[(tierIdx+1)%COLORS.length]}
 function getAllCompOptions(){
-  const opts=[{id:'root',label:rootSuffix?rootSuffix.replace(/^_/,''):'Root',tierLabel:'Root'}];
-  tiers.forEach((t,i)=>t.comps.forEach(c=>opts.push({id:c.id,label:c.label,tierLabel:t.name||('Tier '+(i+1))})));
+  const opts=[{id:'root',label:rootSuffix?rootSuffix.replace(/^_/,''):(rootDisplayLabel||'Root'),tierLabel:rootDisplayLabel||'Root'}];
+  tiers.forEach((t,i)=>t.comps.forEach(c=>opts.push({id:c.id,label:c.label,tierLabel:t.name||('Group '+(i+1))})));
   return opts;
 }
 function validateAllSources(){
   tiers.forEach((tier,idx)=>{
-    if(idx===0){tier.comps.forEach(c=>{c.sources=[]});return}
-    const prevIds=new Set(tiers[idx-1].comps.map(c=>c.id));
-    tier.comps.forEach(c=>{c.sources=c.sources.filter(s=>prevIds.has(s))});
+    const validIds=new Set(['root']);
+    if(idx>0)tiers[idx-1].comps.forEach(c=>validIds.add(c.id));
+    tier.comps.forEach(c=>{c.sources=c.sources.filter(s=>validIds.has(s))});
   });
 }
 
@@ -279,6 +285,7 @@ function startEditShot(idx){editingTag={type:'shot',idx};renderAll()}
 function startEditGlobal(idx){editingTag={type:'global',idx};renderAll()}
 function startEditCompSuffix(compId){editingTag={type:'compSuffix',compId};renderAll()}
 function startEditTierName(tierId){editingTag={type:'tierName',tierId};renderAll()}
+function startEditRootName(){sectionOpen.shots=true;editingTag={type:'rootName'};renderAll()}
 
 function commitEdit(inputEl){
   if(!editingTag)return;
@@ -301,6 +308,8 @@ function commitEdit(inputEl){
   } else if(editingTag.type==='tierName'){
     const tier=tierById(editingTag.tierId);
     if(tier)tier.name=val||null;
+  } else if(editingTag.type==='rootName'){
+    rootDisplayLabel=val||null;
   }
   editingTag=null;renderAll();
 }
@@ -387,10 +396,10 @@ function toggleCompSource(compId,sourceId){
   const comp=compById(compId);if(!comp)return;
   const tier=tierOfComp(compId);if(!tier)return;
   const tierIdx=tiers.indexOf(tier);
-  if(comp.sources.length===0&&tierIdx>0){
-    // "all by default" → populate with all EXCEPT clicked (deselect one)
-    const prevComps=tiers[tierIdx-1].comps;
-    comp.sources=prevComps.filter(c=>c.id!==sourceId).map(c=>c.id);
+  if(comp.sources.length===0){
+    // "all by default" → expand to explicit list, then deselect clicked
+    const defaults=tierIdx===0?['root']:tiers[tierIdx-1].comps.map(c=>c.id);
+    comp.sources=defaults.filter(s=>s!==sourceId);
   } else {
     const i=comp.sources.indexOf(sourceId);
     if(i>=0)comp.sources.splice(i,1);else comp.sources.push(sourceId);
@@ -419,6 +428,51 @@ function moveGlobal(idx,dir){
   renderAll();
 }
 function clearGlobals(){globals=[];renderAll()}
+
+// ========================================
+// DRAG AND DROP
+// ========================================
+let dragState=null;
+function onDragStart(e,type,index){
+  dragState={type,index};
+  const card=e.target.closest(type==='tier'?'.tier-card':'.global-row');
+  if(card){card.classList.add('dragging');e.dataTransfer.setDragImage(card,20,20);}
+  e.dataTransfer.effectAllowed='move';
+  e.dataTransfer.setData('text/plain','');
+}
+function onDragOver(e,type,index){
+  if(!dragState||dragState.type!==type)return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect='move';
+  const el=e.currentTarget;
+  const rect=el.getBoundingClientRect();
+  const mid=rect.top+rect.height/2;
+  el.parentElement.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(x=>x.classList.remove('drag-over-top','drag-over-bottom'));
+  if(e.clientY<mid)el.classList.add('drag-over-top');
+  else el.classList.add('drag-over-bottom');
+}
+function onDragLeave(e){e.currentTarget.classList.remove('drag-over-top','drag-over-bottom')}
+function onDrop(e,type,index){
+  e.preventDefault();
+  if(!dragState||dragState.type!==type){cleanupDrag();return;}
+  const from=dragState.index;
+  const rect=e.currentTarget.getBoundingClientRect();
+  let to=e.clientY<rect.top+rect.height/2?index:index+1;
+  if(from<to)to--;
+  if(from!==to){
+    const arr=type==='tier'?tiers:globals;
+    const[item]=arr.splice(from,1);
+    arr.splice(to,0,item);
+    if(type==='tier')validateAllSources();
+  }
+  cleanupDrag();renderAll();
+}
+function onDragEnd(){cleanupDrag()}
+function cleanupDrag(){
+  dragState=null;
+  document.querySelectorAll('.drag-over-top,.drag-over-bottom,.dragging').forEach(el=>el.classList.remove('drag-over-top','drag-over-bottom','dragging'));
+}
+
 function toggleGlobalTarget(globalId,compId){
   const g=globals.find(x=>x.id===globalId);if(!g)return;
   const i=g.targetComps.indexOf(compId);
@@ -581,8 +635,9 @@ function renderDAGView(){
   const container=document.getElementById('htreeWrap');
   const tree=buildDataTree();
 
-  if(!shots.length&&!tiers.length&&!globals.length){
-    container.innerHTML=`<div class="preview-empty"><span>🎬</span><p>Add root comps and precomp tiers to see your AE project</p></div>`;
+  const hasContent=shots.length||globals.length||tiers.some(t=>t.comps.length>0);
+  if(!hasContent){
+    container.innerHTML=`<div class="preview-empty"><span>🎬</span><p>Add comps and precomps to build your AE pipeline</p></div>`;
     return tree;
   }
 
@@ -597,7 +652,7 @@ function renderDAGView(){
 
   // Root column
   html+=`<div class="dag-column">`;
-  html+=`<div class="dag-col-label" style="color:#fbbf24">Root</div>`;
+  html+=`<div class="dag-col-label" style="color:#fbbf24">${rootDisplayLabel||'Root'}</div>`;
   if(shots.length)html+=`<div class="dag-col-sublabel">${shots.length} comp${shots.length!==1?'s':''}</div>`;
   const rootName=shotLabel+rootSuffix;
   html+=`<div class="dag-node root-node" data-dag-id="root">${compSVG('#fbbf24')} ${rootName}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
@@ -607,7 +662,7 @@ function renderDAGView(){
   tiers.forEach((tier,tierIdx)=>{
     if(tier.comps.length===0)return;
     const col=tierColor(tierIdx);
-    const tierLabel=tier.name||('Tier '+(tierIdx+1));
+    const tierLabel=tier.name||('Group '+(tierIdx+1));
     html+=`<div class="dag-column">`;
     html+=`<div class="dag-col-label" style="color:${col.dot}">${tierLabel}</div>`;
     const nestedCount=shots.length?tier.comps.length*shots.length:tier.comps.length;
@@ -748,22 +803,22 @@ function renderTierCard(tier,tierIdx){
   const prev=tierIdx>0?tiers[tierIdx-1]:null;
   const ts=tier.settings||{mirrorRoot:true};
   const tset=getTierSettings(tier);
-  let h=`<div class="tier-card" style="border-color:${col.dot}30">`;
+  let h=`<div class="tier-card" style="border-color:${col.dot}30" ondragover="onDragOver(event,'tier',${tierIdx})" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'tier',${tierIdx})">`;
 
   // Header
-  const tierDisplayName=tier.name||('Tier '+(tierIdx+1));
+  const tierDisplayName=tier.name||('Group '+(tierIdx+1));
   const isEditingTierName=editingTag&&editingTag.type==='tierName'&&editingTag.tierId===tier.id;
   h+=`<div class="tier-header">`;
+  h+=`<span class="drag-grip" draggable="true" ondragstart="onDragStart(event,'tier',${tierIdx})" ondragend="onDragEnd(event)">⠿</span>`;
   if(isEditingTierName){
-    h+=`<input type="text" id="edit-tag" value="${tier.name||''}" placeholder="Tier ${tierIdx+1}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${col.dot};font-size:11px;font-weight:700;outline:none;width:${Math.max(60,(tierDisplayName).length*7+16)}px;font-family:inherit;flex:1">`;
+    h+=`<input type="text" id="edit-tag" value="${tier.name||''}" placeholder="Group ${tierIdx+1}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${col.dot};font-size:11px;font-weight:700;outline:none;width:${Math.max(60,(tierDisplayName).length*7+16)}px;font-family:inherit;flex:1">`;
   } else {
-    h+=`<span class="tier-label" style="color:${col.dot};cursor:pointer" ondblclick="startEditTierName('${tier.id}')">${tierDisplayName}${tier.comps.length?` <span style="font-size:9px;font-weight:normal;color:#52525b">(${tier.comps.length}${shots.length?' \u00b7 '+(tier.comps.length*shots.length)+' nested':''})</span>`:''}</span>`;
+    const tierNested=tier.comps.length*shots.length;
+    h+=`<span class="tier-label" style="color:${col.dot};cursor:pointer" ondblclick="startEditTierName('${tier.id}')">${tierDisplayName}${tierNested?` <span style="font-size:9px;font-weight:normal;color:#52525b">(${tierNested} nested)</span>`:''}</span>`;
   }
   h+=`<div class="tier-actions">`;
   const tierSettOpen=tierSettingsOpen.has(tier.id);
   h+=`<button class="tier-btn" onclick="toggleTierSettings('${tier.id}')" title="Settings" style="${tierSettOpen?'color:#a1a1aa':''}">⚙</button>`;
-  h+=`<button class="tier-btn" onclick="moveTier('${tier.id}',-1)" ${tierIdx===0?'disabled':''}>↑</button>`;
-  h+=`<button class="tier-btn" onclick="moveTier('${tier.id}',1)" ${tierIdx===tiers.length-1?'disabled':''}>↓</button>`;
   h+=`<button class="tier-btn remove" onclick="removeTier('${tier.id}')">×</button>`;
   h+=`</div></div>`;
   if(tierSettOpen){
@@ -800,18 +855,19 @@ function renderTierCard(tier,tierIdx){
     h+=`</div>`;
   }
 
-  // Sources (green active / grey inactive)
-  if(tierIdx===0){
-    if(tier.comps.length)h+=`<div class="source-hint">Each sources from Root comp</div>`;
-  } else if(prev&&prev.comps.length&&tier.comps.length){
+  // Sources (green active / grey inactive) — root + previous tier's comps
+  if(tier.comps.length){
+    const availableSources=[{id:'root',label:rootDisplayLabel||'Root'}];
+    if(prev)prev.comps.forEach(c=>availableSources.push({id:c.id,label:c.label}));
     tier.comps.forEach(comp=>{
       h+=`<div class="source-row">`;
       h+=`<span class="source-comp-label" style="color:${col.dot}">${comp.suffix}</span>`;
       h+=`<div class="source-chips">`;
-      prev.comps.forEach(srcComp=>{
-        const active=comp.sources.includes(srcComp.id);
+      availableSources.forEach(src=>{
+        const active=comp.sources.includes(src.id);
         const isDefault=comp.sources.length===0;
-        h+=`<span class="target-chip ${active||isDefault?'active':''}" onclick="toggleCompSource('${comp.id}','${srcComp.id}')">${srcComp.label}</span>`;
+        const defaultActive=isDefault&&(tierIdx===0?src.id==='root':src.id!=='root');
+        h+=`<span class="target-chip ${active||defaultActive?'active':''}" onclick="toggleCompSource('${comp.id}','${src.id}')">${src.label}</span>`;
       });
       h+=`</div></div>`;
     });
@@ -829,10 +885,18 @@ function renderSidebar(){
   let h='';
 
   // === ROOT COMPS ===
+  const rootLabel=rootDisplayLabel||'Root Comps';
+  const isEditingRootName=editingTag&&editingTag.type==='rootName';
   if(!sectionOpen.shots){
-    h+=`<div class="section collapsed-section" onclick="toggleSection('shots')"><div class="section-header collapsed-header"><span class="section-label" style="color:${SHOT_COL.text}">● Root Comps</span><div class="header-right">${shots.length?`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder}">${shots.length} comp${shots.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
+    h+=`<div class="section collapsed-section" onclick="toggleSection('shots')"><div class="section-header collapsed-header"><span class="section-label" style="color:${SHOT_COL.text}" ondblclick="event.stopPropagation();startEditRootName()">● ${rootLabel}</span><div class="header-right">${shots.length?`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder}">${shots.length} comp${shots.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
   } else {
-    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${SHOT_COL.text}" onclick="toggleSection('shots')">● Root Comps</span><div class="header-right">${shots.length?`<span style="font-size:9px;color:#71717a">${shots.length} comp${shots.length!==1?'s':''}</span>`:''}<span style="display:flex;gap:6px;align-items:center">${shots.length?`<button class="btn-clear" onclick="clearShots()">Clear</button>`:''}<button class="tier-btn" onclick="toggleRootSettings()" title="Settings" style="${rootSettingsOpen?'color:#a1a1aa':''}">⚙</button></span></div></div>`;
+    h+=`<div class="section"><div class="section-header">`;
+    if(isEditingRootName){
+      h+=`<input type="text" id="edit-tag" value="${rootDisplayLabel||''}" placeholder="Root Comps" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${SHOT_COL.text};font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;outline:none;width:${Math.max(80,rootLabel.length*7+16)}px;font-family:inherit">`;
+    } else {
+      h+=`<span class="section-label" style="color:${SHOT_COL.text}" onclick="toggleSection('shots')" ondblclick="event.stopPropagation();startEditRootName()">● ${rootLabel}</span>`;
+    }
+    h+=`<div class="header-right">${shots.length?`<span style="font-size:9px;color:#71717a">${shots.length} comp${shots.length!==1?'s':''}</span>`:''}<span style="display:flex;gap:6px;align-items:center">${shots.length?`<button class="btn-clear" onclick="clearShots()">Clear</button>`:''}<button class="tier-btn" onclick="toggleRootSettings()" title="Settings" style="${rootSettingsOpen?'color:#a1a1aa':''}">⚙</button></span></div></div>`;
     h+=renderShotTags();
     h+=`<div class="input-row"><input type="text" id="inp-shots" placeholder="Paste from spreadsheet or type names..." onkeydown="if(event.key==='Enter'){addShot();return;}"><button class="btn-add" onclick="addShot()">+ Add</button></div>`;
     if(rootSettingsOpen){
@@ -852,14 +916,20 @@ function renderSidebar(){
 
   // === PRECOMPS ===
   const totalComps=tiers.reduce((s,t)=>s+t.comps.length,0);
+  const nestedComps=totalComps*shots.length;
   if(!sectionOpen.tiers){
-    h+=`<div class="section collapsed-section" onclick="toggleSection('tiers')"><div class="section-header collapsed-header"><span class="section-label" style="color:${TIER_COL.text}">● Precomps</span><div class="header-right"><span class="tag" style="background:${TIER_COL.tagBg};color:${TIER_COL.text};border:1px solid ${TIER_COL.tagBorder}">${tiers.length} tier${tiers.length!==1?'s':''}, ${totalComps} comp${totalComps!==1?'s':''}</span></div></div></div>`;
+    h+=`<div class="section collapsed-section" onclick="toggleSection('tiers')"><div class="section-header collapsed-header"><span class="section-label" style="color:${TIER_COL.text}">● Precomps</span><div class="header-right">${totalComps?`<span class="tag" style="background:${TIER_COL.tagBg};color:${TIER_COL.text};border:1px solid ${TIER_COL.tagBorder}">${tiers.length} group${tiers.length!==1?'s':''}, ${totalComps} comp${totalComps!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
   } else {
-    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${TIER_COL.text}" onclick="toggleSection('tiers')">● Precomps</span><div class="header-right">${tiers.length?`<button class="btn-clear" onclick="clearTiers()">Reset</button>`:''}</div></div>`;
+    const pCountParts=[];
+    if(tiers.length)pCountParts.push(tiers.length+' group'+(tiers.length!==1?'s':''));
+    if(totalComps)pCountParts.push(totalComps+' comp'+(totalComps!==1?'s':''));
+    if(nestedComps)pCountParts.push(nestedComps+' nested');
+    const pCountText=pCountParts.length?`<span style="font-size:9px;color:#71717a">${pCountParts.join(', ')}</span>`:'';
+    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${TIER_COL.text}" onclick="toggleSection('tiers')">● Precomps</span><div class="header-right">${pCountText}<span style="display:flex;gap:6px;align-items:center">${tiers.length?`<button class="btn-clear" onclick="clearTiers()">Reset</button>`:''}</span></div></div>`;
 
     tiers.forEach((tier,idx)=>{h+=renderTierCard(tier,idx)});
 
-    h+=`<div style="margin-top:4px"><button class="btn-add" onclick="addTier()" style="width:100%;text-align:center;padding:8px">+ Add Precomp Tier</button></div>`;
+    h+=`<div style="margin-top:4px"><button class="btn-add" onclick="addTier()" style="width:100%;text-align:center;padding:8px">+ Add Precomps</button></div>`;
     h+=`</div>`;
   }
 
@@ -868,7 +938,7 @@ function renderSidebar(){
     h+=`<div class="section collapsed-section" onclick="toggleSection('globals')"><div class="section-header collapsed-header"><span class="section-label" style="color:${GLOB_COL.text}">● Global Comps</span><div class="header-right">${globals.length?`<span class="tag" style="background:${GLOB_COL.tagBg};color:${GLOB_COL.text};border:1px solid ${GLOB_COL.tagBorder}">${globals.length} global${globals.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
   } else {
     const gTotalLayers=globals.length?globals.reduce((s,g)=>s+g.targetComps.filter(t=>t==='root'||compById(t)).length,0)*shots.length:0;
-    const gCountText=globals.length?`<span style="font-size:9px;color:#71717a">${globals.length} comp${globals.length!==1?'s':''}${gTotalLayers?', '+gTotalLayers+' layer'+(gTotalLayers!==1?'s':''):''}</span>`:'';
+    const gCountText=globals.length?`<span style="font-size:9px;color:#71717a">${globals.length} comp${globals.length!==1?'s':''}${gTotalLayers?', '+gTotalLayers+' nested':''}</span>`:'';
     h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${GLOB_COL.text}" onclick="toggleSection('globals')">● Global Comps</span><div class="header-right">${gCountText}<span style="display:flex;gap:6px;align-items:center">${globals.length?`<button class="btn-clear" onclick="clearGlobals()">Clear</button>`:''}<button class="tier-btn" onclick="toggleGlobalSettings()" title="Settings" style="${globalSettingsOpen?'color:#a1a1aa':''}">⚙</button></span></div></div>`;
     if(globalSettingsOpen){
       const gs=getGlobalSettings();
@@ -893,18 +963,16 @@ function renderSidebar(){
       const isEditing=editingTag&&editingTag.type==='global'&&editingTag.idx===gi;
       const validTargets=g.targetComps.filter(tid=>tid==='root'||compById(tid));
       const layerCount=validTargets.length*shots.length;
-      h+=`<div class="global-row">`;
+      h+=`<div class="global-row" ondragover="onDragOver(event,'global',${gi})" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'global',${gi})">`;
       h+=`<div class="global-top">`;
+      h+=`<span class="drag-grip" draggable="true" ondragstart="onDragStart(event,'global',${gi})" ondragend="onDragEnd(event)">⠿</span>`;
       if(isEditing){
         h+=`<input type="text" id="edit-tag" value="${g.name}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:#fb7185;font-size:12px;font-weight:600;outline:none;width:${Math.max(60,g.name.length*8+16)}px;font-family:inherit;flex:1">`;
       } else {
-        h+=`<span class="global-name" style="flex:1" ondblclick="startEditGlobal(${gi})">${g.name}</span>`;
+        h+=`<span class="global-name" style="flex:1" ondblclick="startEditGlobal(${gi})">${g.name}${layerCount>0?` <span style="font-size:9px;font-weight:normal;color:#52525b">(${layerCount} nested)</span>`:''}</span>`;
       }
       h+=`<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">`;
       h+=`<div class="guide-check"><input type="checkbox" id="guide-${g.id}" ${g.guideLayer?'checked':''} onchange="toggleGuideLayer('${g.id}')"><label for="guide-${g.id}">Guide</label></div>`;
-      if(layerCount>0)h+=`<span style="font-size:9px;padding:2px 6px;border-radius:4px;background:rgba(251,113,133,0.12);color:#fb7185;border:1px solid rgba(251,113,133,0.2)">${layerCount} layer${layerCount!==1?'s':''}</span>`;
-      h+=`<button class="tier-btn" onclick="moveGlobal(${gi},-1)" ${gi===0?'disabled':''}>↑</button>`;
-      h+=`<button class="tier-btn" onclick="moveGlobal(${gi},1)" ${gi===globals.length-1?'disabled':''}>↓</button>`;
       h+=`<button class="tier-btn remove" onclick="removeGlobal(${gi})">×</button>`;
       h+=`</div>`;
       h+=`</div>`;
@@ -1015,7 +1083,7 @@ function generateScript(){
       let tierFolderVar=null;
       if(tier.wrapInFolder&&folderVar){
         tierFolderVar=v();
-        const tierFolderName=safe(tier.name||('Tier '+(tierIdx+1)));
+        const tierFolderName=safe(tier.name||('Group '+(tierIdx+1)));
         lines.push(`  var ${tierFolderVar} = ${folderVar}.items.addFolder("${tierFolderName}");`);
       }
 
@@ -1082,7 +1150,7 @@ function exportScript(){
 // INIT
 // ========================================
 (function(){
-  // Default Tier 1 with input ready
+  // Default Group 1 with input ready
   const t={id:'tier_'+tierIdCounter++,name:null,comps:[],wrapInFolder:false,settings:makeTierSettings()};
   tiers.push(t);
   renderAll();
