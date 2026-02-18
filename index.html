@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0a0a0a;color:#e4e4e7;min-height:100vh;display:flex}
-.sidebar{width:440px;min-width:440px;border-right:1px solid #27272a;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.sidebar{width:440px;min-width:280px;max-width:70vw;border-right:1px solid #27272a;display:flex;flex-direction:column;height:100vh;overflow:hidden;resize:horizontal}
 .main{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
 .sidebar-header{padding:16px 20px;border-bottom:1px solid #27272a}
 .sidebar-header h1{font-size:17px;display:flex;align-items:center;gap:8px;margin-bottom:2px}
@@ -102,24 +102,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .preview-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#3f3f46;gap:8px;font-family:-apple-system,sans-serif}
 .preview-empty span{font-size:32px}
 .preview-empty p{font-size:13px}
-.fi{width:13px;height:13px;flex-shrink:0}
+.fi{width:17px;height:17px;flex-shrink:0}
 /* DAG Flowchart view */
-.sunburst-container{flex:1;overflow:auto;position:relative;padding:32px}
+.sunburst-container{flex:1;overflow:auto;position:relative;padding:32px;display:flex;align-items:center;justify-content:center}
 .dag-wrap{display:inline-flex;flex-direction:column;align-items:center;min-width:max-content;position:relative}
 .dag-shot-row{display:flex;align-items:center;gap:0;position:relative}
-.dag-globals-row{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 40px 0;border-top:1px dashed #27272a;margin-top:16px;width:100%}
-.dag-globals-nodes{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.dag-col-sublabel{font-size:9px;color:#3f3f46;margin-top:-4px;margin-bottom:8px;text-align:center}
-.dag-column{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:130px;padding:0 40px}
-.dag-col-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#52525b;margin-bottom:8px;text-align:center}
-.dag-node{padding:8px 16px;border-radius:8px;font-size:12px;white-space:nowrap;border:1px solid #27272a;background:#18181b;display:inline-flex;align-items:center;gap:6px;position:relative;z-index:1}
+.dag-globals-row{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 52px 0;border-top:1px dashed #27272a;margin-top:20px;width:100%}
+.dag-globals-nodes{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.dag-col-sublabel{font-size:11px;color:#3f3f46;margin-top:-5px;margin-bottom:10px;text-align:center}
+.dag-column{display:flex;flex-direction:column;align-items:center;gap:18px;min-width:170px;padding:0 52px}
+.dag-col-label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#52525b;margin-bottom:10px;text-align:center}
+.dag-node{padding:10px 20px;border-radius:10px;font-size:15px;white-space:nowrap;border:1px solid #27272a;background:#18181b;display:inline-flex;align-items:center;gap:8px;position:relative;z-index:1}
 .dag-node.root-node{border-color:rgba(251,191,36,0.4);color:#fbbf24}
 .dag-node.precomp-node{border-color:rgba(52,211,153,0.4);color:#34d399}
-.dag-node.global-node{border-color:rgba(251,113,133,0.4);color:#fb7185;font-size:11px;padding:6px 12px}
+.dag-node.global-node{border-color:rgba(251,113,133,0.4);color:#fb7185;font-size:14px;padding:8px 16px}
 .dag-svg{position:absolute;top:0;left:0;pointer-events:none;z-index:0;overflow:visible}
-.dag-svg path{fill:none;stroke:#3f3f46;stroke-width:1.5}
-.dag-svg path.global-line{stroke:#fb718540;stroke-dasharray:4,3;stroke-width:1}
-.dag-count{font-size:10px;color:#52525b;margin-left:4px;font-weight:normal}
+.dag-svg path{fill:none;stroke:#3f3f46;stroke-width:2}
+.dag-svg path.global-line{stroke:#fb718540;stroke-dasharray:5,4;stroke-width:1.5}
+.dag-count{font-size:12px;color:#52525b;margin-left:6px;font-weight:normal}
 @media(max-width:900px){body{flex-direction:column}.sidebar{width:100%;min-width:0;height:auto;max-height:55vh;border-right:none;border-bottom:1px solid #27272a}.main{height:45vh}}
 </style>
 </head>
@@ -363,13 +363,17 @@ function clearTiers(){
 function confirmAddComp(tierId){
   const inp=document.getElementById('inp-tier-comp-'+tierId);
   if(!inp)return;
-  let s=san(inp.value.trim());
-  if(!s)return;
-  if(!s.startsWith('_'))s='_'+s;
-  const label=s.replace(/^_/,'').replace(/_/g,' ');
+  const raw=inp.dataset.rawPaste||inp.value;
+  const names=pi(raw);
   const tier=tierById(tierId);
-  if(tier)tier.comps.push({id:'comp_'+compIdCounter++,suffix:s,label,sources:[]});
-  inp.value='';
+  if(!tier||!names.length)return;
+  names.forEach(n=>{
+    let s=n;
+    if(!s.startsWith('_'))s='_'+s;
+    const label=s.replace(/^_/,'').replace(/_/g,' ');
+    tier.comps.push({id:'comp_'+compIdCounter++,suffix:s,label,sources:[]});
+  });
+  inp.value='';delete inp.dataset.rawPaste;
   renderAll();
   requestAnimationFrame(()=>{const newInp=document.getElementById('inp-tier-comp-'+tierId);if(newInp)newInp.focus()});
 }
@@ -408,6 +412,12 @@ function addGlobal(){
   inp.value='';delete inp.dataset.rawPaste;renderAll();
 }
 function removeGlobal(idx){globals.splice(idx,1);renderAll()}
+function moveGlobal(idx,dir){
+  const ni=idx+dir;
+  if(ni<0||ni>=globals.length)return;
+  [globals[idx],globals[ni]]=[globals[ni],globals[idx]];
+  renderAll();
+}
 function clearGlobals(){globals=[];renderAll()}
 function toggleGlobalTarget(globalId,compId){
   const g=globals.find(x=>x.id===globalId);if(!g)return;
@@ -571,7 +581,7 @@ function renderDAGView(){
   const container=document.getElementById('htreeWrap');
   const tree=buildDataTree();
 
-  if(!tiers.length&&!globals.length){
+  if(!shots.length&&!tiers.length&&!globals.length){
     container.innerHTML=`<div class="preview-empty"><span>🎬</span><p>Add root comps and precomp tiers to see your AE project</p></div>`;
     return tree;
   }
@@ -595,24 +605,19 @@ function renderDAGView(){
 
   // Tier columns
   tiers.forEach((tier,tierIdx)=>{
+    if(tier.comps.length===0)return;
     const col=tierColor(tierIdx);
     const tierLabel=tier.name||('Tier '+(tierIdx+1));
     html+=`<div class="dag-column">`;
     html+=`<div class="dag-col-label" style="color:${col.dot}">${tierLabel}</div>`;
-    if(tier.comps.length){
-      const nestedCount=shots.length?tier.comps.length*shots.length:tier.comps.length;
-      const sublabel=shots.length?`${tier.comps.length} × ${shots.length} = ${nestedCount}`:`${tier.comps.length} comp${tier.comps.length!==1?'s':''}`;
-      html+=`<div class="dag-col-sublabel">${sublabel}</div>`;
-    }
-    if(tier.comps.length===0){
-      html+=`<div style="min-height:36px"></div>`;
-    } else {
-      tier.comps.forEach(comp=>{
-        const compName=shotLabel+comp.suffix;
-        const sources=getEffectiveSources(comp,tierIdx);
-        html+=`<div class="dag-node precomp-node" data-dag-id="${comp.id}" data-dag-sources="${sources.join(',')}">${compSVG('#34d399')} ${compName}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
-      });
-    }
+    const nestedCount=shots.length?tier.comps.length*shots.length:tier.comps.length;
+    const sublabel=shots.length?`${tier.comps.length} × ${shots.length} = ${nestedCount} nested comps`:`${tier.comps.length} comp${tier.comps.length!==1?'s':''}`;
+    html+=`<div class="dag-col-sublabel">${sublabel}</div>`;
+    tier.comps.forEach(comp=>{
+      const compName=shotLabel+comp.suffix;
+      const sources=getEffectiveSources(comp,tierIdx);
+      html+=`<div class="dag-node precomp-node" data-dag-id="${comp.id}" data-dag-sources="${sources.join(',')}">${compSVG('#34d399')} ${compName}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
+    });
     html+=`</div>`;
   });
 
@@ -898,6 +903,8 @@ function renderSidebar(){
       h+=`<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">`;
       h+=`<div class="guide-check"><input type="checkbox" id="guide-${g.id}" ${g.guideLayer?'checked':''} onchange="toggleGuideLayer('${g.id}')"><label for="guide-${g.id}">Guide</label></div>`;
       if(layerCount>0)h+=`<span style="font-size:9px;padding:2px 6px;border-radius:4px;background:rgba(251,113,133,0.12);color:#fb7185;border:1px solid rgba(251,113,133,0.2)">${layerCount} layer${layerCount!==1?'s':''}</span>`;
+      h+=`<button class="tier-btn" onclick="moveGlobal(${gi},-1)" ${gi===0?'disabled':''}>↑</button>`;
+      h+=`<button class="tier-btn" onclick="moveGlobal(${gi},1)" ${gi===globals.length-1?'disabled':''}>↓</button>`;
       h+=`<button class="tier-btn remove" onclick="removeGlobal(${gi})">×</button>`;
       h+=`</div>`;
       h+=`</div>`;
