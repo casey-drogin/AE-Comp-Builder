@@ -71,7 +71,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .guide-check{display:flex;align-items:center;gap:4px;flex-shrink:0}
 .guide-check input{accent-color:#fb7185;width:12px;height:12px;cursor:pointer}
 .guide-check label{font-size:9px;color:#71717a;cursor:pointer}
-/* Source chips: light grey active, dark grey inactive */
 .target-chip{font-size:10px;padding:2px 6px;border-radius:4px;cursor:pointer;border:1px solid #3f3f46;color:#52525b;transition:all 0.15s;user-select:none;background:transparent}
 .target-chip:hover{color:#a1a1aa;border-color:#52525b}
 .target-chip.active{background:rgba(255,255,255,0.08);color:#d4d4d8;border-color:#71717a}
@@ -88,37 +87,53 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn-export:hover:not(:disabled){background:#8b5cf6}
 .btn-export:disabled{background:#3f3f46;color:#71717a;cursor:not-allowed}
 .help{font-size:10px;color:#52525b;margin-top:6px;text-align:center}
-.preview-header{padding:14px 20px;border-bottom:1px solid #27272a;display:flex;align-items:center;justify-content:space-between}
-.preview-header h2{font-size:14px;font-weight:600}
+.preview-header{padding:10px 20px;border-bottom:1px solid #27272a;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.preview-header h2{font-size:13px;font-weight:600}
 .badge{font-size:11px;background:#27272a;color:#a1a1aa;padding:2px 10px;border-radius:10px}
 .preview-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#3f3f46;gap:8px;font-family:-apple-system,sans-serif}
 .preview-empty span{font-size:32px}
 .preview-empty p{font-size:13px}
 .fi{width:17px;height:17px;flex-shrink:0}
-.sunburst-container{flex:1;overflow:auto;position:relative;padding:32px;display:flex;align-items:center;justify-content:center}
+.fi-sm{width:13px;height:13px;flex-shrink:0}
+.view-tabs{display:flex;gap:2px;background:#18181b;border-radius:7px;padding:2px;border:1px solid #27272a}
+.view-tab{font-size:11px;padding:4px 10px;border-radius:5px;cursor:pointer;color:#52525b;border:none;background:none;font-weight:500;transition:all 0.15s}
+.view-tab:hover{color:#a1a1aa}
+.view-tab.active{color:#e4e4e7;background:#27272a}
+.main-view-area{flex:1;overflow:hidden;display:flex;flex-direction:column}
+.sunburst-container{flex:1;overflow:auto;position:relative;padding:24px;display:flex;align-items:center;justify-content:center}
 .dag-wrap{display:inline-flex;flex-direction:column;align-items:center;min-width:max-content;position:relative}
 .dag-shot-row{display:flex;align-items:center;gap:0;position:relative}
-.dag-globals-row{display:flex;flex-direction:column;align-items:center;gap:10px;padding:20px 52px 0;border-top:1px dashed #27272a;margin-top:20px;width:100%}
-.dag-globals-nodes{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
-.dag-col-sublabel{font-size:11px;color:#3f3f46;margin-top:-5px;margin-bottom:10px;text-align:center}
-.dag-column{display:flex;flex-direction:column;align-items:center;gap:18px;min-width:170px;padding:0 52px}
-.dag-col-label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#52525b;margin-bottom:10px;text-align:center}
-.dag-node{padding:10px 20px;border-radius:10px;font-size:15px;white-space:nowrap;border:1px solid #27272a;background:#18181b;display:inline-flex;align-items:center;gap:8px;position:relative;z-index:1}
+.dag-globals-row{display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 40px 0;border-top:1px dashed #27272a;margin-top:16px;width:100%}
+.dag-globals-nodes{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.dag-col-sublabel{font-size:10px;color:#3f3f46;margin-top:-4px;margin-bottom:8px;text-align:center}
+.dag-column{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:150px;padding:0 40px}
+.dag-col-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#52525b;margin-bottom:8px;text-align:center}
+.dag-node{padding:8px 16px;border-radius:9px;font-size:13px;white-space:nowrap;border:1px solid #27272a;background:#18181b;display:inline-flex;align-items:center;gap:7px;position:relative;z-index:1}
 .dag-node.root-node{border-color:rgba(251,191,36,0.4);color:#fbbf24}
 .dag-node.precomp-node{border-color:rgba(52,211,153,0.4);color:#34d399}
-.dag-node.global-node{border-color:rgba(251,113,133,0.4);color:#fb7185;font-size:14px;padding:8px 16px}
+.dag-node.global-node{border-color:rgba(251,113,133,0.4);color:#fb7185;font-size:12px;padding:7px 14px}
 .dag-svg{position:absolute;top:0;left:0;pointer-events:none;z-index:0;overflow:visible}
-.dag-svg path{fill:none;stroke:#3f3f46;stroke-width:2}
+.dag-svg path{fill:none;stroke:#3f3f46;stroke-width:1.5}
 .dag-svg path.global-line{stroke:#fb718540;stroke-dasharray:5,4;stroke-width:1.5}
-.dag-count{font-size:12px;color:#52525b;margin-left:6px;font-weight:normal}
+.dag-count{font-size:11px;color:#52525b;margin-left:4px;font-weight:normal}
+.tree-container{flex:1;overflow:auto;padding:12px 20px;font-family:'SF Mono','Consolas',monospace;font-size:12px}
+.tree-row{display:flex;align-items:center;gap:4px;padding:1.5px 0;white-space:nowrap;cursor:pointer;border-radius:3px}
+.tree-row:hover{background:rgba(255,255,255,0.03)}
+.tree-toggle{width:14px;flex-shrink:0;text-align:center;font-size:9px;color:#52525b;transition:transform 0.15s}
+.tree-toggle.open{transform:rotate(90deg)}
+.tree-toggle.leaf{visibility:hidden}
+.tc{color:#3f3f46;width:16px;flex-shrink:0;text-align:center;font-size:10px}
 .drag-grip{cursor:grab;color:#3f3f46;font-size:14px;user-select:none;padding:0 4px;line-height:1}
 .drag-grip:hover{color:#71717a}
 .dragging{opacity:0.4}
 .drag-over-top{border-top:2px solid #3b82f6 !important}
 .drag-over-bottom{border-bottom:2px solid #3b82f6 !important}
-/* Global target chips keep rose color */
 .global-targets .target-chip.active{background:rgba(251,113,133,0.12);color:#fb7185;border-color:rgba(251,113,133,0.3)}
-@media(max-width:900px){body{flex-direction:column}.sidebar{width:100%;min-width:0;height:auto;max-height:55vh;border-right:none;border-bottom:1px solid #27272a}.main{height:45vh}}
+.group-toggle{display:flex;gap:2px;background:#18181b;border-radius:6px;padding:2px;border:1px solid #27272a}
+.group-toggle span{font-size:10px;padding:3px 8px;border-radius:4px;cursor:pointer;color:#52525b;font-weight:500;transition:all 0.15s;white-space:nowrap}
+.group-toggle span:hover{color:#a1a1aa}
+.group-toggle span.active{color:#e4e4e7;background:#27272a}
+@media(max-width:900px){body{flex-direction:column}.sidebar{width:100%;min-width:0;height:auto;max-height:50vh;border-right:none;border-bottom:1px solid #27272a}.main{height:50vh}}
 </style>
 </head>
 <body>
@@ -136,16 +151,40 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="main">
   <div class="preview-header">
     <div style="display:flex;align-items:center;gap:8px">
-      <h2>Pipeline Preview</h2>
+      <h2>Preview</h2>
       <span class="badge" id="countBadge">0 items</span>
     </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="view-tabs">
+        <button class="view-tab active" onclick="setMainView('pipeline')">Pipeline</button>
+        <button class="view-tab" onclick="setMainView('structure')">Project Structure</button>
+      </div>
+    </div>
   </div>
-  <div id="sunburstView" class="sunburst-container">
-    <div class="dag-wrap" id="htreeWrap"></div>
+  <div class="main-view-area">
+    <div id="pipelineView" class="sunburst-container">
+      <div class="dag-wrap" id="htreeWrap"></div>
+    </div>
+    <div id="structureView" style="display:none;flex:1;overflow:hidden;display:none;flex-direction:column">
+      <div style="padding:8px 20px;border-bottom:1px solid #27272a;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+        <div class="group-toggle" id="groupToggle">
+          <span class="active" onclick="setGroupMode('shot')">Group by Shot</span>
+          <span onclick="setGroupMode('tier')">Group by Tier</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <button onclick="expandAllTree()" style="background:none;border:1px solid #3f3f46;border-radius:5px;padding:2px 8px;color:#71717a;cursor:pointer;font-size:10px;transition:all 0.15s" onmouseover="this.style.color='#a1a1aa'" onmouseout="this.style.color='#71717a'">Expand</button>
+          <button onclick="collapseAllTree()" style="background:none;border:1px solid #3f3f46;border-radius:5px;padding:2px 8px;color:#71717a;cursor:pointer;font-size:10px;transition:all 0.15s" onmouseover="this.style.color='#a1a1aa'" onmouseout="this.style.color='#71717a'">Collapse</button>
+        </div>
+      </div>
+      <div class="tree-container" id="treeContainer">
+        <div class="preview-empty"><span>📂</span><p>Your AE project structure will appear here</p></div>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
+// ========== COLORS ==========
 const COLORS=[
   {name:"amber",dot:"#fbbf24",text:"#fbbf24",tagBg:"rgba(251,191,36,0.12)",tagBorder:"rgba(251,191,36,0.2)"},
   {name:"blue",dot:"#60a5fa",text:"#60a5fa",tagBg:"rgba(96,165,250,0.12)",tagBorder:"rgba(96,165,250,0.2)"},
@@ -154,678 +193,489 @@ const COLORS=[
   {name:"rose",dot:"#fb7185",text:"#fb7185",tagBg:"rgba(251,113,133,0.12)",tagBorder:"rgba(251,113,133,0.2)"},
   {name:"cyan",dot:"#22d3ee",text:"#22d3ee",tagBg:"rgba(34,211,238,0.12)",tagBorder:"rgba(34,211,238,0.2)"},
 ];
-const SHOT_COL=COLORS[0];
-const TIER_COL=COLORS[2];
-const GLOB_COL=COLORS[4];
-const FOLDER_COL={icon:"#fbbf24",text:"#fafafa",weight:"600"};
-const ROOT_COL={icon:"#fbbf24",text:"#fbbf24",weight:"600"};
-const GLOBAL_PREV={icon:"#fb7185",text:"#fecdd3",weight:"normal"};
+const SHOT_COL=COLORS[0],TIER_COL=COLORS[2],GLOB_COL=COLORS[4];
 
-let shots=[];
-let rootSuffix='';
-let rootDisplayLabel=null;
-let tiers=[];
-let tierIdCounter=0;
-let compIdCounter=0;
-let globals=[];
-let globalIdCounter=0;
+// ========== STATE ==========
+let shots=[],rootSuffix='',rootDisplayLabel=null;
+let tiers=[],tierIdCounter=0,compIdCounter=0;
+let globals=[],globalIdCounter=0;
 let settings={wrapInFolder:true,width:1920,height:1080,fps:30,duration:10};
-let editingTag=null;
-let sectionOpen={shots:true,tiers:true,globals:true};
-let rootSettingsOpen=false;
-let tierSettingsOpen=new Set();
-let globalSettingsOpen=false;
-let globalSettings={width:1920,height:1080,fps:30,duration:10,mirrorRoot:true};
+let editingTag=null,sectionOpen={shots:true,tiers:true,globals:true};
+let rootSettingsOpen=false,tierSettingsOpen=new Set(),globalSettingsOpen=false;
+let globalSettings={width:1920,height:1080,fps:30,duration:10,mirrorRoot:true,wrapInFolder:false};
+let treeCollapsed={};
+let mainView='pipeline'; // 'pipeline' or 'structure'
+let groupMode='shot'; // 'shot' or 'tier'
 
+// ========== HELPERS ==========
 function tierById(id){return tiers.find(t=>t.id===id)}
 function compById(id){for(const t of tiers)for(const c of t.comps)if(c.id===id)return c;return null}
-function tierOfComp(compId){return tiers.find(t=>t.comps.some(c=>c.id===compId))}
-function getEffectiveSources(comp,tierIdx){
-  if(comp.sources.length)return comp.sources;
-  if(tierIdx===0)return['root'];
-  return tiers[tierIdx-1].comps.map(c=>c.id);
-}
-function tierColor(tierIdx){return COLORS[(tierIdx+1)%COLORS.length]}
-// Get the color for a comp's tier in the flowchart
-function compTierColor(compId){
-  for(let i=0;i<tiers.length;i++){
-    if(tiers[i].comps.some(c=>c.id===compId))return tierColor(i);
-  }
-  return COLORS[1];
-}
+function tierOfComp(cid){return tiers.find(t=>t.comps.some(c=>c.id===cid))}
+function getEffectiveSources(comp,ti){if(comp.sources.length)return comp.sources;if(ti===0)return['root'];return tiers[ti-1].comps.map(c=>c.id)}
+function tierColor(ti){return COLORS[(ti+1)%COLORS.length]}
 function getAllCompOptions(){
-  const opts=[{id:'root',label:rootSuffix?rootSuffix.replace(/^_/,''):(rootDisplayLabel||'Root'),tierLabel:rootDisplayLabel||'Root'}];
-  tiers.forEach((t,i)=>t.comps.forEach(c=>opts.push({id:c.id,label:c.label,tierLabel:t.name||('Group '+(i+1))})));
-  return opts;
+  const o=[{id:'root',label:rootSuffix?rootSuffix.replace(/^_/,''):(rootDisplayLabel||'Root'),tierLabel:rootDisplayLabel||'Root'}];
+  tiers.forEach((t,i)=>t.comps.forEach(c=>o.push({id:c.id,label:c.label,tierLabel:t.name||('Group '+(i+1))})));return o;
 }
-function validateAllSources(){
-  tiers.forEach((tier,idx)=>{
-    const validIds=new Set(['root']);
-    if(idx>0)tiers[idx-1].comps.forEach(c=>validIds.add(c.id));
-    tier.comps.forEach(c=>{c.sources=c.sources.filter(s=>validIds.has(s))});
-  });
-}
-
+function validateAllSources(){tiers.forEach((t,i)=>{const v=new Set(['root']);if(i>0)tiers[i-1].comps.forEach(c=>v.add(c.id));t.comps.forEach(c=>{c.sources=c.sources.filter(s=>v.has(s))})})}
 function makeTierSettings(){return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration,mirrorRoot:true}}
-function getTierSettings(tier){
-  if(!tier.settings||tier.settings.mirrorRoot)return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration};
-  return{width:tier.settings.width,height:tier.settings.height,fps:tier.settings.fps,duration:tier.settings.duration};
-}
+function getTierSettings(t){if(!t.settings||t.settings.mirrorRoot)return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration};return{width:t.settings.width,height:t.settings.height,fps:t.settings.fps,duration:t.settings.duration}}
 function syncMirroredTiers(){tiers.forEach(t=>{if(t.settings&&t.settings.mirrorRoot){t.settings.width=settings.width;t.settings.height=settings.height;t.settings.fps=settings.fps;t.settings.duration=settings.duration}})}
-function updateTierSetting(tierId,key,value){const tier=tierById(tierId);if(tier){tier.settings[key]=value;renderAll()}}
-function toggleTierMirrorRoot(tierId){
-  const tier=tierById(tierId);if(!tier)return;
-  tier.settings.mirrorRoot=!tier.settings.mirrorRoot;
-  if(tier.settings.mirrorRoot){tier.settings.width=settings.width;tier.settings.height=settings.height;tier.settings.fps=settings.fps;tier.settings.duration=settings.duration}
-  renderAll();
-}
-function toggleTierFolder(tierId){const t=tierById(tierId);if(t)t.wrapInFolder=!t.wrapInFolder;renderAll()}
-
+function updateTierSetting(id,k,val){const t=tierById(id);if(t){t.settings[k]=val;renderAll()}}
+function toggleTierMirrorRoot(id){const t=tierById(id);if(!t)return;t.settings.mirrorRoot=!t.settings.mirrorRoot;if(t.settings.mirrorRoot){t.settings.width=settings.width;t.settings.height=settings.height;t.settings.fps=settings.fps;t.settings.duration=settings.duration}renderAll()}
+function toggleTierFolder(id){const t=tierById(id);if(t)t.wrapInFolder=!t.wrapInFolder;renderAll()}
 function san(n){return n.replace(/[<>:"/\\|?*]/g,"_").trim()}
 function pi(raw){return raw.split(/[\n\r\t,]+/).map(s=>s.trim()).filter(Boolean).map(san).filter(Boolean)}
 function esc(s){return s.replace(/'/g,"\\'").replace(/\\/g,"\\\\")}
 function natSort(a){return[...a].sort((x,y)=>x.localeCompare(y,undefined,{numeric:true,sensitivity:'base'}))}
+document.addEventListener('paste',function(e){const el=document.activeElement;if(el&&el.tagName==='INPUT'&&el.id&&el.id.startsWith('inp-')){const txt=(e.clipboardData||window.clipboardData).getData('text');if(txt.includes('\n')||txt.includes('\r')||txt.includes('\t')){e.preventDefault();el.value=txt;el.dataset.rawPaste=txt}}});
 
-document.addEventListener('paste',function(e){
-  const el=document.activeElement;
-  if(el&&el.tagName==='INPUT'&&el.id&&(el.id.startsWith('inp-'))){
-    const txt=(e.clipboardData||window.clipboardData).getData('text');
-    if(txt.includes('\n')||txt.includes('\r')||txt.includes('\t')){e.preventDefault();el.value=txt;el.dataset.rawPaste=txt}
-  }
-});
-
-function startEditShot(idx){editingTag={type:'shot',idx};renderAll()}
-function startEditGlobal(idx){editingTag={type:'global',idx};renderAll()}
-function startEditCompSuffix(compId){editingTag={type:'compSuffix',compId};renderAll()}
-function startEditTierName(tierId){editingTag={type:'tierName',tierId};renderAll()}
+// ========== TAG EDITING ==========
+function startEditShot(i){editingTag={type:'shot',idx:i};renderAll()}
+function startEditGlobal(i){editingTag={type:'global',idx:i};renderAll()}
+function startEditCompSuffix(id){editingTag={type:'compSuffix',compId:id};renderAll()}
+function startEditTierName(id){editingTag={type:'tierName',tierId:id};renderAll()}
 function startEditRootName(){sectionOpen.shots=true;editingTag={type:'rootName'};renderAll()}
-
-function commitEdit(inputEl){
-  if(!editingTag)return;
-  const val=san(inputEl.value.trim());
-  if(editingTag.type==='shot'){
-    if(val&&val!==shots[editingTag.idx]){if(!shots.includes(val))shots[editingTag.idx]=val}
-    else if(!val){shots.splice(editingTag.idx,1)}
-  } else if(editingTag.type==='global'){
-    if(val&&val!==globals[editingTag.idx].name){if(!globals.find(g=>g.name===val))globals[editingTag.idx].name=val}
-    else if(!val){globals.splice(editingTag.idx,1)}
-  } else if(editingTag.type==='compSuffix'){
-    const comp=compById(editingTag.compId);
-    if(comp){let s=val;if(s&&!s.startsWith('_'))s='_'+s;comp.suffix=s||'_unnamed';comp.label=comp.suffix.replace(/^_/,'').replace(/_/g,' ')}
-  } else if(editingTag.type==='tierName'){
-    const tier=tierById(editingTag.tierId);if(tier)tier.name=val||null;
-  } else if(editingTag.type==='rootName'){rootDisplayLabel=val||null}
+function commitEdit(el){
+  if(!editingTag)return;const val=san(el.value.trim());
+  if(editingTag.type==='shot'){if(val&&val!==shots[editingTag.idx]){if(!shots.includes(val))shots[editingTag.idx]=val}else if(!val)shots.splice(editingTag.idx,1)}
+  else if(editingTag.type==='global'){if(val&&val!==globals[editingTag.idx].name){if(!globals.find(g=>g.name===val))globals[editingTag.idx].name=val}else if(!val)globals.splice(editingTag.idx,1)}
+  else if(editingTag.type==='compSuffix'){const c=compById(editingTag.compId);if(c){let s=val;if(s&&!s.startsWith('_'))s='_'+s;c.suffix=s||'_unnamed';c.label=c.suffix.replace(/^_/,'').replace(/_/g,' ')}}
+  else if(editingTag.type==='tierName'){const t=tierById(editingTag.tierId);if(t)t.name=val||null}
+  else if(editingTag.type==='rootName'){rootDisplayLabel=val||null}
   editingTag=null;renderAll();
 }
 function cancelEdit(){editingTag=null;renderAll()}
-function editKeyHandler(e){if(e.key==='Enter'){e.preventDefault();commitEdit(e.target)}else if(e.key==='Escape'){cancelEdit()}}
+function editKeyHandler(e){if(e.key==='Enter'){e.preventDefault();commitEdit(e.target)}else if(e.key==='Escape')cancelEdit()}
 
-function addShot(){
-  const inp=document.getElementById('inp-shots');if(!inp)return;
-  const raw=inp.dataset.rawPaste||inp.value;
-  pi(raw).forEach(v=>{if(!shots.includes(v))shots.push(v)});
-  inp.value='';delete inp.dataset.rawPaste;renderAll();
-}
-function removeShot(idx){shots.splice(idx,1);renderAll()}
+// ========== OPERATIONS ==========
+function addShot(){const inp=document.getElementById('inp-shots');if(!inp)return;pi(inp.dataset.rawPaste||inp.value).forEach(v=>{if(!shots.includes(v))shots.push(v)});inp.value='';delete inp.dataset.rawPaste;renderAll()}
+function removeShot(i){shots.splice(i,1);renderAll()}
 function clearShots(){shots=[];renderAll()}
 function updateRootSuffix(val){let s=san(val.trim());if(s&&!s.startsWith('_'))s='_'+s;rootSuffix=s;renderAll()}
-
-function addTier(){
-  const t={id:'tier_'+tierIdCounter++,name:null,comps:[],wrapInFolder:false,settings:makeTierSettings()};
-  tiers.push(t);renderAll();
-  requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp-'+t.id);if(inp)inp.focus()});
-}
-function removeTier(tierId){
-  const idx=tiers.findIndex(t=>t.id===tierId);
-  const removedIds=new Set(tiers[idx].comps.map(c=>c.id));
-  tiers.splice(idx,1);
-  tiers.forEach(t=>t.comps.forEach(c=>{c.sources=c.sources.filter(s=>!removedIds.has(s))}));
-  globals.forEach(g=>{g.targetComps=g.targetComps.filter(id=>!removedIds.has(id))});
-  validateAllSources();renderAll();
-}
-function moveTier(tierId,dir){
-  const idx=tiers.findIndex(t=>t.id===tierId);const ni=idx+dir;
-  if(ni<0||ni>=tiers.length)return;
-  [tiers[idx],tiers[ni]]=[tiers[ni],tiers[idx]];
-  validateAllSources();renderAll();
-}
+function addTier(){const t={id:'tier_'+tierIdCounter++,name:null,comps:[],wrapInFolder:false,settings:makeTierSettings()};tiers.push(t);renderAll();requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp-'+t.id);if(inp)inp.focus()})}
+function removeTier(id){const i=tiers.findIndex(t=>t.id===id);const rm=new Set(tiers[i].comps.map(c=>c.id));tiers.splice(i,1);tiers.forEach(t=>t.comps.forEach(c=>{c.sources=c.sources.filter(s=>!rm.has(s))}));globals.forEach(g=>{g.targetComps=g.targetComps.filter(x=>!rm.has(x))});validateAllSources();renderAll()}
 function clearTiers(){tiers=[];globals.forEach(g=>{g.targetComps=g.targetComps.filter(id=>id==='root')});renderAll()}
-
-function confirmAddComp(tierId){
-  const inp=document.getElementById('inp-tier-comp-'+tierId);if(!inp)return;
-  const raw=inp.dataset.rawPaste||inp.value;const names=pi(raw);
-  const tier=tierById(tierId);if(!tier||!names.length)return;
-  names.forEach(n=>{let s=n;if(!s.startsWith('_'))s='_'+s;const label=s.replace(/^_/,'').replace(/_/g,' ');tier.comps.push({id:'comp_'+compIdCounter++,suffix:s,label,sources:[]})});
-  inp.value='';delete inp.dataset.rawPaste;renderAll();
-  requestAnimationFrame(()=>{const newInp=document.getElementById('inp-tier-comp-'+tierId);if(newInp)newInp.focus()});
-}
-function removeCompFromTier(compId){
-  tiers.forEach(t=>{t.comps=t.comps.filter(c=>c.id!==compId)});
-  tiers.forEach(t=>t.comps.forEach(c=>{c.sources=c.sources.filter(s=>s!==compId)}));
-  globals.forEach(g=>{g.targetComps=g.targetComps.filter(id=>id!==compId)});
-  renderAll();
-}
-function toggleCompSource(compId,sourceId){
-  const comp=compById(compId);if(!comp)return;
-  const tier=tierOfComp(compId);if(!tier)return;
-  const tierIdx=tiers.indexOf(tier);
-  // Simple toggle: if explicit sources exist, toggle within them.
-  // If no explicit sources (default=all), expand to explicit then remove clicked.
-  if(comp.sources.length===0){
-    // Expand defaults to explicit, minus the one clicked
-    const defaults=tierIdx===0?['root']:tiers[tierIdx-1].comps.map(c=>c.id);
-    comp.sources=defaults.filter(s=>s!==sourceId);
-  } else {
-    const i=comp.sources.indexOf(sourceId);
-    if(i>=0)comp.sources.splice(i,1);
-    else comp.sources.push(sourceId);
-  }
-  renderAll();
-}
-
-function addGlobal(){
-  const inp=document.getElementById('inp-globals');if(!inp)return;
-  const raw=inp.dataset.rawPaste||inp.value;
-  pi(raw).forEach(name=>{if(!globals.find(g=>g.name===name))globals.push({id:'glob_'+globalIdCounter++,name,targetComps:['root'],guideLayer:false})});
-  inp.value='';delete inp.dataset.rawPaste;renderAll();
-}
-function removeGlobal(idx){globals.splice(idx,1);renderAll()}
+function confirmAddComp(tid){const inp=document.getElementById('inp-tier-comp-'+tid);if(!inp)return;const names=pi(inp.dataset.rawPaste||inp.value);const tier=tierById(tid);if(!tier||!names.length)return;names.forEach(n=>{let s=n;if(!s.startsWith('_'))s='_'+s;tier.comps.push({id:'comp_'+compIdCounter++,suffix:s,label:s.replace(/^_/,'').replace(/_/g,' '),sources:[]})});inp.value='';delete inp.dataset.rawPaste;renderAll();requestAnimationFrame(()=>{const ni=document.getElementById('inp-tier-comp-'+tid);if(ni)ni.focus()})}
+function removeCompFromTier(id){tiers.forEach(t=>{t.comps=t.comps.filter(c=>c.id!==id)});tiers.forEach(t=>t.comps.forEach(c=>{c.sources=c.sources.filter(s=>s!==id)}));globals.forEach(g=>{g.targetComps=g.targetComps.filter(x=>x!==id)});renderAll()}
+function toggleCompSource(cid,sid){const comp=compById(cid);if(!comp)return;const tier=tierOfComp(cid);if(!tier)return;const ti=tiers.indexOf(tier);if(comp.sources.length===0){const defs=ti===0?['root']:tiers[ti-1].comps.map(c=>c.id);comp.sources=defs.filter(s=>s!==sid)}else{const i=comp.sources.indexOf(sid);if(i>=0)comp.sources.splice(i,1);else comp.sources.push(sid)}renderAll()}
+function addGlobal(){const inp=document.getElementById('inp-globals');if(!inp)return;pi(inp.dataset.rawPaste||inp.value).forEach(name=>{if(!globals.find(g=>g.name===name))globals.push({id:'glob_'+globalIdCounter++,name,targetComps:['root'],guideLayer:false})});inp.value='';delete inp.dataset.rawPaste;renderAll()}
+function removeGlobal(i){globals.splice(i,1);renderAll()}
 function clearGlobals(){globals=[];renderAll()}
 
 let dragState=null;
-function onDragStart(e,type,index){
-  dragState={type,index};
-  const card=e.target.closest(type==='tier'?'.tier-card':'.global-row');
-  if(card){card.classList.add('dragging');e.dataTransfer.setDragImage(card,20,20)}
-  e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','');
-}
-function onDragOver(e,type,index){
-  if(!dragState||dragState.type!==type)return;e.preventDefault();e.dataTransfer.dropEffect='move';
-  const el=e.currentTarget;const rect=el.getBoundingClientRect();const mid=rect.top+rect.height/2;
-  el.parentElement.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(x=>x.classList.remove('drag-over-top','drag-over-bottom'));
-  if(e.clientY<mid)el.classList.add('drag-over-top');else el.classList.add('drag-over-bottom');
-}
+function onDragStart(e,type,index){dragState={type,index};const card=e.target.closest(type==='tier'?'.tier-card':'.global-row');if(card){card.classList.add('dragging');e.dataTransfer.setDragImage(card,20,20)}e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','')}
+function onDragOver(e,type,index){if(!dragState||dragState.type!==type)return;e.preventDefault();e.dataTransfer.dropEffect='move';const el=e.currentTarget,rect=el.getBoundingClientRect(),mid=rect.top+rect.height/2;el.parentElement.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(x=>x.classList.remove('drag-over-top','drag-over-bottom'));if(e.clientY<mid)el.classList.add('drag-over-top');else el.classList.add('drag-over-bottom')}
 function onDragLeave(e){e.currentTarget.classList.remove('drag-over-top','drag-over-bottom')}
-function onDrop(e,type,index){
-  e.preventDefault();if(!dragState||dragState.type!==type){cleanupDrag();return}
-  const from=dragState.index;const rect=e.currentTarget.getBoundingClientRect();
-  let to=e.clientY<rect.top+rect.height/2?index:index+1;
-  if(from<to)to--;
-  if(from!==to){const arr=type==='tier'?tiers:globals;const[item]=arr.splice(from,1);arr.splice(to,0,item);if(type==='tier')validateAllSources()}
-  cleanupDrag();renderAll();
-}
+function onDrop(e,type,index){e.preventDefault();if(!dragState||dragState.type!==type){cleanupDrag();return}const from=dragState.index,rect=e.currentTarget.getBoundingClientRect();let to=e.clientY<rect.top+rect.height/2?index:index+1;if(from<to)to--;if(from!==to){const arr=type==='tier'?tiers:globals;const[item]=arr.splice(from,1);arr.splice(to,0,item);if(type==='tier')validateAllSources()}cleanupDrag();renderAll()}
 function onDragEnd(){cleanupDrag()}
 function cleanupDrag(){dragState=null;document.querySelectorAll('.drag-over-top,.drag-over-bottom,.dragging').forEach(el=>el.classList.remove('drag-over-top','drag-over-bottom','dragging'))}
-
-function toggleGlobalTarget(globalId,compId){const g=globals.find(x=>x.id===globalId);if(!g)return;const i=g.targetComps.indexOf(compId);if(i>=0)g.targetComps.splice(i,1);else g.targetComps.push(compId);renderAll()}
-function toggleGuideLayer(globalId){const g=globals.find(x=>x.id===globalId);if(!g)return;g.guideLayer=!g.guideLayer;renderAll()}
-function toggleSection(key){sectionOpen[key]=!sectionOpen[key];renderAll()}
+function toggleGlobalTarget(gid,cid){const g=globals.find(x=>x.id===gid);if(!g)return;const i=g.targetComps.indexOf(cid);if(i>=0)g.targetComps.splice(i,1);else g.targetComps.push(cid);renderAll()}
+function toggleGuideLayer(gid){const g=globals.find(x=>x.id===gid);if(!g)return;g.guideLayer=!g.guideLayer;renderAll()}
+function toggleSection(k){sectionOpen[k]=!sectionOpen[k];renderAll()}
 function toggleRootSettings(){rootSettingsOpen=!rootSettingsOpen;renderAll()}
-function toggleTierSettings(tierId){if(tierSettingsOpen.has(tierId))tierSettingsOpen.delete(tierId);else tierSettingsOpen.add(tierId);renderAll()}
+function toggleTierSettings(id){if(tierSettingsOpen.has(id))tierSettingsOpen.delete(id);else tierSettingsOpen.add(id);renderAll()}
 function toggleGlobalSettings(){globalSettingsOpen=!globalSettingsOpen;renderAll()}
-function getGlobalSettings(){
-  if(globalSettings.mirrorRoot)return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration};
-  return{width:globalSettings.width,height:globalSettings.height,fps:globalSettings.fps,duration:globalSettings.duration};
-}
+function getGlobalSettings(){if(globalSettings.mirrorRoot)return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration};return{width:globalSettings.width,height:globalSettings.height,fps:globalSettings.fps,duration:globalSettings.duration}}
 function syncMirroredGlobals(){if(globalSettings.mirrorRoot){globalSettings.width=settings.width;globalSettings.height=settings.height;globalSettings.fps=settings.fps;globalSettings.duration=settings.duration}}
-function updateGlobalSetting(key,value){globalSettings[key]=value;renderAll()}
-function toggleGlobalMirrorRoot(){
-  globalSettings.mirrorRoot=!globalSettings.mirrorRoot;
-  if(globalSettings.mirrorRoot){globalSettings.width=settings.width;globalSettings.height=settings.height;globalSettings.fps=settings.fps;globalSettings.duration=settings.duration}
-  renderAll();
-}
+function updateGlobalSetting(k,v){globalSettings[k]=v;renderAll()}
+function toggleGlobalMirrorRoot(){globalSettings.mirrorRoot=!globalSettings.mirrorRoot;if(globalSettings.mirrorRoot){globalSettings.width=settings.width;globalSettings.height=settings.height;globalSettings.fps=settings.fps;globalSettings.duration=settings.duration}renderAll()}
+function toggleGlobalWrapInFolder(){globalSettings.wrapInFolder=!globalSettings.wrapInFolder;renderAll()}
 
-function buildDataTree(){
-  const root={name:'root',children:[],type:null};
-  natSort(shots).forEach(shotName=>{
-    let shotParent=root;
-    if(settings.wrapInFolder){const folder={name:shotName,type:'folder',children:[]};root.children.push(folder);shotParent=folder}
-    const rootCompName=shotName+rootSuffix;
-    const rootNode={name:rootCompName,type:'comp',compType:'root',children:[]};
-    const nodeMap={'root':rootNode};
-    tiers.forEach((tier,tierIdx)=>{
-      tier.comps.forEach(comp=>{
-        const compName=shotName+comp.suffix;
-        const node={name:compName,type:'comp',compType:'precomp',children:[],compId:comp.id};
-        nodeMap[comp.id]=node;
-        const sources=getEffectiveSources(comp,tierIdx);
-        const extraSources=sources.length>1?sources.slice(1).map(sid=>{const sc=compById(sid);return sc?sc.label:(sid==='root'?'Root':'?')}):[];
-        if(extraSources.length)node.mergeSources=extraSources;
-        const primarySrc=sources[0];
-        if(nodeMap[primarySrc])nodeMap[primarySrc].children.push(node);else rootNode.children.push(node);
-      });
-    });
-    globals.forEach(g=>{g.targetComps.forEach(targetId=>{if(nodeMap[targetId])nodeMap[targetId].children.push({name:g.name,type:'global',guideLayer:g.guideLayer,children:[]})})});
-    shotParent.children.push(rootNode);
+// ========== VIEW SWITCHING ==========
+function setMainView(v){
+  mainView=v;
+  document.querySelectorAll('.view-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.view-tab').forEach(t=>{
+    if((v==='pipeline'&&t.textContent==='Pipeline')||(v==='structure'&&t.textContent==='Project Structure'))t.classList.add('active');
   });
-  return root;
+  document.getElementById('pipelineView').style.display=v==='pipeline'?'flex':'none';
+  const sv=document.getElementById('structureView');
+  sv.style.display=v==='structure'?'flex':'none';
+  renderPreview();
+}
+function setGroupMode(m){
+  groupMode=m;
+  treeCollapsed={};
+  document.querySelectorAll('#groupToggle span').forEach(s=>{
+    s.classList.toggle('active',
+      (m==='shot'&&s.textContent==='Group by Shot')||(m==='tier'&&s.textContent==='Group by Tier'));
+  });
+  renderProjectTree();
 }
 
-function countItems(tree){
-  let folders=0,comps=0,globs=0;
-  function walk(n){if(n.type==='folder')folders++;else if(n.type==='comp')comps++;else if(n.type==='global')globs++;n.children.forEach(walk)}
-  tree.children.forEach(walk);return{folders,comps,globals:globs};
-}
+// ========== ICONS ==========
+function fSVG(c,cls){return`<svg class="${cls||'fi'}" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5z"/></svg>`}
+function compSVG(c,cls){return`<svg class="${cls||'fi'}" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg>`}
+function globSVG(c,cls){return`<svg class="${cls||'fi'}" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`}
 
-function fSVG(c){return`<svg class="fi" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5z"/></svg>`}
-function compSVG(c){return`<svg class="fi" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg>`}
-function globSVG(c){return`<svg class="fi" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`}
-
-// ========================================
-// DAG FLOWCHART VIEW
-// ========================================
+// ========== DAG FLOWCHART ==========
 function renderDAGView(){
   const container=document.getElementById('htreeWrap');
-  const tree=buildDataTree();
   const hasContent=shots.length||globals.length||tiers.some(t=>t.comps.length>0);
-  if(!hasContent){container.innerHTML=`<div class="preview-empty"><span>🎬</span><p>Add comps and precomps to build your AE pipeline</p></div>`;return tree}
-
+  if(!hasContent){container.innerHTML=`<div class="preview-empty"><span>🎬</span><p>Add comps and precomps to build your AE pipeline</p></div>`;return}
   const shotLabel=shots.length?shots[0]:'{Shot}';
   const hasGlobals=globals.length>0;
-  let html='';
-
-  html+=`<div class="dag-shot-row" id="dag-row">`;
-  // Root column
-  html+=`<div class="dag-column">`;
-  html+=`<div class="dag-col-label" style="color:#fbbf24">${rootDisplayLabel||'Root'}</div>`;
+  let html=`<div class="dag-shot-row" id="dag-row">`;
+  html+=`<div class="dag-column"><div class="dag-col-label" style="color:#fbbf24">${rootDisplayLabel||'Root'}</div>`;
   if(shots.length)html+=`<div class="dag-col-sublabel">${shots.length} comp${shots.length!==1?'s':''}</div>`;
-  const rootName=shotLabel+rootSuffix;
-  html+=`<div class="dag-node root-node" data-dag-id="root">${compSVG('#fbbf24')} ${rootName}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
-  html+=`</div>`;
-
-  // Tier columns — each group uses its own header color
-  tiers.forEach((tier,tierIdx)=>{
-    if(tier.comps.length===0)return;
-    const col=tierColor(tierIdx);
-    const tierLabel=tier.name||('Group '+(tierIdx+1));
-    html+=`<div class="dag-column">`;
-    html+=`<div class="dag-col-label" style="color:${col.dot}">${tierLabel}</div>`;
-    const nestedCount=shots.length?tier.comps.length*shots.length:tier.comps.length;
-    const sublabel=shots.length?`${tier.comps.length} × ${shots.length} = ${nestedCount} nested comps`:`${tier.comps.length} comp${tier.comps.length!==1?'s':''}`;
-    html+=`<div class="dag-col-sublabel">${sublabel}</div>`;
+  html+=`<div class="dag-node root-node" data-dag-id="root">${compSVG('#fbbf24')} ${shotLabel+rootSuffix}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div></div>`;
+  tiers.forEach((tier,ti)=>{
+    if(!tier.comps.length)return;const col=tierColor(ti);
+    html+=`<div class="dag-column"><div class="dag-col-label" style="color:${col.dot}">${tier.name||('Group '+(ti+1))}</div>`;
+    const nc=shots.length?tier.comps.length*shots.length:tier.comps.length;
+    html+=`<div class="dag-col-sublabel">${shots.length?`${tier.comps.length} × ${shots.length} = ${nc} nested`:`${tier.comps.length} comp${tier.comps.length!==1?'s':''}`}</div>`;
     tier.comps.forEach(comp=>{
-      const compName=shotLabel+comp.suffix;
-      const sources=getEffectiveSources(comp,tierIdx);
-      // Use the tier's color for each precomp node
-      html+=`<div class="dag-node precomp-node" data-dag-id="${comp.id}" data-dag-sources="${sources.join(',')}" style="border-color:${col.dot}66;color:${col.dot}">${compSVG(col.dot)} ${compName}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
+      const sources=getEffectiveSources(comp,ti);
+      html+=`<div class="dag-node precomp-node" data-dag-id="${comp.id}" data-dag-sources="${sources.join(',')}" style="border-color:${col.dot}66;color:${col.dot}">${compSVG(col.dot)} ${shotLabel+comp.suffix}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
     });
     html+=`</div>`;
   });
-
-  // Globals column
   if(hasGlobals){
-    html+=`</div>`; // close dag-shot-row before globals
-    html+=`<div class="dag-globals-row" id="dag-globals-row">`;
-    html+=`<div class="dag-col-label" style="color:#fb7185">Globals</div>`;
-    html+=`<div class="dag-col-sublabel">${globals.length} comp${globals.length!==1?'s':''}</div>`;
-    html+=`<div class="dag-globals-nodes">`;
-    globals.forEach(g=>{
-      const targets=g.targetComps.filter(tid=>tid==='root'||compById(tid));
-      if(targets.length){
-        const gCount=targets.length*shots.length;
-        html+=`<div class="dag-node global-node" data-dag-id="${g.id}" data-dag-global-targets="${targets.join(',')}">${globSVG('#fb7185')} ${g.name}${g.guideLayer?' (guide)':''}${gCount?`<span class="dag-count">× ${gCount}</span>`:''}</div>`;
+    html+=`</div><div class="dag-globals-row" id="dag-globals-row"><div class="dag-col-label" style="color:#fb7185">Globals</div><div class="dag-col-sublabel">${globals.length} comp${globals.length!==1?'s':''}</div><div class="dag-globals-nodes">`;
+    globals.forEach(g=>{const targets=g.targetComps.filter(tid=>tid==='root'||compById(tid));if(targets.length){const gc=targets.length*Math.max(shots.length,1);html+=`<div class="dag-node global-node" data-dag-id="${g.id}" data-dag-global-targets="${targets.join(',')}">${globSVG('#fb7185')} ${g.name}${g.guideLayer?' (guide)':''}${gc?`<span class="dag-count">× ${gc}</span>`:''}</div>`}});
+    html+=`</div></div><svg class="dag-svg" id="dag-globals-svg"></svg>`;
+  } else {html+=`</div>`}
+  html+=`<svg class="dag-svg" id="dag-svg" style="position:absolute;top:0;left:0"></svg>`;
+  container.innerHTML=html;requestAnimationFrame(drawDAGLines);
+}
+function drawDAGLines(){
+  const row=document.getElementById('dag-row'),svg=document.getElementById('dag-svg'),wrap=document.getElementById('htreeWrap');
+  if(!row||!svg||!wrap)return;const wr=wrap.getBoundingClientRect();
+  svg.setAttribute('width',wrap.scrollWidth);svg.setAttribute('height',wrap.scrollHeight);svg.innerHTML='';
+  row.querySelectorAll('[data-dag-sources]').forEach(node=>{
+    const sources=node.dataset.dagSources.split(',').filter(Boolean),tr=node.getBoundingClientRect(),tx=tr.left-wr.left,ty=tr.top-wr.top+tr.height/2;
+    sources.forEach(srcId=>{const src=row.querySelector('[data-dag-id="'+srcId+'"]');if(!src)return;const sr=src.getBoundingClientRect(),sx=sr.right-wr.left,sy=sr.top-wr.top+sr.height/2,mx=(sx+tx)/2;const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d','M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ty+' '+tx+','+ty);svg.appendChild(p)});
+  });
+  const gSvg=document.getElementById('dag-globals-svg'),gRow=document.getElementById('dag-globals-row');
+  if(!gSvg||!gRow)return;gSvg.setAttribute('width',wrap.scrollWidth);gSvg.setAttribute('height',wrap.scrollHeight);gSvg.innerHTML='';
+  gRow.querySelectorAll('[data-dag-global-targets]').forEach(gNode=>{
+    const targets=gNode.dataset.dagGlobalTargets.split(',').filter(Boolean),gr=gNode.getBoundingClientRect(),gx=gr.left-wr.left+gr.width/2,gy=gr.top-wr.top;
+    targets.forEach(tid=>{const tgt=row.querySelector('[data-dag-id="'+tid+'"]');if(!tgt)return;const tr2=tgt.getBoundingClientRect(),tx2=tr2.left-wr.left+tr2.width/2,ty2=tr2.bottom-wr.top,my=(gy+ty2)/2;const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d','M'+gx+','+gy+' C'+gx+','+my+' '+tx2+','+my+' '+tx2+','+ty2);p.classList.add('global-line');gSvg.appendChild(p)});
+  });
+}
+window.addEventListener('resize',()=>requestAnimationFrame(drawDAGLines));
+
+// ========== PROJECT STRUCTURE TREE ==========
+function buildFolderTree(){
+  const root={name:'Project',children:[],type:'root'};
+
+  if(groupMode==='shot'){
+    // --- GROUP BY SHOT (original behavior + global folder option) ---
+    if(globalSettings.wrapInFolder&&globals.length){
+      const gFolder={name:'Global Comps',type:'folder',children:[]};
+      globals.forEach(g=>{gFolder.children.push({name:g.name,type:'global',children:[]})});
+      root.children.push(gFolder);
+    } else {
+      globals.forEach(g=>{root.children.push({name:g.name,type:'global',children:[]})});
+    }
+    natSort(shots).forEach(shotName=>{
+      if(settings.wrapInFolder){
+        const shotFolder={name:shotName,type:'folder',children:[]};
+        shotFolder.children.push({name:shotName+rootSuffix,type:'rootComp',children:[]});
+        tiers.forEach((tier,ti)=>{
+          if(!tier.comps.length)return;
+          if(tier.wrapInFolder){
+            const tierFolder={name:tier.name||('Group '+(ti+1)),type:'folder',children:[],tierIdx:ti};
+            tier.comps.forEach(comp=>{tierFolder.children.push({name:shotName+comp.suffix,type:'precomp',children:[],tierIdx:ti})});
+            shotFolder.children.push(tierFolder);
+          } else {
+            tier.comps.forEach(comp=>{shotFolder.children.push({name:shotName+comp.suffix,type:'precomp',children:[],tierIdx:ti})});
+          }
+        });
+        root.children.push(shotFolder);
+      } else {
+        root.children.push({name:shotName+rootSuffix,type:'rootComp',children:[]});
+        tiers.forEach((tier,ti)=>{
+          tier.comps.forEach(comp=>{root.children.push({name:shotName+comp.suffix,type:'precomp',children:[],tierIdx:ti})});
+        });
       }
     });
-    html+=`</div></div>`;
-    html+=`<svg class="dag-svg" id="dag-globals-svg"></svg>`;
   } else {
-    html+=`</div>`; // close dag-shot-row
+    // --- GROUP BY TIER ---
+    // Global comps folder
+    if(globals.length){
+      if(globalSettings.wrapInFolder){
+        const gFolder={name:'Global Comps',type:'folder',children:[]};
+        globals.forEach(g=>{gFolder.children.push({name:g.name,type:'global',children:[]})});
+        root.children.push(gFolder);
+      } else {
+        globals.forEach(g=>{root.children.push({name:g.name,type:'global',children:[]})});
+      }
+    }
+    // Root comps folder
+    if(shots.length){
+      const rootLabel=rootDisplayLabel||'Root';
+      const rootFolder={name:rootLabel,type:'folder',children:[]};
+      natSort(shots).forEach(shotName=>{
+        rootFolder.children.push({name:shotName+rootSuffix,type:'rootComp',children:[]});
+      });
+      root.children.push(rootFolder);
+    }
+    // Tier folders
+    tiers.forEach((tier,ti)=>{
+      if(!tier.comps.length)return;
+      const col=tierColor(ti);
+      const tierFolder={name:tier.name||('Group '+(ti+1)),type:'folder',children:[],tierIdx:ti};
+      natSort(shots).forEach(shotName=>{
+        tier.comps.forEach(comp=>{
+          tierFolder.children.push({name:shotName+comp.suffix,type:'precomp',children:[],tierIdx:ti});
+        });
+      });
+      root.children.push(tierFolder);
+    });
+  }
+  return root;
+}
+
+function countFolderItems(node){let f=0,c=0;function walk(n){if(n.type==='folder')f++;else if(n.type!=='root')c++;n.children.forEach(walk)}node.children.forEach(walk);return{folders:f,comps:c}}
+
+function toggleTreeNode(path){treeCollapsed[path]=!treeCollapsed[path];renderProjectTree()}
+function expandAllTree(){treeCollapsed={};renderProjectTree()}
+function collapseAllTree(){
+  const tree=buildFolderTree();treeCollapsed={};
+  function mark(node,pp){const path=pp?pp+'/'+node.name:node.name;if(node.children.length)treeCollapsed[path]=true;node.children.forEach(ch=>mark(ch,path))}
+  tree.children.forEach(ch=>mark(ch,''));renderProjectTree();
+}
+
+function renderProjectTree(){
+  const box=document.getElementById('treeContainer');
+  const tree=buildFolderTree();
+  if(!tree.children.length){box.innerHTML=`<div class="preview-empty"><span>📂</span><p>Your AE project structure will appear here</p></div>`;updateTreeBadge(tree);return}
+
+  let html='';
+  function nodeIcon(n){
+    if(n.type==='folder'){
+      if(n.tierIdx!==undefined)return fSVG(tierColor(n.tierIdx).dot,'fi-sm');
+      return fSVG('#fbbf24','fi-sm');
+    }
+    if(n.type==='global')return globSVG('#fb7185','fi-sm');
+    if(n.type==='rootComp')return compSVG('#fbbf24','fi-sm');
+    if(n.type==='precomp'){const col=n.tierIdx!==undefined?tierColor(n.tierIdx):{dot:'#34d399'};return compSVG(col.dot,'fi-sm')}
+    return compSVG('#a1a1aa','fi-sm');
+  }
+  function nodeTextStyle(n){
+    if(n.type==='folder'){
+      if(n.tierIdx!==undefined)return`color:${tierColor(n.tierIdx).dot};font-weight:600`;
+      return'color:#fafafa;font-weight:600';
+    }
+    if(n.type==='global')return'color:#fb7185;font-weight:normal';
+    if(n.type==='rootComp')return'color:#fbbf24;font-weight:normal';
+    if(n.type==='precomp'){const col=n.tierIdx!==undefined?tierColor(n.tierIdx):{dot:'#a1a1aa'};return`color:${col.dot};font-weight:normal`}
+    return'color:#a1a1aa';
   }
 
-  html+=`<svg class="dag-svg" id="dag-svg" style="position:absolute;top:0;left:0"></svg>`;
-
-  container.innerHTML=html;
-  requestAnimationFrame(drawDAGLines);
-  return tree;
+  function renderNode(node,connectors,isLast,parentPath){
+    if(node.type==='root'){node.children.forEach((ch,i)=>renderNode(ch,[],i===node.children.length-1,''));return}
+    const path=parentPath?parentPath+'/'+node.name:node.name;
+    const hasChildren=node.children.length>0;
+    const isCollapsed=treeCollapsed[path]===true;
+    let h=`<div class="tree-row" onclick="toggleTreeNode('${esc(path)}')">`;
+    connectors.forEach(c=>{h+=`<span class="tc">${c}</span>`});
+    if(hasChildren)h+=`<span class="tree-toggle ${isCollapsed?'':'open'}">▶</span>`;
+    else h+=`<span class="tree-toggle leaf"></span>`;
+    h+=nodeIcon(node)+` <span style="${nodeTextStyle(node)}">${node.name}</span>`;
+    if(hasChildren&&isCollapsed){let cnt=0;function cntAll(nd){cnt++;nd.children.forEach(cntAll)}node.children.forEach(cntAll);h+=`<span style="font-size:10px;color:#3f3f46;margin-left:6px;font-family:-apple-system,sans-serif">(${cnt})</span>`}
+    h+=`</div>`;
+    html+=h;
+    if(hasChildren&&!isCollapsed){
+      node.children.forEach((ch,i)=>{
+        const childIsLast=i===node.children.length-1;
+        renderNode(ch,[...connectors,childIsLast?'\u00a0':'│'],childIsLast,path);
+      });
+    }
+  }
+  tree.children.forEach((ch,i)=>{renderNode(ch,[],i===tree.children.length-1,'');if(ch.type==='folder')html+=`<div style="height:2px"></div>`});
+  box.innerHTML=html;updateTreeBadge(tree);
 }
 
-function drawDAGLines(){
-  const row=document.getElementById('dag-row');
-  const svg=document.getElementById('dag-svg');
-  if(!row||!svg)return;
-  const wrap=document.getElementById('htreeWrap');
-  const wr=wrap.getBoundingClientRect();
-  svg.setAttribute('width',wrap.scrollWidth);
-  svg.setAttribute('height',wrap.scrollHeight);
-  svg.innerHTML='';
-
-  // Precomp source lines
-  row.querySelectorAll('[data-dag-sources]').forEach(node=>{
-    const sources=node.dataset.dagSources.split(',').filter(Boolean);
-    const tr=node.getBoundingClientRect();
-    const tx=tr.left-wr.left;
-    const ty=tr.top-wr.top+tr.height/2;
-    sources.forEach(srcId=>{
-      const src=row.querySelector('[data-dag-id="'+srcId+'"]');
-      if(!src)return;
-      const sr=src.getBoundingClientRect();
-      const sx=sr.right-wr.left;
-      const sy=sr.top-wr.top+sr.height/2;
-      const mx=(sx+tx)/2;
-      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-      path.setAttribute('d','M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ty+' '+tx+','+ty);
-      svg.appendChild(path);
-    });
-  });
-
-  // Global lines
-  const gSvg=document.getElementById('dag-globals-svg');
-  const globalsRow=document.getElementById('dag-globals-row');
-  if(!gSvg||!globalsRow)return;
-  gSvg.setAttribute('width',wrap.scrollWidth);
-  gSvg.setAttribute('height',wrap.scrollHeight);
-  gSvg.innerHTML='';
-  globalsRow.querySelectorAll('[data-dag-global-targets]').forEach(gNode=>{
-    const targets=gNode.dataset.dagGlobalTargets.split(',').filter(Boolean);
-    const gr=gNode.getBoundingClientRect();
-    const gx=gr.left-wr.left+gr.width/2;
-    const gy=gr.top-wr.top;
-    targets.forEach(tid=>{
-      const tgt=row.querySelector('[data-dag-id="'+tid+'"]');
-      if(!tgt)return;
-      const tr2=tgt.getBoundingClientRect();
-      const tx2=tr2.left-wr.left+tr2.width/2;
-      const ty2=tr2.bottom-wr.top;
-      const my=(gy+ty2)/2;
-      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-      path.setAttribute('d','M'+gx+','+gy+' C'+gx+','+my+' '+tx2+','+my+' '+tx2+','+ty2);
-      path.classList.add('global-line');
-      gSvg.appendChild(path);
-    });
-  });
-}
-window.addEventListener('resize',()=>{requestAnimationFrame(drawDAGLines)});
-
-function renderPreview(){
-  let tree=renderDAGView();
-  const c=countItems(tree);const parts=[];
+function updateTreeBadge(tree){
+  const c=countFolderItems(tree);const parts=[];
   if(c.folders)parts.push(c.folders+' folder'+(c.folders!==1?'s':''));
   if(c.comps)parts.push(c.comps+' comp'+(c.comps!==1?'s':''));
-  if(c.globals)parts.push(globals.length+' global'+(globals.length!==1?'s':''));
+  document.getElementById('countBadge').textContent=parts.join(' · ')||'0 items';
+}
+
+// ========== PREVIEW ==========
+function renderPreview(){
+  if(mainView==='pipeline'){renderDAGView()}
+  renderProjectTree();
+  const tree=buildFolderTree();const c=countFolderItems(tree);const parts=[];
+  if(c.folders)parts.push(c.folders+' folder'+(c.folders!==1?'s':''));
+  if(c.comps)parts.push(c.comps+' comp'+(c.comps!==1?'s':''));
   document.getElementById('countBadge').textContent=parts.join(' · ')||'0 items';
   document.getElementById('exportBtn').disabled=shots.length===0;
 }
 
+// ========== SIDEBAR ==========
 function renderShotTags(){
   if(!shots.length)return'';
   const sorted=shots.map((v,i)=>({v,i})).sort((a,b)=>a.v.localeCompare(b.v,undefined,{numeric:true,sensitivity:'base'}));
-  return`<div class="tag-list">${sorted.map(o=>{
-    const{v,i}=o;
-    if(editingTag&&editingTag.type==='shot'&&editingTag.idx===i){
-      return`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder};padding:0"><input type="text" id="edit-tag" value="${v}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${SHOT_COL.text};font-size:11px;padding:3px 8px;width:${Math.max(40,v.length*7+16)}px;outline:none;font-family:inherit"></span>`;
-    }
+  return`<div class="tag-list">${sorted.map(o=>{const{v,i}=o;
+    if(editingTag&&editingTag.type==='shot'&&editingTag.idx===i)return`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder};padding:0"><input type="text" id="edit-tag" value="${v}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${SHOT_COL.text};font-size:11px;padding:3px 8px;width:${Math.max(40,v.length*7+16)}px;outline:none;font-family:inherit"></span>`;
     return`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder}" ondblclick="startEditShot(${i})">${v}<button class="tag-remove" onclick="removeShot(${i})">&times;</button></span>`;
   }).join('')}</div>`;
 }
 
-function renderTierCard(tier,tierIdx){
-  const col=tierColor(tierIdx);
-  const prev=tierIdx>0?tiers[tierIdx-1]:null;
-  const ts=tier.settings||{mirrorRoot:true};
-  const tset=getTierSettings(tier);
-  let h=`<div class="tier-card" style="border-color:${col.dot}30" ondragover="onDragOver(event,'tier',${tierIdx})" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'tier',${tierIdx})">`;
-
-  const tierDisplayName=tier.name||('Group '+(tierIdx+1));
-  const isEditingTierName=editingTag&&editingTag.type==='tierName'&&editingTag.tierId===tier.id;
-  h+=`<div class="tier-header">`;
-  h+=`<span class="drag-grip" draggable="true" ondragstart="onDragStart(event,'tier',${tierIdx})" ondragend="onDragEnd(event)">⠿</span>`;
-  if(isEditingTierName){
-    h+=`<input type="text" id="edit-tag" value="${tier.name||''}" placeholder="Group ${tierIdx+1}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${col.dot};font-size:11px;font-weight:700;outline:none;width:${Math.max(60,(tierDisplayName).length*7+16)}px;font-family:inherit;flex:1">`;
-  } else {
-    const tierNested=tier.comps.length*shots.length;
-    h+=`<span class="tier-label" style="color:${col.dot};cursor:pointer" ondblclick="startEditTierName('${tier.id}')">${tierDisplayName}${tierNested?` <span style="font-size:9px;font-weight:normal;color:#52525b">(${tierNested} nested)</span>`:''}</span>`;
-  }
-  h+=`<div class="tier-actions">`;
-  const tierSettOpen=tierSettingsOpen.has(tier.id);
-  h+=`<button class="tier-btn" onclick="toggleTierSettings('${tier.id}')" title="Settings" style="${tierSettOpen?'color:#a1a1aa':''}">⚙</button>`;
-  h+=`<button class="tier-btn remove" onclick="removeTier('${tier.id}')">×</button>`;
-  h+=`</div></div>`;
-
-  if(tierSettOpen){
+function renderTierCard(tier,ti){
+  const col=tierColor(ti),prev=ti>0?tiers[ti-1]:null,ts=tier.settings||{mirrorRoot:true},tset=getTierSettings(tier);
+  let h=`<div class="tier-card" style="border-color:${col.dot}30" ondragover="onDragOver(event,'tier',${ti})" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'tier',${ti})">`;
+  const dn=tier.name||('Group '+(ti+1)),isETN=editingTag&&editingTag.type==='tierName'&&editingTag.tierId===tier.id;
+  h+=`<div class="tier-header"><span class="drag-grip" draggable="true" ondragstart="onDragStart(event,'tier',${ti})" ondragend="onDragEnd(event)">⠿</span>`;
+  if(isETN)h+=`<input type="text" id="edit-tag" value="${tier.name||''}" placeholder="Group ${ti+1}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${col.dot};font-size:11px;font-weight:700;outline:none;width:${Math.max(60,dn.length*7+16)}px;font-family:inherit;flex:1">`;
+  else{const nn=tier.comps.length*shots.length;h+=`<span class="tier-label" style="color:${col.dot};cursor:pointer" ondblclick="startEditTierName('${tier.id}')">${dn}${nn?` <span style="font-size:9px;font-weight:normal;color:#52525b">(${nn} nested)</span>`:''}</span>`}
+  h+=`<div class="tier-actions">`;const tso=tierSettingsOpen.has(tier.id);
+  h+=`<button class="tier-btn" onclick="toggleTierSettings('${tier.id}')" title="Settings" style="${tso?'color:#a1a1aa':''}">⚙</button>`;
+  h+=`<button class="tier-btn remove" onclick="removeTier('${tier.id}')">×</button></div></div>`;
+  if(tso){
     h+=`<div class="settings-panel"><div class="tier-settings-row" style="border-bottom:none;padding:0">`;
     h+=`<label style="font-size:9px;color:#71717a;display:flex;align-items:center;gap:3px;cursor:pointer"><input type="checkbox" ${tier.wrapInFolder?'checked':''} onchange="toggleTierFolder('${tier.id}')" style="accent-color:${col.dot};width:11px;height:11px;cursor:pointer">Wrap in Folder</label>`;
     h+=`<label><input type="checkbox" ${ts.mirrorRoot?'checked':''} onchange="toggleTierMirrorRoot('${tier.id}')">Mirror Root</label>`;
-    if(!ts.mirrorRoot){
-      h+=`<label>W:<input type="number" value="${tset.width}" onchange="updateTierSetting('${tier.id}','width',parseInt(this.value)||1920)"></label>`;
-      h+=`<label>H:<input type="number" value="${tset.height}" onchange="updateTierSetting('${tier.id}','height',parseInt(this.value)||1080)"></label>`;
-      h+=`<label>FPS:<input type="number" value="${tset.fps}" step="0.01" onchange="updateTierSetting('${tier.id}','fps',parseFloat(this.value)||30)"></label>`;
-      h+=`<label>Dur:<input type="number" value="${tset.duration}" onchange="updateTierSetting('${tier.id}','duration',parseFloat(this.value)||10)">s</label>`;
-    } else {
-      h+=`<span class="mirror-summary">${tset.width}×${tset.height} ${tset.fps}fps ${tset.duration}s</span>`;
-    }
+    if(!ts.mirrorRoot){h+=`<label>W:<input type="number" value="${tset.width}" onchange="updateTierSetting('${tier.id}','width',parseInt(this.value)||1920)"></label><label>H:<input type="number" value="${tset.height}" onchange="updateTierSetting('${tier.id}','height',parseInt(this.value)||1080)"></label><label>FPS:<input type="number" value="${tset.fps}" step="0.01" onchange="updateTierSetting('${tier.id}','fps',parseFloat(this.value)||30)"></label><label>Dur:<input type="number" value="${tset.duration}" onchange="updateTierSetting('${tier.id}','duration',parseFloat(this.value)||10)">s</label>`}
+    else h+=`<span class="mirror-summary">${tset.width}×${tset.height} ${tset.fps}fps ${tset.duration}s</span>`;
     h+=`</div></div>`;
   }
-
   h+=`<div class="tier-body">`;
-
-  // Comp tags
-  if(tier.comps.length){
-    h+=`<div class="tier-comps">`;
-    tier.comps.forEach(comp=>{
-      const isEditing=editingTag&&editingTag.type==='compSuffix'&&editingTag.compId===comp.id;
-      if(isEditing){
-        h+=`<span class="tier-comp-tag" style="background:${col.tagBg};color:${col.text};border:1px solid ${col.tagBorder};padding:0"><input type="text" id="edit-tag" value="${comp.suffix}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${col.text};font-size:11px;padding:3px 8px;width:${Math.max(50,comp.suffix.length*7+16)}px;outline:none;font-family:'SF Mono','Consolas',monospace"></span>`;
-      } else {
-        h+=`<span class="tier-comp-tag" style="background:${col.tagBg};color:${col.text};border:1px solid ${col.tagBorder}" ondblclick="startEditCompSuffix('${comp.id}')">${comp.suffix}<button class="tag-remove" onclick="removeCompFromTier('${comp.id}')">&times;</button></span>`;
-      }
-    });
-    h+=`</div>`;
-  }
-
-  // Sources — only show for tierIdx > 0 (Group 1 always sources from Root, no chips needed)
-  if(tierIdx>0 && tier.comps.length){
-    const availableSources=[{id:'root',label:rootDisplayLabel||'Root'}];
-    if(prev)prev.comps.forEach(c=>availableSources.push({id:c.id,label:c.label}));
-    tier.comps.forEach(comp=>{
-      h+=`<div class="source-row">`;
-      h+=`<span class="source-comp-label" style="color:${col.dot}">${comp.suffix}</span>`;
-      h+=`<div class="source-chips">`;
-      availableSources.forEach(src=>{
-        const active=comp.sources.includes(src.id);
-        const isDefault=comp.sources.length===0;
-        const defaultActive=isDefault&&(src.id!=='root');
-        h+=`<span class="target-chip ${active||defaultActive?'active':''}" onclick="toggleCompSource('${comp.id}','${src.id}')">${src.label}</span>`;
-      });
-      h+=`</div></div>`;
-    });
-  } else if(tierIdx===0 && tier.comps.length){
-    h+=`<div class="source-hint">Sources from Root comp</div>`;
-  }
-
-  h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-tier-comp-${tier.id}" placeholder="Suffix e.g. _Overlay" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmAddComp('${tier.id}')}"><button class="btn-add" onclick="confirmAddComp('${tier.id}')">+ Add</button></div>`;
-  h+=`</div></div>`;
+  if(tier.comps.length){h+=`<div class="tier-comps">`;tier.comps.forEach(comp=>{const isE=editingTag&&editingTag.type==='compSuffix'&&editingTag.compId===comp.id;if(isE)h+=`<span class="tier-comp-tag" style="background:${col.tagBg};color:${col.text};border:1px solid ${col.tagBorder};padding:0"><input type="text" id="edit-tag" value="${comp.suffix}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${col.text};font-size:11px;padding:3px 8px;width:${Math.max(50,comp.suffix.length*7+16)}px;outline:none;font-family:'SF Mono','Consolas',monospace"></span>`;else h+=`<span class="tier-comp-tag" style="background:${col.tagBg};color:${col.text};border:1px solid ${col.tagBorder}" ondblclick="startEditCompSuffix('${comp.id}')">${comp.suffix}<button class="tag-remove" onclick="removeCompFromTier('${comp.id}')">&times;</button></span>`});h+=`</div>`}
+  if(ti>0&&tier.comps.length){
+    const avail=[{id:'root',label:rootDisplayLabel||'Root'}];if(prev)prev.comps.forEach(c=>avail.push({id:c.id,label:c.label}));
+    tier.comps.forEach(comp=>{h+=`<div class="source-row"><span class="source-comp-label" style="color:${col.dot}">${comp.suffix}</span><div class="source-chips">`;avail.forEach(src=>{const active=comp.sources.includes(src.id),isDef=comp.sources.length===0,defActive=isDef&&src.id!=='root';h+=`<span class="target-chip ${active||defActive?'active':''}" onclick="toggleCompSource('${comp.id}','${src.id}')">${src.label}</span>`});h+=`</div></div>`});
+  } else if(ti===0&&tier.comps.length)h+=`<div class="source-hint">Sources from Root comp</div>`;
+  h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-tier-comp-${tier.id}" placeholder="Suffix e.g. _Overlay" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmAddComp('${tier.id}')}"><button class="btn-add" onclick="confirmAddComp('${tier.id}')">+ Add</button></div></div></div>`;
   return h;
 }
 
 function renderSidebar(){
-  const sb=document.getElementById('sidebarBody');
-  let h='';
-
-  // ROOT COMPS
-  const rootLabel=rootDisplayLabel||'Root Comps';
-  const isEditingRootName=editingTag&&editingTag.type==='rootName';
-  if(!sectionOpen.shots){
-    h+=`<div class="section collapsed-section" onclick="toggleSection('shots')"><div class="section-header collapsed-header"><span class="section-label" style="color:${SHOT_COL.text}" ondblclick="event.stopPropagation();startEditRootName()">● ${rootLabel}</span><div class="header-right">${shots.length?`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder}">${shots.length} comp${shots.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
-  } else {
+  const sb=document.getElementById('sidebarBody');let h='';
+  const rootLabel=rootDisplayLabel||'Root Comps',isERN=editingTag&&editingTag.type==='rootName';
+  if(!sectionOpen.shots){h+=`<div class="section collapsed-section" onclick="toggleSection('shots')"><div class="section-header collapsed-header"><span class="section-label" style="color:${SHOT_COL.text}" ondblclick="event.stopPropagation();startEditRootName()">● ${rootLabel}</span><div class="header-right">${shots.length?`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder}">${shots.length} comp${shots.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`}
+  else{
     h+=`<div class="section"><div class="section-header">`;
-    if(isEditingRootName){
-      h+=`<input type="text" id="edit-tag" value="${rootDisplayLabel||''}" placeholder="Root Comps" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${SHOT_COL.text};font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;outline:none;width:${Math.max(80,rootLabel.length*7+16)}px;font-family:inherit">`;
-    } else {
-      h+=`<span class="section-label" style="color:${SHOT_COL.text}" onclick="toggleSection('shots')" ondblclick="event.stopPropagation();startEditRootName()">● ${rootLabel}</span>`;
-    }
+    if(isERN)h+=`<input type="text" id="edit-tag" value="${rootDisplayLabel||''}" placeholder="Root Comps" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${SHOT_COL.text};font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;outline:none;width:${Math.max(80,rootLabel.length*7+16)}px;font-family:inherit">`;
+    else h+=`<span class="section-label" style="color:${SHOT_COL.text}" onclick="toggleSection('shots')" ondblclick="event.stopPropagation();startEditRootName()">● ${rootLabel}</span>`;
     h+=`<div class="header-right">${shots.length?`<span style="font-size:9px;color:#71717a">${shots.length} comp${shots.length!==1?'s':''}</span>`:''}<span style="display:flex;gap:6px;align-items:center">${shots.length?`<button class="btn-clear" onclick="clearShots()">Clear</button>`:''}<button class="tier-btn" onclick="toggleRootSettings()" title="Settings" style="${rootSettingsOpen?'color:#a1a1aa':''}">⚙</button></span></div></div>`;
     h+=renderShotTags();
     h+=`<div class="input-row"><input type="text" id="inp-shots" placeholder="Paste from spreadsheet or type names..." onkeydown="if(event.key==='Enter'){addShot();return;}"><button class="btn-add" onclick="addShot()">+ Add</button></div>`;
     if(rootSettingsOpen){
-      h+=`<div class="settings-panel">`;
-      h+=`<div class="suffix-row"><label>Suffix:</label><input type="text" id="inp-root-suffix" value="${rootSuffix}" placeholder="e.g. _Animation (optional)" onchange="updateRootSuffix(this.value)" onkeydown="if(event.key==='Enter')this.blur()"></div>`;
+      h+=`<div class="settings-panel"><div class="suffix-row"><label>Suffix:</label><input type="text" id="inp-root-suffix" value="${rootSuffix}" placeholder="e.g. _Animation (optional)" onchange="updateRootSuffix(this.value)" onkeydown="if(event.key==='Enter')this.blur()"></div>`;
       h+=`<div class="settings-check" style="margin-top:6px;margin-bottom:0"><label><input type="checkbox" ${settings.wrapInFolder?'checked':''} onchange="settings.wrapInFolder=this.checked;renderAll()">Wrap each shot's comps in a folder</label></div>`;
-      h+=`<div class="comp-settings">`;
-      h+=`<label>W:<input type="number" id="setW" value="${settings.width}" onchange="settings.width=parseInt(this.value)||1920;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label>`;
-      h+=`<label>H:<input type="number" id="setH" value="${settings.height}" onchange="settings.height=parseInt(this.value)||1080;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label>`;
-      h+=`<label>FPS:<input type="number" id="setFPS" value="${settings.fps}" step="0.01" onchange="settings.fps=parseFloat(this.value)||30;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label>`;
-      h+=`<label>Dur:<input type="number" id="setDur" value="${settings.duration}" onchange="settings.duration=parseFloat(this.value)||10;syncMirroredTiers();syncMirroredGlobals();renderAll()">s</label>`;
-      h+=`</div></div>`;
+      h+=`<div class="comp-settings"><label>W:<input type="number" id="setW" value="${settings.width}" onchange="settings.width=parseInt(this.value)||1920;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label><label>H:<input type="number" id="setH" value="${settings.height}" onchange="settings.height=parseInt(this.value)||1080;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label><label>FPS:<input type="number" id="setFPS" value="${settings.fps}" step="0.01" onchange="settings.fps=parseFloat(this.value)||30;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label><label>Dur:<input type="number" id="setDur" value="${settings.duration}" onchange="settings.duration=parseFloat(this.value)||10;syncMirroredTiers();syncMirroredGlobals();renderAll()">s</label></div></div>`;
     }
     h+=`</div>`;
   }
-
-  // PRECOMPS
-  const totalComps=tiers.reduce((s,t)=>s+t.comps.length,0);
-  const nestedComps=totalComps*shots.length;
-  if(!sectionOpen.tiers){
-    h+=`<div class="section collapsed-section" onclick="toggleSection('tiers')"><div class="section-header collapsed-header"><span class="section-label" style="color:${TIER_COL.text}">● Precomps</span><div class="header-right">${totalComps?`<span class="tag" style="background:${TIER_COL.tagBg};color:${TIER_COL.text};border:1px solid ${TIER_COL.tagBorder}">${tiers.length} group${tiers.length!==1?'s':''}, ${totalComps} comp${totalComps!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
-  } else {
-    const pCountParts=[];
-    if(tiers.length)pCountParts.push(tiers.length+' group'+(tiers.length!==1?'s':''));
-    if(totalComps)pCountParts.push(totalComps+' comp'+(totalComps!==1?'s':''));
-    if(nestedComps)pCountParts.push(nestedComps+' nested');
-    const pCountText=pCountParts.length?`<span style="font-size:9px;color:#71717a">${pCountParts.join(', ')}</span>`:'';
-    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${TIER_COL.text}" onclick="toggleSection('tiers')">● Precomps</span><div class="header-right">${pCountText}<span style="display:flex;gap:6px;align-items:center">${tiers.length?`<button class="btn-clear" onclick="clearTiers()">Reset</button>`:''}</span></div></div>`;
-    tiers.forEach((tier,idx)=>{h+=renderTierCard(tier,idx)});
-    h+=`<div style="margin-top:4px"><button class="btn-add" onclick="addTier()" style="width:100%;text-align:center;padding:8px">+ Add Precomps</button></div>`;
-    h+=`</div>`;
+  const totalComps=tiers.reduce((s,t)=>s+t.comps.length,0),nestedComps=totalComps*shots.length;
+  if(!sectionOpen.tiers){h+=`<div class="section collapsed-section" onclick="toggleSection('tiers')"><div class="section-header collapsed-header"><span class="section-label" style="color:${TIER_COL.text}">● Precomps</span><div class="header-right">${totalComps?`<span class="tag" style="background:${TIER_COL.tagBg};color:${TIER_COL.text};border:1px solid ${TIER_COL.tagBorder}">${tiers.length} group${tiers.length!==1?'s':''}, ${totalComps} comp${totalComps!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`}
+  else{
+    const pp=[];if(tiers.length)pp.push(tiers.length+' group'+(tiers.length!==1?'s':''));if(totalComps)pp.push(totalComps+' comp'+(totalComps!==1?'s':''));if(nestedComps)pp.push(nestedComps+' nested');
+    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${TIER_COL.text}" onclick="toggleSection('tiers')">● Precomps</span><div class="header-right">${pp.length?`<span style="font-size:9px;color:#71717a">${pp.join(', ')}</span>`:''}<span style="display:flex;gap:6px;align-items:center">${tiers.length?`<button class="btn-clear" onclick="clearTiers()">Reset</button>`:''}</span></div></div>`;
+    tiers.forEach((t,i)=>{h+=renderTierCard(t,i)});
+    h+=`<div style="margin-top:4px"><button class="btn-add" onclick="addTier()" style="width:100%;text-align:center;padding:8px">+ Add Precomps</button></div></div>`;
   }
-
-  // GLOBAL COMPS
-  if(!sectionOpen.globals){
-    h+=`<div class="section collapsed-section" onclick="toggleSection('globals')"><div class="section-header collapsed-header"><span class="section-label" style="color:${GLOB_COL.text}">● Global Comps</span><div class="header-right">${globals.length?`<span class="tag" style="background:${GLOB_COL.tagBg};color:${GLOB_COL.text};border:1px solid ${GLOB_COL.tagBorder}">${globals.length} global${globals.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
-  } else {
-    const gTotalLayers=globals.length?globals.reduce((s,g)=>s+g.targetComps.filter(t=>t==='root'||compById(t)).length,0)*shots.length:0;
-    const gCountText=globals.length?`<span style="font-size:9px;color:#71717a">${globals.length} comp${globals.length!==1?'s':''}${gTotalLayers?', '+gTotalLayers+' nested':''}</span>`:'';
-    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${GLOB_COL.text}" onclick="toggleSection('globals')">● Global Comps</span><div class="header-right">${gCountText}<span style="display:flex;gap:6px;align-items:center">${globals.length?`<button class="btn-clear" onclick="clearGlobals()">Clear</button>`:''}<button class="tier-btn" onclick="toggleGlobalSettings()" title="Settings" style="${globalSettingsOpen?'color:#a1a1aa':''}">⚙</button></span></div></div>`;
+  if(!sectionOpen.globals){h+=`<div class="section collapsed-section" onclick="toggleSection('globals')"><div class="section-header collapsed-header"><span class="section-label" style="color:${GLOB_COL.text}">● Global Comps</span><div class="header-right">${globals.length?`<span class="tag" style="background:${GLOB_COL.tagBg};color:${GLOB_COL.text};border:1px solid ${GLOB_COL.tagBorder}">${globals.length} global${globals.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`}
+  else{
+    const gTL=globals.length?globals.reduce((s,g)=>s+g.targetComps.filter(t=>t==='root'||compById(t)).length,0)*Math.max(shots.length,1):0;
+    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${GLOB_COL.text}" onclick="toggleSection('globals')">● Global Comps</span><div class="header-right">${globals.length?`<span style="font-size:9px;color:#71717a">${globals.length} comp${globals.length!==1?'s':''}${gTL?', '+gTL+' nested':''}</span>`:''}<span style="display:flex;gap:6px;align-items:center">${globals.length?`<button class="btn-clear" onclick="clearGlobals()">Clear</button>`:''}<button class="tier-btn" onclick="toggleGlobalSettings()" title="Settings" style="${globalSettingsOpen?'color:#a1a1aa':''}">⚙</button></span></div></div>`;
     if(globalSettingsOpen){
       const gs=getGlobalSettings();
       h+=`<div class="settings-panel"><div class="tier-settings-row" style="border-bottom:none;padding:4px 0">`;
+      h+=`<label><input type="checkbox" ${globalSettings.wrapInFolder?'checked':''} onchange="toggleGlobalWrapInFolder()" style="accent-color:#fb7185;width:11px;height:11px;cursor:pointer">Wrap in Folder</label>`;
       h+=`<label><input type="checkbox" ${globalSettings.mirrorRoot?'checked':''} onchange="toggleGlobalMirrorRoot()" style="accent-color:#fb7185;width:11px;height:11px;cursor:pointer">Mirror Root</label>`;
-      if(!globalSettings.mirrorRoot){
-        h+=`<label>W:<input type="number" value="${gs.width}" onchange="updateGlobalSetting('width',parseInt(this.value)||1920)"></label>`;
-        h+=`<label>H:<input type="number" value="${gs.height}" onchange="updateGlobalSetting('height',parseInt(this.value)||1080)"></label>`;
-        h+=`<label>FPS:<input type="number" value="${gs.fps}" step="0.01" onchange="updateGlobalSetting('fps',parseFloat(this.value)||30)"></label>`;
-        h+=`<label>Dur:<input type="number" value="${gs.duration}" onchange="updateGlobalSetting('duration',parseFloat(this.value)||10)">s</label>`;
-      } else {
-        h+=`<span class="mirror-summary">${gs.width}×${gs.height} ${gs.fps}fps ${gs.duration}s</span>`;
-      }
+      if(!globalSettings.mirrorRoot)h+=`<label>W:<input type="number" value="${gs.width}" onchange="updateGlobalSetting('width',parseInt(this.value)||1920)"></label><label>H:<input type="number" value="${gs.height}" onchange="updateGlobalSetting('height',parseInt(this.value)||1080)"></label><label>FPS:<input type="number" value="${gs.fps}" step="0.01" onchange="updateGlobalSetting('fps',parseFloat(this.value)||30)"></label><label>Dur:<input type="number" value="${gs.duration}" onchange="updateGlobalSetting('duration',parseFloat(this.value)||10)">s</label>`;
+      else h+=`<span class="mirror-summary">${gs.width}×${gs.height} ${gs.fps}fps ${gs.duration}s</span>`;
       h+=`</div></div>`;
     }
     const allOpts=getAllCompOptions();
     globals.forEach((g,gi)=>{
-      const isEditing=editingTag&&editingTag.type==='global'&&editingTag.idx===gi;
-      const validTargets=g.targetComps.filter(tid=>tid==='root'||compById(tid));
-      const layerCount=validTargets.length*shots.length;
-      h+=`<div class="global-row" ondragover="onDragOver(event,'global',${gi})" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'global',${gi})">`;
-      h+=`<div class="global-top">`;
-      h+=`<span class="drag-grip" draggable="true" ondragstart="onDragStart(event,'global',${gi})" ondragend="onDragEnd(event)">⠿</span>`;
-      if(isEditing){
-        h+=`<input type="text" id="edit-tag" value="${g.name}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:#fb7185;font-size:12px;font-weight:600;outline:none;width:${Math.max(60,g.name.length*8+16)}px;font-family:inherit;flex:1">`;
-      } else {
-        h+=`<span class="global-name" style="flex:1" ondblclick="startEditGlobal(${gi})">${g.name}${layerCount>0?` <span style="font-size:9px;font-weight:normal;color:#52525b">(${layerCount} nested)</span>`:''}</span>`;
-      }
-      h+=`<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">`;
-      h+=`<div class="guide-check"><input type="checkbox" id="guide-${g.id}" ${g.guideLayer?'checked':''} onchange="toggleGuideLayer('${g.id}')"><label for="guide-${g.id}">Guide</label></div>`;
-      h+=`<button class="tier-btn remove" onclick="removeGlobal(${gi})">×</button>`;
-      h+=`</div></div>`;
-      h+=`<span class="global-arrow">into</span>`;
-      h+=`<div class="global-targets">`;
-      let lastTierLabel='';
-      allOpts.forEach(opt=>{
-        if(opt.tierLabel!==lastTierLabel){if(lastTierLabel)h+=`<span class="target-sep"></span>`;lastTierLabel=opt.tierLabel}
-        const active=g.targetComps.includes(opt.id);
-        h+=`<span class="target-chip ${active?'active':''}" onclick="toggleGlobalTarget('${g.id}','${opt.id}')">${opt.label}</span>`;
-      });
+      const isE=editingTag&&editingTag.type==='global'&&editingTag.idx===gi,vt=g.targetComps.filter(tid=>tid==='root'||compById(tid)),lc=vt.length*Math.max(shots.length,1);
+      h+=`<div class="global-row" ondragover="onDragOver(event,'global',${gi})" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'global',${gi})"><div class="global-top"><span class="drag-grip" draggable="true" ondragstart="onDragStart(event,'global',${gi})" ondragend="onDragEnd(event)">⠿</span>`;
+      if(isE)h+=`<input type="text" id="edit-tag" value="${g.name}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:#fb7185;font-size:12px;font-weight:600;outline:none;width:${Math.max(60,g.name.length*8+16)}px;font-family:inherit;flex:1">`;
+      else h+=`<span class="global-name" style="flex:1" ondblclick="startEditGlobal(${gi})">${g.name}${lc>0?` <span style="font-size:9px;font-weight:normal;color:#52525b">(${lc} nested)</span>`:''}</span>`;
+      h+=`<div style="display:flex;align-items:center;gap:6px;flex-shrink:0"><div class="guide-check"><input type="checkbox" id="guide-${g.id}" ${g.guideLayer?'checked':''} onchange="toggleGuideLayer('${g.id}')"><label for="guide-${g.id}">Guide</label></div><button class="tier-btn remove" onclick="removeGlobal(${gi})">×</button></div></div>`;
+      h+=`<span class="global-arrow">into</span><div class="global-targets">`;
+      let lastTL='';allOpts.forEach(opt=>{if(opt.tierLabel!==lastTL){if(lastTL)h+=`<span class="target-sep"></span>`;lastTL=opt.tierLabel}const active=g.targetComps.includes(opt.id);h+=`<span class="target-chip ${active?'active':''}" onclick="toggleGlobalTarget('${g.id}','${opt.id}')">${opt.label}</span>`});
       h+=`</div></div>`;
     });
-    h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-globals" placeholder="e.g. FX_Overlay, Template_Guide" onkeydown="if(event.key==='Enter'){addGlobal();return;}"><button class="btn-add" onclick="addGlobal()">+ Add</button></div>`;
-    h+=`</div>`;
+    h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-globals" placeholder="e.g. FX_Overlay, Template_Guide" onkeydown="if(event.key==='Enter'){addGlobal();return;}"><button class="btn-add" onclick="addGlobal()">+ Add</button></div></div>`;
   }
   sb.innerHTML=h;
 }
 
 function renderAll(){
-  const ae=document.activeElement;const aId=ae&&ae.tagName==='INPUT'?ae.id:null;
-  const aVal=aId?ae.value:'';const aSel=aId?[ae.selectionStart,ae.selectionEnd]:null;
+  const ae=document.activeElement,aId=ae&&ae.tagName==='INPUT'?ae.id:null,aVal=aId?ae.value:'',aSel=aId?[ae.selectionStart,ae.selectionEnd]:null;
   renderSidebar();renderPreview();
   if(aId){const el=document.getElementById(aId);if(el){el.value=aVal;el.focus();if(aSel)el.setSelectionRange(aSel[0],aSel[1])}}
   if(editingTag){const ed=document.getElementById('edit-tag');if(ed){ed.focus();ed.select()}}
 }
 
+// ========== EXTENDSCRIPT ==========
 function generateScript(){
   const RW=settings.width,RH=settings.height,RFPS=settings.fps,RDUR=settings.duration;
-  let lines=[],vc=0;
-  function v(){return'v'+(vc++)}
-  function safe(s){return s.replace(/"/g,'\\"')}
-  lines.push('// AE Comp Builder - Generated ExtendScript');
-  lines.push('(function() {');
-  lines.push('  app.beginUndoGroup("Create Comp Pipeline");');
-  lines.push('  var p = app.project;');
-  lines.push('');
-  lines.push('  // Root comp settings');
+  let lines=[],vc=0;function v(){return'v'+(vc++)}function safe(s){return s.replace(/"/g,'\\"')}
+  lines.push('// AE Comp Builder - Generated ExtendScript');lines.push('(function() {');lines.push('  app.beginUndoGroup("Create Comp Pipeline");');lines.push('  var p = app.project;');lines.push('');
   lines.push(`  var RW = ${RW}, RH = ${RH}, RFPS = ${RFPS}, RDUR = ${RDUR};`);
-  tiers.forEach((tier,idx)=>{
-    if(!tier.settings||tier.settings.mirrorRoot)return;
-    const ts=getTierSettings(tier);
-    lines.push(`  var T${idx}W = ${ts.width}, T${idx}H = ${ts.height}, T${idx}FPS = ${ts.fps}, T${idx}DUR = ${ts.duration};`);
-  });
+  tiers.forEach((tier,idx)=>{if(!tier.settings||tier.settings.mirrorRoot)return;const ts=getTierSettings(tier);lines.push(`  var T${idx}W = ${ts.width}, T${idx}H = ${ts.height}, T${idx}FPS = ${ts.fps}, T${idx}DUR = ${ts.duration};`)});
   if(!globalSettings.mirrorRoot){const gs=getGlobalSettings();lines.push(`  var GW = ${gs.width}, GH = ${gs.height}, GFPS = ${gs.fps}, GDUR = ${gs.duration};`)}
   lines.push('');
-  const globalVars={};
-  globals.forEach(g=>{
-    const vn=v();globalVars[g.id]=vn;const gpfx=globalSettings.mirrorRoot?'R':'G';
-    lines.push(`  // Global: ${safe(g.name)}`);
-    lines.push(`  var ${vn} = p.items.addComp("${safe(g.name)}", ${gpfx}W, ${gpfx}H, 1, ${gpfx}DUR, ${gpfx}FPS);`);
-    lines.push(`  ${vn}.label = 1;`);
-  });
+
+  // Global comps folder
+  let globalFolderVar=null;
+  if(globalSettings.wrapInFolder&&globals.length){
+    globalFolderVar=v();
+    lines.push(`  var ${globalFolderVar} = p.rootFolder.items.addFolder("Global Comps");`);
+  }
+
+  const gv={};globals.forEach(g=>{const vn=v();gv[g.id]=vn;const gpfx=globalSettings.mirrorRoot?'R':'G';lines.push(`  var ${vn} = p.items.addComp("${safe(g.name)}", ${gpfx}W, ${gpfx}H, 1, ${gpfx}DUR, ${gpfx}FPS);`);lines.push(`  ${vn}.label = 1;`);if(globalFolderVar)lines.push(`  ${vn}.parentFolder = ${globalFolderVar};`)});
   if(globals.length)lines.push('');
-  natSort(shots).forEach(shotName=>{
-    const sn=safe(shotName);lines.push(`  // --- ${sn} ---`);
-    let folderVar=null;
-    if(settings.wrapInFolder){folderVar=v();lines.push(`  var ${folderVar} = p.rootFolder.items.addFolder("${sn}");`)}
-    const rootVar=v();const rootCompName=safe(shotName+rootSuffix);
-    lines.push(`  var ${rootVar} = p.items.addComp("${rootCompName}", RW, RH, 1, RDUR, RFPS);`);
-    lines.push(`  ${rootVar}.label = 3;`);
-    if(folderVar)lines.push(`  ${rootVar}.parentFolder = ${folderVar};`);
-    const compVarMap={'root':rootVar};
-    tiers.forEach((tier,tierIdx)=>{
-      let tierFolderVar=null;
-      if(tier.wrapInFolder&&folderVar){tierFolderVar=v();const tierFolderName=safe(tier.name||('Group '+(tierIdx+1)));lines.push(`  var ${tierFolderVar} = ${folderVar}.items.addFolder("${tierFolderName}");`)}
-      const useTierVars=tier.settings&&!tier.settings.mirrorRoot;const pfx=useTierVars?'T'+tierIdx:'R';
-      tier.comps.forEach(comp=>{
-        const cv=v();compVarMap[comp.id]=cv;const cn=safe(shotName+comp.suffix);
-        lines.push(`  var ${cv} = p.items.addComp("${cn}", ${pfx}W, ${pfx}H, 1, ${pfx}DUR, ${pfx}FPS);`);
-        lines.push(`  ${cv}.label = 4;`);
-        if(tierFolderVar)lines.push(`  ${cv}.parentFolder = ${tierFolderVar};`);
-        else if(folderVar)lines.push(`  ${cv}.parentFolder = ${folderVar};`);
-        const sources=getEffectiveSources(comp,tierIdx);
-        sources.forEach(srcId=>{if(compVarMap[srcId])lines.push(`  ${cv}.layers.add(${compVarMap[srcId]});`)});
-      });
-    });
-    globals.forEach(g=>{
-      g.targetComps.forEach(targetId=>{
-        if(compVarMap[targetId]&&globalVars[g.id]){
-          if(g.guideLayer){const lv='lyr'+(vc++);lines.push(`  var ${lv} = ${compVarMap[targetId]}.layers.add(${globalVars[g.id]});`);lines.push(`  ${lv}.guideLayer = true;`)}
-          else{lines.push(`  ${compVarMap[targetId]}.layers.add(${globalVars[g.id]});`)}
-        }
-      });
+
+  // Group by tier mode folders (created once, outside shot loop)
+  let tierByTierFolders={};
+  let rootTierFolder=null;
+  if(groupMode==='tier'){
+    if(shots.length){
+      rootTierFolder=v();
+      lines.push(`  var ${rootTierFolder} = p.rootFolder.items.addFolder("${safe(rootDisplayLabel||'Root')}");`);
+    }
+    tiers.forEach((tier,ti)=>{
+      if(!tier.comps.length)return;
+      const fv=v();
+      tierByTierFolders[tier.id]=fv;
+      lines.push(`  var ${fv} = p.rootFolder.items.addFolder("${safe(tier.name||('Group '+(ti+1)))}");`);
     });
     lines.push('');
+  }
+
+  natSort(shots).forEach(sn=>{
+    const s=safe(sn);lines.push(`  // --- ${s} ---`);
+
+    let fv=null;
+    if(groupMode==='shot'&&settings.wrapInFolder){
+      fv=v();lines.push(`  var ${fv} = p.rootFolder.items.addFolder("${s}");`);
+    }
+
+    const rv=v(),rcn=safe(sn+rootSuffix);lines.push(`  var ${rv} = p.items.addComp("${rcn}", RW, RH, 1, RDUR, RFPS);`);lines.push(`  ${rv}.label = 3;`);
+    if(groupMode==='shot'&&fv)lines.push(`  ${rv}.parentFolder = ${fv};`);
+    else if(groupMode==='tier'&&rootTierFolder)lines.push(`  ${rv}.parentFolder = ${rootTierFolder};`);
+
+    const cvm={'root':rv};
+    tiers.forEach((tier,ti)=>{
+      let tfv=null;
+      if(groupMode==='shot'&&tier.wrapInFolder&&fv){tfv=v();lines.push(`  var ${tfv} = ${fv}.items.addFolder("${safe(tier.name||('Group '+(ti+1)))}");`)}
+      const utv=tier.settings&&!tier.settings.mirrorRoot,pfx=utv?'T'+ti:'R';
+      tier.comps.forEach(comp=>{const cv=v();cvm[comp.id]=cv;const cn=safe(sn+comp.suffix);lines.push(`  var ${cv} = p.items.addComp("${cn}", ${pfx}W, ${pfx}H, 1, ${pfx}DUR, ${pfx}FPS);`);lines.push(`  ${cv}.label = 4;`);
+        if(groupMode==='shot'){if(tfv)lines.push(`  ${cv}.parentFolder = ${tfv};`);else if(fv)lines.push(`  ${cv}.parentFolder = ${fv};`)}
+        else if(groupMode==='tier'&&tierByTierFolders[tier.id])lines.push(`  ${cv}.parentFolder = ${tierByTierFolders[tier.id]};`);
+        getEffectiveSources(comp,ti).forEach(sid=>{if(cvm[sid])lines.push(`  ${cv}.layers.add(${cvm[sid]});`)})});
+    });
+    globals.forEach(g=>{g.targetComps.forEach(tid=>{if(cvm[tid]&&gv[g.id]){if(g.guideLayer){const lv='lyr'+(vc++);lines.push(`  var ${lv} = ${cvm[tid]}.layers.add(${gv[g.id]});`);lines.push(`  ${lv}.guideLayer = true;`)}else lines.push(`  ${cvm[tid]}.layers.add(${gv[g.id]});`)}})});
+    lines.push('');
   });
-  const totalComps=shots.length*(1+tiers.reduce((s,t)=>s+t.comps.length,0))+globals.length;
-  lines.push('  app.endUndoGroup();');
-  lines.push(`  alert("Created ${totalComps} compositions!");`);
-  lines.push('})();');
+  lines.push('  app.endUndoGroup();');lines.push(`  alert("Created ${shots.length*(1+tiers.reduce((s,t)=>s+t.comps.length,0))+globals.length} compositions!");`);lines.push('})();');
   return lines.join('\n');
 }
+function exportScript(){const s=generateScript(),b=new Blob([s],{type:'text/plain'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='ae_comp_structure.jsx';a.click();URL.revokeObjectURL(a.href)}
 
-function exportScript(){
-  const script=generateScript();const blob=new Blob([script],{type:'text/plain'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ae_comp_structure.jsx';a.click();URL.revokeObjectURL(a.href);
-}
-
-(function(){
-  const t={id:'tier_'+tierIdCounter++,name:null,comps:[],wrapInFolder:false,settings:makeTierSettings()};
-  tiers.push(t);renderAll();
-  requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp-'+t.id);if(inp)inp.focus()});
-})();
+// ========== INIT ==========
+(function(){const t={id:'tier_'+tierIdCounter++,name:null,comps:[],wrapInFolder:false,settings:makeTierSettings()};tiers.push(t);renderAll();requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp-'+t.id);if(inp)inp.focus()})})();
 </script>
 </body>
 </html>
