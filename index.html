@@ -34,13 +34,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn-add:hover{background:#3f3f46;color:#e4e4e7}
 .btn-clear{background:none;border:1px solid #3f3f46;border-radius:5px;padding:2px 8px;color:#71717a;cursor:pointer;font-size:10px;transition:all 0.15s}
 .btn-clear:hover{border-color:#71717a;color:#a1a1aa}
-/* Suffix row */
 .suffix-row{display:flex;align-items:center;gap:6px;margin-top:6px;padding:6px 10px;background:#18181b;border:1px solid #27272a;border-radius:7px}
 .suffix-row label{font-size:10px;color:#71717a;white-space:nowrap}
 .suffix-row input{flex:1;background:#0a0a0a;border:1px solid #3f3f46;border-radius:4px;padding:3px 8px;font-size:11px;color:#fbbf24;font-family:'SF Mono','Consolas',monospace;outline:none}
 .suffix-row input:focus{border-color:#52525b}
 .suffix-row input::placeholder{color:#3f3f46}
-/* Tier cards */
 .tier-card{background:#111113;border:1px solid #27272a;border-radius:9px;margin-bottom:6px;overflow:hidden}
 .tier-header{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid #1e1e20}
 .tier-label{font-size:11px;font-weight:700;flex:1}
@@ -59,15 +57,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tier-settings-row input[type="number"]{background:#0a0a0a;border:1px solid #3f3f46;border-radius:3px;padding:2px 4px;font-size:10px;color:#e4e4e7;width:48px;outline:none}
 .tier-settings-row input[type="number"]:focus{border-color:#52525b}
 .tier-settings-row .mirror-summary{font-size:9px;color:#3f3f46;font-style:italic}
-/* Settings dropdowns */
 .settings-panel{padding:8px 10px;border-bottom:1px solid #1e1e20}
 .settings-panel .comp-settings{margin-top:0}
-/* Source rows per comp */
 .source-row{display:flex;align-items:center;gap:6px;padding:4px 0;flex-wrap:wrap}
 .source-comp-label{font-size:10px;font-weight:600;color:#a1a1aa;min-width:60px;font-family:'SF Mono','Consolas',monospace}
 .source-chips{display:flex;gap:3px;flex-wrap:wrap}
 .source-hint{font-size:10px;color:#3f3f46;font-style:italic;padding:2px 0}
-/* Global comp rows */
 .global-row{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#111113;border:1px solid #27272a;border-radius:7px;margin-bottom:4px;flex-wrap:wrap}
 .global-top{display:flex;align-items:center;gap:8px;width:100%}
 .global-name{font-size:12px;font-weight:600;color:#fb7185;flex-shrink:0}
@@ -76,12 +71,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .guide-check{display:flex;align-items:center;gap:4px;flex-shrink:0}
 .guide-check input{accent-color:#fb7185;width:12px;height:12px;cursor:pointer}
 .guide-check label{font-size:9px;color:#71717a;cursor:pointer}
-/* Source chips: green active, grey inactive */
-.target-chip{font-size:10px;padding:2px 6px;border-radius:4px;cursor:pointer;border:1px solid #52525b;color:#71717a;transition:all 0.15s;user-select:none}
-.target-chip:hover{color:#a1a1aa;border-color:#71717a}
-.target-chip.active{background:rgba(52,211,153,0.12);color:#34d399;border-color:rgba(52,211,153,0.3)}
+/* Source chips: light grey active, dark grey inactive */
+.target-chip{font-size:10px;padding:2px 6px;border-radius:4px;cursor:pointer;border:1px solid #3f3f46;color:#52525b;transition:all 0.15s;user-select:none;background:transparent}
+.target-chip:hover{color:#a1a1aa;border-color:#52525b}
+.target-chip.active{background:rgba(255,255,255,0.08);color:#d4d4d8;border-color:#71717a}
 .target-sep{width:1px;height:14px;background:#27272a;flex-shrink:0;margin:0 1px}
-/* Settings */
 .settings-check{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding:6px 10px;background:#18181b;border-radius:7px;border:1px solid #27272a}
 .settings-check label{display:flex;align-items:center;gap:8px;font-size:11px;color:#a1a1aa;cursor:pointer;flex:1}
 .settings-check input[type="checkbox"]{accent-color:#22d3ee;width:14px;height:14px;cursor:pointer}
@@ -89,13 +83,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .comp-settings label{font-size:10px;color:#71717a;display:flex;align-items:center;gap:4px}
 .comp-settings input{background:#0a0a0a;border:1px solid #3f3f46;border-radius:4px;padding:3px 6px;font-size:11px;color:#e4e4e7;width:55px;outline:none}
 .comp-settings input:focus{border-color:#52525b}
-/* Output */
 .output-section{padding:14px 20px;border-top:1px solid #27272a}
 .btn-export{width:100%;padding:12px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;background:#7c3aed;color:white;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s}
 .btn-export:hover:not(:disabled){background:#8b5cf6}
 .btn-export:disabled{background:#3f3f46;color:#71717a;cursor:not-allowed}
 .help{font-size:10px;color:#52525b;margin-top:6px;text-align:center}
-/* Preview */
 .preview-header{padding:14px 20px;border-bottom:1px solid #27272a;display:flex;align-items:center;justify-content:space-between}
 .preview-header h2{font-size:14px;font-weight:600}
 .badge{font-size:11px;background:#27272a;color:#a1a1aa;padding:2px 10px;border-radius:10px}
@@ -103,7 +95,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .preview-empty span{font-size:32px}
 .preview-empty p{font-size:13px}
 .fi{width:17px;height:17px;flex-shrink:0}
-/* DAG Flowchart view */
 .sunburst-container{flex:1;overflow:auto;position:relative;padding:32px;display:flex;align-items:center;justify-content:center}
 .dag-wrap{display:inline-flex;flex-direction:column;align-items:center;min-width:max-content;position:relative}
 .dag-shot-row{display:flex;align-items:center;gap:0;position:relative}
@@ -125,6 +116,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dragging{opacity:0.4}
 .drag-over-top{border-top:2px solid #3b82f6 !important}
 .drag-over-bottom{border-bottom:2px solid #3b82f6 !important}
+/* Global target chips keep rose color */
+.global-targets .target-chip.active{background:rgba(251,113,133,0.12);color:#fb7185;border-color:rgba(251,113,133,0.3)}
 @media(max-width:900px){body{flex-direction:column}.sidebar{width:100%;min-width:0;height:auto;max-height:55vh;border-right:none;border-bottom:1px solid #27272a}.main{height:45vh}}
 </style>
 </head>
@@ -153,9 +146,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <script>
-// ========================================
-// COLORS
-// ========================================
 const COLORS=[
   {name:"amber",dot:"#fbbf24",text:"#fbbf24",tagBg:"rgba(251,191,36,0.12)",tagBorder:"rgba(251,191,36,0.2)"},
   {name:"blue",dot:"#60a5fa",text:"#60a5fa",tagBg:"rgba(96,165,250,0.12)",tagBorder:"rgba(96,165,250,0.2)"},
@@ -164,18 +154,13 @@ const COLORS=[
   {name:"rose",dot:"#fb7185",text:"#fb7185",tagBg:"rgba(251,113,133,0.12)",tagBorder:"rgba(251,113,133,0.2)"},
   {name:"cyan",dot:"#22d3ee",text:"#22d3ee",tagBg:"rgba(34,211,238,0.12)",tagBorder:"rgba(34,211,238,0.2)"},
 ];
-const SHOT_COL=COLORS[0];// amber
-const TIER_COL=COLORS[2];// green
-const GLOB_COL=COLORS[4];// rose
-const SET_COL=COLORS[5]; // cyan
+const SHOT_COL=COLORS[0];
+const TIER_COL=COLORS[2];
+const GLOB_COL=COLORS[4];
 const FOLDER_COL={icon:"#fbbf24",text:"#fafafa",weight:"600"};
 const ROOT_COL={icon:"#fbbf24",text:"#fbbf24",weight:"600"};
-const PRECOMP_COL={icon:"#34d399",text:"#34d399",weight:"600"};
 const GLOBAL_PREV={icon:"#fb7185",text:"#fecdd3",weight:"normal"};
 
-// ========================================
-// DATA MODEL
-// ========================================
 let shots=[];
 let rootSuffix='';
 let rootDisplayLabel=null;
@@ -185,7 +170,6 @@ let compIdCounter=0;
 let globals=[];
 let globalIdCounter=0;
 let settings={wrapInFolder:true,width:1920,height:1080,fps:30,duration:10};
-
 let editingTag=null;
 let sectionOpen={shots:true,tiers:true,globals:true};
 let rootSettingsOpen=false;
@@ -193,19 +177,22 @@ let tierSettingsOpen=new Set();
 let globalSettingsOpen=false;
 let globalSettings={width:1920,height:1080,fps:30,duration:10,mirrorRoot:true};
 
-// ========================================
-// TIER HELPERS
-// ========================================
 function tierById(id){return tiers.find(t=>t.id===id)}
 function compById(id){for(const t of tiers)for(const c of t.comps)if(c.id===id)return c;return null}
 function tierOfComp(compId){return tiers.find(t=>t.comps.some(c=>c.id===compId))}
-function prevTier(tierId){const idx=tiers.findIndex(t=>t.id===tierId);return idx>0?tiers[idx-1]:null}
 function getEffectiveSources(comp,tierIdx){
   if(comp.sources.length)return comp.sources;
   if(tierIdx===0)return['root'];
   return tiers[tierIdx-1].comps.map(c=>c.id);
 }
 function tierColor(tierIdx){return COLORS[(tierIdx+1)%COLORS.length]}
+// Get the color for a comp's tier in the flowchart
+function compTierColor(compId){
+  for(let i=0;i<tiers.length;i++){
+    if(tiers[i].comps.some(c=>c.id===compId))return tierColor(i);
+  }
+  return COLORS[1];
+}
 function getAllCompOptions(){
   const opts=[{id:'root',label:rootSuffix?rootSuffix.replace(/^_/,''):(rootDisplayLabel||'Root'),tierLabel:rootDisplayLabel||'Root'}];
   tiers.forEach((t,i)=>t.comps.forEach(c=>opts.push({id:c.id,label:c.label,tierLabel:t.name||('Group '+(i+1))})));
@@ -219,50 +206,21 @@ function validateAllSources(){
   });
 }
 
-// ========================================
-// PER-TIER SETTINGS HELPERS
-// ========================================
-function makeTierSettings(){
-  return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration,mirrorRoot:true};
-}
+function makeTierSettings(){return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration,mirrorRoot:true}}
 function getTierSettings(tier){
-  if(!tier.settings||tier.settings.mirrorRoot){
-    return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration};
-  }
+  if(!tier.settings||tier.settings.mirrorRoot)return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration};
   return{width:tier.settings.width,height:tier.settings.height,fps:tier.settings.fps,duration:tier.settings.duration};
 }
-function syncMirroredTiers(){
-  tiers.forEach(t=>{
-    if(t.settings&&t.settings.mirrorRoot){
-      t.settings.width=settings.width;
-      t.settings.height=settings.height;
-      t.settings.fps=settings.fps;
-      t.settings.duration=settings.duration;
-    }
-  });
-}
-function updateTierSetting(tierId,key,value){
-  const tier=tierById(tierId);
-  if(tier){tier.settings[key]=value;renderAll()}
-}
+function syncMirroredTiers(){tiers.forEach(t=>{if(t.settings&&t.settings.mirrorRoot){t.settings.width=settings.width;t.settings.height=settings.height;t.settings.fps=settings.fps;t.settings.duration=settings.duration}})}
+function updateTierSetting(tierId,key,value){const tier=tierById(tierId);if(tier){tier.settings[key]=value;renderAll()}}
 function toggleTierMirrorRoot(tierId){
   const tier=tierById(tierId);if(!tier)return;
   tier.settings.mirrorRoot=!tier.settings.mirrorRoot;
-  if(tier.settings.mirrorRoot){
-    tier.settings.width=settings.width;
-    tier.settings.height=settings.height;
-    tier.settings.fps=settings.fps;
-    tier.settings.duration=settings.duration;
-  }
+  if(tier.settings.mirrorRoot){tier.settings.width=settings.width;tier.settings.height=settings.height;tier.settings.fps=settings.fps;tier.settings.duration=settings.duration}
   renderAll();
 }
-function toggleTierFolder(tierId){
-  const t=tierById(tierId);if(t)t.wrapInFolder=!t.wrapInFolder;renderAll();
-}
+function toggleTierFolder(tierId){const t=tierById(tierId);if(t)t.wrapInFolder=!t.wrapInFolder;renderAll()}
 
-// ========================================
-// UTILITIES
-// ========================================
 function san(n){return n.replace(/[<>:"/\\|?*]/g,"_").trim()}
 function pi(raw){return raw.split(/[\n\r\t,]+/).map(s=>s.trim()).filter(Boolean).map(san).filter(Boolean)}
 function esc(s){return s.replace(/'/g,"\\'").replace(/\\/g,"\\\\")}
@@ -272,15 +230,10 @@ document.addEventListener('paste',function(e){
   const el=document.activeElement;
   if(el&&el.tagName==='INPUT'&&el.id&&(el.id.startsWith('inp-'))){
     const txt=(e.clipboardData||window.clipboardData).getData('text');
-    if(txt.includes('\n')||txt.includes('\r')||txt.includes('\t')){
-      e.preventDefault();el.value=txt;el.dataset.rawPaste=txt;
-    }
+    if(txt.includes('\n')||txt.includes('\r')||txt.includes('\t')){e.preventDefault();el.value=txt;el.dataset.rawPaste=txt}
   }
 });
 
-// ========================================
-// TAG EDITING
-// ========================================
 function startEditShot(idx){editingTag={type:'shot',idx};renderAll()}
 function startEditGlobal(idx){editingTag={type:'global',idx};renderAll()}
 function startEditCompSuffix(compId){editingTag={type:'compSuffix',compId};renderAll()}
@@ -294,31 +247,19 @@ function commitEdit(inputEl){
     if(val&&val!==shots[editingTag.idx]){if(!shots.includes(val))shots[editingTag.idx]=val}
     else if(!val){shots.splice(editingTag.idx,1)}
   } else if(editingTag.type==='global'){
-    if(val&&val!==globals[editingTag.idx].name){
-      if(!globals.find(g=>g.name===val))globals[editingTag.idx].name=val;
-    } else if(!val){globals.splice(editingTag.idx,1)}
+    if(val&&val!==globals[editingTag.idx].name){if(!globals.find(g=>g.name===val))globals[editingTag.idx].name=val}
+    else if(!val){globals.splice(editingTag.idx,1)}
   } else if(editingTag.type==='compSuffix'){
     const comp=compById(editingTag.compId);
-    if(comp){
-      let s=val;
-      if(s&&!s.startsWith('_'))s='_'+s;
-      comp.suffix=s||'_unnamed';
-      comp.label=comp.suffix.replace(/^_/,'').replace(/_/g,' ');
-    }
+    if(comp){let s=val;if(s&&!s.startsWith('_'))s='_'+s;comp.suffix=s||'_unnamed';comp.label=comp.suffix.replace(/^_/,'').replace(/_/g,' ')}
   } else if(editingTag.type==='tierName'){
-    const tier=tierById(editingTag.tierId);
-    if(tier)tier.name=val||null;
-  } else if(editingTag.type==='rootName'){
-    rootDisplayLabel=val||null;
-  }
+    const tier=tierById(editingTag.tierId);if(tier)tier.name=val||null;
+  } else if(editingTag.type==='rootName'){rootDisplayLabel=val||null}
   editingTag=null;renderAll();
 }
 function cancelEdit(){editingTag=null;renderAll()}
 function editKeyHandler(e){if(e.key==='Enter'){e.preventDefault();commitEdit(e.target)}else if(e.key==='Escape'){cancelEdit()}}
 
-// ========================================
-// SHOT / ROOT COMP OPERATIONS
-// ========================================
 function addShot(){
   const inp=document.getElementById('inp-shots');if(!inp)return;
   const raw=inp.dataset.rawPaste||inp.value;
@@ -327,20 +268,11 @@ function addShot(){
 }
 function removeShot(idx){shots.splice(idx,1);renderAll()}
 function clearShots(){shots=[];renderAll()}
-function updateRootSuffix(val){
-  let s=san(val.trim());
-  if(s&&!s.startsWith('_'))s='_'+s;
-  rootSuffix=s;
-  renderAll();
-}
+function updateRootSuffix(val){let s=san(val.trim());if(s&&!s.startsWith('_'))s='_'+s;rootSuffix=s;renderAll()}
 
-// ========================================
-// TIER OPERATIONS
-// ========================================
 function addTier(){
   const t={id:'tier_'+tierIdCounter++,name:null,comps:[],wrapInFolder:false,settings:makeTierSettings()};
-  tiers.push(t);
-  renderAll();
+  tiers.push(t);renderAll();
   requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp-'+t.id);if(inp)inp.focus()});
 }
 function removeTier(tierId){
@@ -349,41 +281,22 @@ function removeTier(tierId){
   tiers.splice(idx,1);
   tiers.forEach(t=>t.comps.forEach(c=>{c.sources=c.sources.filter(s=>!removedIds.has(s))}));
   globals.forEach(g=>{g.targetComps=g.targetComps.filter(id=>!removedIds.has(id))});
-  validateAllSources();
-  renderAll();
+  validateAllSources();renderAll();
 }
 function moveTier(tierId,dir){
-  const idx=tiers.findIndex(t=>t.id===tierId);
-  const ni=idx+dir;
+  const idx=tiers.findIndex(t=>t.id===tierId);const ni=idx+dir;
   if(ni<0||ni>=tiers.length)return;
   [tiers[idx],tiers[ni]]=[tiers[ni],tiers[idx]];
-  validateAllSources();
-  renderAll();
+  validateAllSources();renderAll();
 }
-function clearTiers(){
-  tiers=[];
-  globals.forEach(g=>{g.targetComps=g.targetComps.filter(id=>id==='root')});
-  renderAll();
-}
+function clearTiers(){tiers=[];globals.forEach(g=>{g.targetComps=g.targetComps.filter(id=>id==='root')});renderAll()}
 
-// ========================================
-// COMP-WITHIN-TIER OPERATIONS
-// ========================================
 function confirmAddComp(tierId){
-  const inp=document.getElementById('inp-tier-comp-'+tierId);
-  if(!inp)return;
-  const raw=inp.dataset.rawPaste||inp.value;
-  const names=pi(raw);
-  const tier=tierById(tierId);
-  if(!tier||!names.length)return;
-  names.forEach(n=>{
-    let s=n;
-    if(!s.startsWith('_'))s='_'+s;
-    const label=s.replace(/^_/,'').replace(/_/g,' ');
-    tier.comps.push({id:'comp_'+compIdCounter++,suffix:s,label,sources:[]});
-  });
-  inp.value='';delete inp.dataset.rawPaste;
-  renderAll();
+  const inp=document.getElementById('inp-tier-comp-'+tierId);if(!inp)return;
+  const raw=inp.dataset.rawPaste||inp.value;const names=pi(raw);
+  const tier=tierById(tierId);if(!tier||!names.length)return;
+  names.forEach(n=>{let s=n;if(!s.startsWith('_'))s='_'+s;const label=s.replace(/^_/,'').replace(/_/g,' ');tier.comps.push({id:'comp_'+compIdCounter++,suffix:s,label,sources:[]})});
+  inp.value='';delete inp.dataset.rawPaste;renderAll();
   requestAnimationFrame(()=>{const newInp=document.getElementById('inp-tier-comp-'+tierId);if(newInp)newInp.focus()});
 }
 function removeCompFromTier(compId){
@@ -396,94 +309,56 @@ function toggleCompSource(compId,sourceId){
   const comp=compById(compId);if(!comp)return;
   const tier=tierOfComp(compId);if(!tier)return;
   const tierIdx=tiers.indexOf(tier);
+  // Simple toggle: if explicit sources exist, toggle within them.
+  // If no explicit sources (default=all), expand to explicit then remove clicked.
   if(comp.sources.length===0){
-    // "all by default" → expand to explicit list, then deselect clicked
+    // Expand defaults to explicit, minus the one clicked
     const defaults=tierIdx===0?['root']:tiers[tierIdx-1].comps.map(c=>c.id);
     comp.sources=defaults.filter(s=>s!==sourceId);
   } else {
     const i=comp.sources.indexOf(sourceId);
-    if(i>=0)comp.sources.splice(i,1);else comp.sources.push(sourceId);
+    if(i>=0)comp.sources.splice(i,1);
+    else comp.sources.push(sourceId);
   }
   renderAll();
 }
 
-// ========================================
-// GLOBAL COMP OPERATIONS
-// ========================================
 function addGlobal(){
   const inp=document.getElementById('inp-globals');if(!inp)return;
   const raw=inp.dataset.rawPaste||inp.value;
-  pi(raw).forEach(name=>{
-    if(!globals.find(g=>g.name===name)){
-      globals.push({id:'glob_'+globalIdCounter++,name,targetComps:['root'],guideLayer:false});
-    }
-  });
+  pi(raw).forEach(name=>{if(!globals.find(g=>g.name===name))globals.push({id:'glob_'+globalIdCounter++,name,targetComps:['root'],guideLayer:false})});
   inp.value='';delete inp.dataset.rawPaste;renderAll();
 }
 function removeGlobal(idx){globals.splice(idx,1);renderAll()}
-function moveGlobal(idx,dir){
-  const ni=idx+dir;
-  if(ni<0||ni>=globals.length)return;
-  [globals[idx],globals[ni]]=[globals[ni],globals[idx]];
-  renderAll();
-}
 function clearGlobals(){globals=[];renderAll()}
 
-// ========================================
-// DRAG AND DROP
-// ========================================
 let dragState=null;
 function onDragStart(e,type,index){
   dragState={type,index};
   const card=e.target.closest(type==='tier'?'.tier-card':'.global-row');
-  if(card){card.classList.add('dragging');e.dataTransfer.setDragImage(card,20,20);}
-  e.dataTransfer.effectAllowed='move';
-  e.dataTransfer.setData('text/plain','');
+  if(card){card.classList.add('dragging');e.dataTransfer.setDragImage(card,20,20)}
+  e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','');
 }
 function onDragOver(e,type,index){
-  if(!dragState||dragState.type!==type)return;
-  e.preventDefault();
-  e.dataTransfer.dropEffect='move';
-  const el=e.currentTarget;
-  const rect=el.getBoundingClientRect();
-  const mid=rect.top+rect.height/2;
+  if(!dragState||dragState.type!==type)return;e.preventDefault();e.dataTransfer.dropEffect='move';
+  const el=e.currentTarget;const rect=el.getBoundingClientRect();const mid=rect.top+rect.height/2;
   el.parentElement.querySelectorAll('.drag-over-top,.drag-over-bottom').forEach(x=>x.classList.remove('drag-over-top','drag-over-bottom'));
-  if(e.clientY<mid)el.classList.add('drag-over-top');
-  else el.classList.add('drag-over-bottom');
+  if(e.clientY<mid)el.classList.add('drag-over-top');else el.classList.add('drag-over-bottom');
 }
 function onDragLeave(e){e.currentTarget.classList.remove('drag-over-top','drag-over-bottom')}
 function onDrop(e,type,index){
-  e.preventDefault();
-  if(!dragState||dragState.type!==type){cleanupDrag();return;}
-  const from=dragState.index;
-  const rect=e.currentTarget.getBoundingClientRect();
+  e.preventDefault();if(!dragState||dragState.type!==type){cleanupDrag();return}
+  const from=dragState.index;const rect=e.currentTarget.getBoundingClientRect();
   let to=e.clientY<rect.top+rect.height/2?index:index+1;
   if(from<to)to--;
-  if(from!==to){
-    const arr=type==='tier'?tiers:globals;
-    const[item]=arr.splice(from,1);
-    arr.splice(to,0,item);
-    if(type==='tier')validateAllSources();
-  }
+  if(from!==to){const arr=type==='tier'?tiers:globals;const[item]=arr.splice(from,1);arr.splice(to,0,item);if(type==='tier')validateAllSources()}
   cleanupDrag();renderAll();
 }
 function onDragEnd(){cleanupDrag()}
-function cleanupDrag(){
-  dragState=null;
-  document.querySelectorAll('.drag-over-top,.drag-over-bottom,.dragging').forEach(el=>el.classList.remove('drag-over-top','drag-over-bottom','dragging'));
-}
+function cleanupDrag(){dragState=null;document.querySelectorAll('.drag-over-top,.drag-over-bottom,.dragging').forEach(el=>el.classList.remove('drag-over-top','drag-over-bottom','dragging'))}
 
-function toggleGlobalTarget(globalId,compId){
-  const g=globals.find(x=>x.id===globalId);if(!g)return;
-  const i=g.targetComps.indexOf(compId);
-  if(i>=0)g.targetComps.splice(i,1);else g.targetComps.push(compId);
-  renderAll();
-}
-function toggleGuideLayer(globalId){
-  const g=globals.find(x=>x.id===globalId);if(!g)return;
-  g.guideLayer=!g.guideLayer;
-  renderAll();
-}
+function toggleGlobalTarget(globalId,compId){const g=globals.find(x=>x.id===globalId);if(!g)return;const i=g.targetComps.indexOf(compId);if(i>=0)g.targetComps.splice(i,1);else g.targetComps.push(compId);renderAll()}
+function toggleGuideLayer(globalId){const g=globals.find(x=>x.id===globalId);if(!g)return;g.guideLayer=!g.guideLayer;renderAll()}
 function toggleSection(key){sectionOpen[key]=!sectionOpen[key];renderAll()}
 function toggleRootSettings(){rootSettingsOpen=!rootSettingsOpen;renderAll()}
 function toggleTierSettings(tierId){if(tierSettingsOpen.has(tierId))tierSettingsOpen.delete(tierId);else tierSettingsOpen.add(tierId);renderAll()}
@@ -492,141 +367,49 @@ function getGlobalSettings(){
   if(globalSettings.mirrorRoot)return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration};
   return{width:globalSettings.width,height:globalSettings.height,fps:globalSettings.fps,duration:globalSettings.duration};
 }
-function syncMirroredGlobals(){
-  if(globalSettings.mirrorRoot){
-    globalSettings.width=settings.width;globalSettings.height=settings.height;
-    globalSettings.fps=settings.fps;globalSettings.duration=settings.duration;
-  }
-}
+function syncMirroredGlobals(){if(globalSettings.mirrorRoot){globalSettings.width=settings.width;globalSettings.height=settings.height;globalSettings.fps=settings.fps;globalSettings.duration=settings.duration}}
 function updateGlobalSetting(key,value){globalSettings[key]=value;renderAll()}
 function toggleGlobalMirrorRoot(){
   globalSettings.mirrorRoot=!globalSettings.mirrorRoot;
-  if(globalSettings.mirrorRoot){
-    globalSettings.width=settings.width;globalSettings.height=settings.height;
-    globalSettings.fps=settings.fps;globalSettings.duration=settings.duration;
-  }
+  if(globalSettings.mirrorRoot){globalSettings.width=settings.width;globalSettings.height=settings.height;globalSettings.fps=settings.fps;globalSettings.duration=settings.duration}
   renderAll();
 }
 
-// ========================================
-// TREE BUILDING
-// ========================================
 function buildDataTree(){
   const root={name:'root',children:[],type:null};
-
   natSort(shots).forEach(shotName=>{
     let shotParent=root;
-
-    if(settings.wrapInFolder){
-      const folder={name:shotName,type:'folder',children:[]};
-      root.children.push(folder);
-      shotParent=folder;
-    }
-
-    // Root comp
+    if(settings.wrapInFolder){const folder={name:shotName,type:'folder',children:[]};root.children.push(folder);shotParent=folder}
     const rootCompName=shotName+rootSuffix;
     const rootNode={name:rootCompName,type:'comp',compType:'root',children:[]};
-
-    // Track all comp nodes by ID for source-linking
     const nodeMap={'root':rootNode};
-
-    // Build tiers
     tiers.forEach((tier,tierIdx)=>{
       tier.comps.forEach(comp=>{
         const compName=shotName+comp.suffix;
         const node={name:compName,type:'comp',compType:'precomp',children:[],compId:comp.id};
         nodeMap[comp.id]=node;
-
-        // Attach to source(s): child of first source, badge for extras
         const sources=getEffectiveSources(comp,tierIdx);
-        const extraSources=sources.length>1?sources.slice(1).map(sid=>{
-          const sc=compById(sid);
-          return sc?sc.label:(sid==='root'?'Root':'?');
-        }):[];
+        const extraSources=sources.length>1?sources.slice(1).map(sid=>{const sc=compById(sid);return sc?sc.label:(sid==='root'?'Root':'?')}):[];
         if(extraSources.length)node.mergeSources=extraSources;
-
         const primarySrc=sources[0];
-        if(nodeMap[primarySrc]){
-          nodeMap[primarySrc].children.push(node);
-        } else {
-          rootNode.children.push(node);
-        }
+        if(nodeMap[primarySrc])nodeMap[primarySrc].children.push(node);else rootNode.children.push(node);
       });
     });
-
-    // Add globals
-    globals.forEach(g=>{
-      g.targetComps.forEach(targetId=>{
-        if(nodeMap[targetId]){
-          nodeMap[targetId].children.push({name:g.name,type:'global',guideLayer:g.guideLayer,children:[]});
-        }
-      });
-    });
-
+    globals.forEach(g=>{g.targetComps.forEach(targetId=>{if(nodeMap[targetId])nodeMap[targetId].children.push({name:g.name,type:'global',guideLayer:g.guideLayer,children:[]})})});
     shotParent.children.push(rootNode);
   });
-
   return root;
 }
 
 function countItems(tree){
   let folders=0,comps=0,globs=0;
-  function walk(n){
-    if(n.type==='folder')folders++;
-    else if(n.type==='comp')comps++;
-    else if(n.type==='global')globs++;
-    n.children.forEach(walk);
-  }
-  tree.children.forEach(walk);
-  return{folders,comps,globals:globs};
+  function walk(n){if(n.type==='folder')folders++;else if(n.type==='comp')comps++;else if(n.type==='global')globs++;n.children.forEach(walk)}
+  tree.children.forEach(walk);return{folders,comps,globals:globs};
 }
 
-// ========================================
-// ICONS
-// ========================================
 function fSVG(c){return`<svg class="fi" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5z"/></svg>`}
 function compSVG(c){return`<svg class="fi" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg>`}
 function globSVG(c){return`<svg class="fi" style="color:${c}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`}
-
-function nodeIcon(n){
-  if(n.type==='folder')return fSVG(FOLDER_COL.icon);
-  if(n.type==='global')return globSVG(GLOBAL_PREV.icon);
-  if(n.type==='comp'&&n.compType==='root')return compSVG(ROOT_COL.icon);
-  if(n.type==='comp'&&n.compType==='precomp')return compSVG(PRECOMP_COL.icon);
-  if(n.type==='comp')return compSVG('#a855f7');
-  return'';
-}
-function nodeStyle(n){
-  if(n.type==='folder')return`color:${FOLDER_COL.text};font-weight:${FOLDER_COL.weight}`;
-  if(n.type==='global')return`color:${GLOBAL_PREV.text};font-weight:${GLOBAL_PREV.weight}`;
-  if(n.type==='comp'&&n.compType==='root')return`color:${ROOT_COL.text};font-weight:${ROOT_COL.weight}`;
-  if(n.type==='comp'&&n.compType==='precomp')return`color:${PRECOMP_COL.text};font-weight:${PRECOMP_COL.weight}`;
-  return'';
-}
-function nodeBadge(n){
-  if(n.type==='folder')return'';
-  if(n.type==='global'){
-    let b=`<span class="tree-badge global">global</span>`;
-    if(n.guideLayer)b+=`<span class="tree-badge global">guide</span>`;
-    return b;
-  }
-  if(n.type==='comp'&&n.compType==='root')return`<span class="tree-badge root-badge">root</span>`;
-  if(n.type==='comp'&&n.mergeSources){
-    return`<span class="tree-badge merge">also ← ${n.mergeSources.join(', ')}</span>`;
-  }
-  return'';
-}
-function cardClass(n){
-  if(n.type==='folder')return'folder-card';
-  if(n.type==='global')return'global-card';
-  if(n.type==='comp'&&n.compType==='root')return'root-card';
-  if(n.type==='comp'&&n.compType==='precomp')return'precomp-card';
-  return'comp-card';
-}
-
-// ========================================
-// VIEW
-// ========================================
 
 // ========================================
 // DAG FLOWCHART VIEW
@@ -634,22 +417,14 @@ function cardClass(n){
 function renderDAGView(){
   const container=document.getElementById('htreeWrap');
   const tree=buildDataTree();
-
   const hasContent=shots.length||globals.length||tiers.some(t=>t.comps.length>0);
-  if(!hasContent){
-    container.innerHTML=`<div class="preview-empty"><span>🎬</span><p>Add comps and precomps to build your AE pipeline</p></div>`;
-    return tree;
-  }
+  if(!hasContent){container.innerHTML=`<div class="preview-empty"><span>🎬</span><p>Add comps and precomps to build your AE pipeline</p></div>`;return tree}
 
-  // Single representative pipeline using {Shot} placeholder
   const shotLabel=shots.length?shots[0]:'{Shot}';
   const hasGlobals=globals.length>0;
-
   let html='';
 
-  // === MAIN PIPELINE ROW ===
   html+=`<div class="dag-shot-row" id="dag-row">`;
-
   // Root column
   html+=`<div class="dag-column">`;
   html+=`<div class="dag-col-label" style="color:#fbbf24">${rootDisplayLabel||'Root'}</div>`;
@@ -658,7 +433,7 @@ function renderDAGView(){
   html+=`<div class="dag-node root-node" data-dag-id="root">${compSVG('#fbbf24')} ${rootName}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
   html+=`</div>`;
 
-  // Tier columns
+  // Tier columns — each group uses its own header color
   tiers.forEach((tier,tierIdx)=>{
     if(tier.comps.length===0)return;
     const col=tierColor(tierIdx);
@@ -671,34 +446,33 @@ function renderDAGView(){
     tier.comps.forEach(comp=>{
       const compName=shotLabel+comp.suffix;
       const sources=getEffectiveSources(comp,tierIdx);
-      html+=`<div class="dag-node precomp-node" data-dag-id="${comp.id}" data-dag-sources="${sources.join(',')}">${compSVG('#34d399')} ${compName}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
+      // Use the tier's color for each precomp node
+      html+=`<div class="dag-node precomp-node" data-dag-id="${comp.id}" data-dag-sources="${sources.join(',')}" style="border-color:${col.dot}66;color:${col.dot}">${compSVG(col.dot)} ${compName}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
     });
     html+=`</div>`;
   });
 
-  html+=`<svg class="dag-svg" id="dag-svg"></svg>`;
-  html+=`</div>`;
-
-  // === GLOBALS ROW (below main pipeline) ===
+  // Globals column
   if(hasGlobals){
+    html+=`</div>`; // close dag-shot-row before globals
     html+=`<div class="dag-globals-row" id="dag-globals-row">`;
     html+=`<div class="dag-col-label" style="color:#fb7185">Globals</div>`;
     html+=`<div class="dag-col-sublabel">${globals.length} comp${globals.length!==1?'s':''}</div>`;
     html+=`<div class="dag-globals-nodes">`;
     globals.forEach(g=>{
-      const targets=g.targetComps.filter(tid=>{
-        if(tid==='root')return true;
-        return compById(tid)!==null;
-      });
+      const targets=g.targetComps.filter(tid=>tid==='root'||compById(tid));
       if(targets.length){
         const gCount=targets.length*shots.length;
         html+=`<div class="dag-node global-node" data-dag-id="${g.id}" data-dag-global-targets="${targets.join(',')}">${globSVG('#fb7185')} ${g.name}${g.guideLayer?' (guide)':''}${gCount?`<span class="dag-count">× ${gCount}</span>`:''}</div>`;
       }
     });
-    html+=`</div>`;
-    html+=`</div>`;
+    html+=`</div></div>`;
     html+=`<svg class="dag-svg" id="dag-globals-svg"></svg>`;
+  } else {
+    html+=`</div>`; // close dag-shot-row
   }
+
+  html+=`<svg class="dag-svg" id="dag-svg" style="position:absolute;top:0;left:0"></svg>`;
 
   container.innerHTML=html;
   requestAnimationFrame(drawDAGLines);
@@ -709,24 +483,24 @@ function drawDAGLines(){
   const row=document.getElementById('dag-row');
   const svg=document.getElementById('dag-svg');
   if(!row||!svg)return;
-  const rr=row.getBoundingClientRect();
-  svg.setAttribute('width',row.scrollWidth);
-  svg.setAttribute('height',row.scrollHeight);
+  const wrap=document.getElementById('htreeWrap');
+  const wr=wrap.getBoundingClientRect();
+  svg.setAttribute('width',wrap.scrollWidth);
+  svg.setAttribute('height',wrap.scrollHeight);
   svg.innerHTML='';
 
-  // Draw source→target lines for precomp nodes (horizontal beziers)
+  // Precomp source lines
   row.querySelectorAll('[data-dag-sources]').forEach(node=>{
     const sources=node.dataset.dagSources.split(',').filter(Boolean);
     const tr=node.getBoundingClientRect();
-    const tx=tr.left-rr.left;
-    const ty=tr.top-rr.top+tr.height/2;
-
+    const tx=tr.left-wr.left;
+    const ty=tr.top-wr.top+tr.height/2;
     sources.forEach(srcId=>{
       const src=row.querySelector('[data-dag-id="'+srcId+'"]');
       if(!src)return;
       const sr=src.getBoundingClientRect();
-      const sx=sr.right-rr.left;
-      const sy=sr.top-rr.top+sr.height/2;
+      const sx=sr.right-wr.left;
+      const sy=sr.top-wr.top+sr.height/2;
       const mx=(sx+tx)/2;
       const path=document.createElementNS('http://www.w3.org/2000/svg','path');
       path.setAttribute('d','M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ty+' '+tx+','+ty);
@@ -734,29 +508,24 @@ function drawDAGLines(){
     });
   });
 
-  // Draw global→target lines (vertical beziers, globals are below targets)
-  const wrap=document.getElementById('htreeWrap');
+  // Global lines
   const gSvg=document.getElementById('dag-globals-svg');
   const globalsRow=document.getElementById('dag-globals-row');
-  if(!wrap||!gSvg||!globalsRow)return;
-  const wr=wrap.getBoundingClientRect();
+  if(!gSvg||!globalsRow)return;
   gSvg.setAttribute('width',wrap.scrollWidth);
   gSvg.setAttribute('height',wrap.scrollHeight);
   gSvg.innerHTML='';
-
   globalsRow.querySelectorAll('[data-dag-global-targets]').forEach(gNode=>{
     const targets=gNode.dataset.dagGlobalTargets.split(',').filter(Boolean);
     const gr=gNode.getBoundingClientRect();
-    const gx=gr.left-wr.left+gr.width/2; // top-center x of global node
-    const gy=gr.top-wr.top;              // top edge (lines go UP)
-
+    const gx=gr.left-wr.left+gr.width/2;
+    const gy=gr.top-wr.top;
     targets.forEach(tid=>{
       const tgt=row.querySelector('[data-dag-id="'+tid+'"]');
       if(!tgt)return;
       const tr2=tgt.getBoundingClientRect();
-      const tx2=tr2.left-wr.left+tr2.width/2; // bottom-center x of target
-      const ty2=tr2.bottom-wr.top;             // bottom edge of target
-
+      const tx2=tr2.left-wr.left+tr2.width/2;
+      const ty2=tr2.bottom-wr.top;
       const my=(gy+ty2)/2;
       const path=document.createElementNS('http://www.w3.org/2000/svg','path');
       path.setAttribute('d','M'+gx+','+gy+' C'+gx+','+my+' '+tx2+','+my+' '+tx2+','+ty2);
@@ -765,17 +534,11 @@ function drawDAGLines(){
     });
   });
 }
-
 window.addEventListener('resize',()=>{requestAnimationFrame(drawDAGLines)});
 
-// ========================================
-// PREVIEW
-// ========================================
 function renderPreview(){
   let tree=renderDAGView();
-
-  const c=countItems(tree);
-  const parts=[];
+  const c=countItems(tree);const parts=[];
   if(c.folders)parts.push(c.folders+' folder'+(c.folders!==1?'s':''));
   if(c.comps)parts.push(c.comps+' comp'+(c.comps!==1?'s':''));
   if(c.globals)parts.push(globals.length+' global'+(globals.length!==1?'s':''));
@@ -783,9 +546,6 @@ function renderPreview(){
   document.getElementById('exportBtn').disabled=shots.length===0;
 }
 
-// ========================================
-// SIDEBAR RENDERING
-// ========================================
 function renderShotTags(){
   if(!shots.length)return'';
   const sorted=shots.map((v,i)=>({v,i})).sort((a,b)=>a.v.localeCompare(b.v,undefined,{numeric:true,sensitivity:'base'}));
@@ -805,7 +565,6 @@ function renderTierCard(tier,tierIdx){
   const tset=getTierSettings(tier);
   let h=`<div class="tier-card" style="border-color:${col.dot}30" ondragover="onDragOver(event,'tier',${tierIdx})" ondragleave="onDragLeave(event)" ondrop="onDrop(event,'tier',${tierIdx})">`;
 
-  // Header
   const tierDisplayName=tier.name||('Group '+(tierIdx+1));
   const isEditingTierName=editingTag&&editingTag.type==='tierName'&&editingTag.tierId===tier.id;
   h+=`<div class="tier-header">`;
@@ -821,9 +580,9 @@ function renderTierCard(tier,tierIdx){
   h+=`<button class="tier-btn" onclick="toggleTierSettings('${tier.id}')" title="Settings" style="${tierSettOpen?'color:#a1a1aa':''}">⚙</button>`;
   h+=`<button class="tier-btn remove" onclick="removeTier('${tier.id}')">×</button>`;
   h+=`</div></div>`;
+
   if(tierSettOpen){
-    h+=`<div class="settings-panel">`;
-    h+=`<div class="tier-settings-row" style="border-bottom:none;padding:0">`;
+    h+=`<div class="settings-panel"><div class="tier-settings-row" style="border-bottom:none;padding:0">`;
     h+=`<label style="font-size:9px;color:#71717a;display:flex;align-items:center;gap:3px;cursor:pointer"><input type="checkbox" ${tier.wrapInFolder?'checked':''} onchange="toggleTierFolder('${tier.id}')" style="accent-color:${col.dot};width:11px;height:11px;cursor:pointer">Wrap in Folder</label>`;
     h+=`<label><input type="checkbox" ${ts.mirrorRoot?'checked':''} onchange="toggleTierMirrorRoot('${tier.id}')">Mirror Root</label>`;
     if(!ts.mirrorRoot){
@@ -834,11 +593,9 @@ function renderTierCard(tier,tierIdx){
     } else {
       h+=`<span class="mirror-summary">${tset.width}×${tset.height} ${tset.fps}fps ${tset.duration}s</span>`;
     }
-    h+=`</div>`;
-    h+=`</div>`;
+    h+=`</div></div>`;
   }
 
-  // Body
   h+=`<div class="tier-body">`;
 
   // Comp tags
@@ -855,8 +612,8 @@ function renderTierCard(tier,tierIdx){
     h+=`</div>`;
   }
 
-  // Sources (green active / grey inactive) — root + previous tier's comps
-  if(tier.comps.length){
+  // Sources — only show for tierIdx > 0 (Group 1 always sources from Root, no chips needed)
+  if(tierIdx>0 && tier.comps.length){
     const availableSources=[{id:'root',label:rootDisplayLabel||'Root'}];
     if(prev)prev.comps.forEach(c=>availableSources.push({id:c.id,label:c.label}));
     tier.comps.forEach(comp=>{
@@ -866,16 +623,16 @@ function renderTierCard(tier,tierIdx){
       availableSources.forEach(src=>{
         const active=comp.sources.includes(src.id);
         const isDefault=comp.sources.length===0;
-        const defaultActive=isDefault&&(tierIdx===0?src.id==='root':src.id!=='root');
+        const defaultActive=isDefault&&(src.id!=='root');
         h+=`<span class="target-chip ${active||defaultActive?'active':''}" onclick="toggleCompSource('${comp.id}','${src.id}')">${src.label}</span>`;
       });
       h+=`</div></div>`;
     });
+  } else if(tierIdx===0 && tier.comps.length){
+    h+=`<div class="source-hint">Sources from Root comp</div>`;
   }
 
-  // Add precomp input (always visible)
   h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-tier-comp-${tier.id}" placeholder="Suffix e.g. _Overlay" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmAddComp('${tier.id}')}"><button class="btn-add" onclick="confirmAddComp('${tier.id}')">+ Add</button></div>`;
-
   h+=`</div></div>`;
   return h;
 }
@@ -884,7 +641,7 @@ function renderSidebar(){
   const sb=document.getElementById('sidebarBody');
   let h='';
 
-  // === ROOT COMPS ===
+  // ROOT COMPS
   const rootLabel=rootDisplayLabel||'Root Comps';
   const isEditingRootName=editingTag&&editingTag.type==='rootName';
   if(!sectionOpen.shots){
@@ -908,13 +665,12 @@ function renderSidebar(){
       h+=`<label>H:<input type="number" id="setH" value="${settings.height}" onchange="settings.height=parseInt(this.value)||1080;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label>`;
       h+=`<label>FPS:<input type="number" id="setFPS" value="${settings.fps}" step="0.01" onchange="settings.fps=parseFloat(this.value)||30;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label>`;
       h+=`<label>Dur:<input type="number" id="setDur" value="${settings.duration}" onchange="settings.duration=parseFloat(this.value)||10;syncMirroredTiers();syncMirroredGlobals();renderAll()">s</label>`;
-      h+=`</div>`;
-      h+=`</div>`;
+      h+=`</div></div>`;
     }
     h+=`</div>`;
   }
 
-  // === PRECOMPS ===
+  // PRECOMPS
   const totalComps=tiers.reduce((s,t)=>s+t.comps.length,0);
   const nestedComps=totalComps*shots.length;
   if(!sectionOpen.tiers){
@@ -926,14 +682,12 @@ function renderSidebar(){
     if(nestedComps)pCountParts.push(nestedComps+' nested');
     const pCountText=pCountParts.length?`<span style="font-size:9px;color:#71717a">${pCountParts.join(', ')}</span>`:'';
     h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${TIER_COL.text}" onclick="toggleSection('tiers')">● Precomps</span><div class="header-right">${pCountText}<span style="display:flex;gap:6px;align-items:center">${tiers.length?`<button class="btn-clear" onclick="clearTiers()">Reset</button>`:''}</span></div></div>`;
-
     tiers.forEach((tier,idx)=>{h+=renderTierCard(tier,idx)});
-
     h+=`<div style="margin-top:4px"><button class="btn-add" onclick="addTier()" style="width:100%;text-align:center;padding:8px">+ Add Precomps</button></div>`;
     h+=`</div>`;
   }
 
-  // === GLOBAL COMPS ===
+  // GLOBAL COMPS
   if(!sectionOpen.globals){
     h+=`<div class="section collapsed-section" onclick="toggleSection('globals')"><div class="section-header collapsed-header"><span class="section-label" style="color:${GLOB_COL.text}">● Global Comps</span><div class="header-right">${globals.length?`<span class="tag" style="background:${GLOB_COL.tagBg};color:${GLOB_COL.text};border:1px solid ${GLOB_COL.tagBorder}">${globals.length} global${globals.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
   } else {
@@ -942,8 +696,7 @@ function renderSidebar(){
     h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${GLOB_COL.text}" onclick="toggleSection('globals')">● Global Comps</span><div class="header-right">${gCountText}<span style="display:flex;gap:6px;align-items:center">${globals.length?`<button class="btn-clear" onclick="clearGlobals()">Clear</button>`:''}<button class="tier-btn" onclick="toggleGlobalSettings()" title="Settings" style="${globalSettingsOpen?'color:#a1a1aa':''}">⚙</button></span></div></div>`;
     if(globalSettingsOpen){
       const gs=getGlobalSettings();
-      h+=`<div class="settings-panel">`;
-      h+=`<div class="tier-settings-row" style="border-bottom:none;padding:4px 0">`;
+      h+=`<div class="settings-panel"><div class="tier-settings-row" style="border-bottom:none;padding:4px 0">`;
       h+=`<label><input type="checkbox" ${globalSettings.mirrorRoot?'checked':''} onchange="toggleGlobalMirrorRoot()" style="accent-color:#fb7185;width:11px;height:11px;cursor:pointer">Mirror Root</label>`;
       if(!globalSettings.mirrorRoot){
         h+=`<label>W:<input type="number" value="${gs.width}" onchange="updateGlobalSetting('width',parseInt(this.value)||1920)"></label>`;
@@ -953,12 +706,9 @@ function renderSidebar(){
       } else {
         h+=`<span class="mirror-summary">${gs.width}×${gs.height} ${gs.fps}fps ${gs.duration}s</span>`;
       }
-      h+=`</div>`;
-      h+=`</div>`;
+      h+=`</div></div>`;
     }
-
     const allOpts=getAllCompOptions();
-
     globals.forEach((g,gi)=>{
       const isEditing=editingTag&&editingTag.type==='global'&&editingTag.idx===gi;
       const validTargets=g.targetComps.filter(tid=>tid==='root'||compById(tid));
@@ -974,186 +724,106 @@ function renderSidebar(){
       h+=`<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">`;
       h+=`<div class="guide-check"><input type="checkbox" id="guide-${g.id}" ${g.guideLayer?'checked':''} onchange="toggleGuideLayer('${g.id}')"><label for="guide-${g.id}">Guide</label></div>`;
       h+=`<button class="tier-btn remove" onclick="removeGlobal(${gi})">×</button>`;
-      h+=`</div>`;
-      h+=`</div>`;
+      h+=`</div></div>`;
       h+=`<span class="global-arrow">into</span>`;
       h+=`<div class="global-targets">`;
       let lastTierLabel='';
       allOpts.forEach(opt=>{
-        if(opt.tierLabel!==lastTierLabel){
-          if(lastTierLabel)h+=`<span class="target-sep"></span>`;
-          lastTierLabel=opt.tierLabel;
-        }
+        if(opt.tierLabel!==lastTierLabel){if(lastTierLabel)h+=`<span class="target-sep"></span>`;lastTierLabel=opt.tierLabel}
         const active=g.targetComps.includes(opt.id);
-        h+=`<span class="target-chip ${active?'active':''}" onclick="toggleGlobalTarget('${g.id}','${opt.id}')" ${active?'style="background:rgba(251,113,133,0.12);color:#fb7185;border-color:rgba(251,113,133,0.3)"':''}>${opt.label}</span>`;
+        h+=`<span class="target-chip ${active?'active':''}" onclick="toggleGlobalTarget('${g.id}','${opt.id}')">${opt.label}</span>`;
       });
-      h+=`</div>`;
-      h+=`</div>`;
+      h+=`</div></div>`;
     });
-
     h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-globals" placeholder="e.g. FX_Overlay, Template_Guide" onkeydown="if(event.key==='Enter'){addGlobal();return;}"><button class="btn-add" onclick="addGlobal()">+ Add</button></div>`;
     h+=`</div>`;
   }
-
   sb.innerHTML=h;
 }
 
-// ========================================
-// RENDER ALL
-// ========================================
 function renderAll(){
-  const ae=document.activeElement;
-  const aId=ae&&ae.tagName==='INPUT'?ae.id:null;
-  const aVal=aId?ae.value:'';
-  const aSel=aId?[ae.selectionStart,ae.selectionEnd]:null;
+  const ae=document.activeElement;const aId=ae&&ae.tagName==='INPUT'?ae.id:null;
+  const aVal=aId?ae.value:'';const aSel=aId?[ae.selectionStart,ae.selectionEnd]:null;
   renderSidebar();renderPreview();
   if(aId){const el=document.getElementById(aId);if(el){el.value=aVal;el.focus();if(aSel)el.setSelectionRange(aSel[0],aSel[1])}}
   if(editingTag){const ed=document.getElementById('edit-tag');if(ed){ed.focus();ed.select()}}
 }
 
-// ========================================
-// EXTENDSCRIPT GENERATION
-// ========================================
 function generateScript(){
   const RW=settings.width,RH=settings.height,RFPS=settings.fps,RDUR=settings.duration;
-  let lines=[];
-  let vc=0;
+  let lines=[],vc=0;
   function v(){return'v'+(vc++)}
   function safe(s){return s.replace(/"/g,'\\"')}
-
   lines.push('// AE Comp Builder - Generated ExtendScript');
   lines.push('(function() {');
   lines.push('  app.beginUndoGroup("Create Comp Pipeline");');
   lines.push('  var p = app.project;');
   lines.push('');
-
-  // Root comp settings
   lines.push('  // Root comp settings');
   lines.push(`  var RW = ${RW}, RH = ${RH}, RFPS = ${RFPS}, RDUR = ${RDUR};`);
-
-  // Per-tier settings (only emit if different from root)
   tiers.forEach((tier,idx)=>{
     if(!tier.settings||tier.settings.mirrorRoot)return;
     const ts=getTierSettings(tier);
     lines.push(`  var T${idx}W = ${ts.width}, T${idx}H = ${ts.height}, T${idx}FPS = ${ts.fps}, T${idx}DUR = ${ts.duration};`);
   });
-  // Global comp settings (only emit if different from root)
-  if(!globalSettings.mirrorRoot){
-    const gs=getGlobalSettings();
-    lines.push(`  var GW = ${gs.width}, GH = ${gs.height}, GFPS = ${gs.fps}, GDUR = ${gs.duration};`);
-  }
+  if(!globalSettings.mirrorRoot){const gs=getGlobalSettings();lines.push(`  var GW = ${gs.width}, GH = ${gs.height}, GFPS = ${gs.fps}, GDUR = ${gs.duration};`)}
   lines.push('');
-
-  // Create global comps at root (label=1 Red) — use root settings
   const globalVars={};
   globals.forEach(g=>{
-    const vn=v();
-    globalVars[g.id]=vn;
-    const gpfx=globalSettings.mirrorRoot?'R':'G';
+    const vn=v();globalVars[g.id]=vn;const gpfx=globalSettings.mirrorRoot?'R':'G';
     lines.push(`  // Global: ${safe(g.name)}`);
     lines.push(`  var ${vn} = p.items.addComp("${safe(g.name)}", ${gpfx}W, ${gpfx}H, 1, ${gpfx}DUR, ${gpfx}FPS);`);
     lines.push(`  ${vn}.label = 1;`);
   });
   if(globals.length)lines.push('');
-
-  // Per shot
   natSort(shots).forEach(shotName=>{
-    const sn=safe(shotName);
-    lines.push(`  // --- ${sn} ---`);
-
+    const sn=safe(shotName);lines.push(`  // --- ${sn} ---`);
     let folderVar=null;
-    if(settings.wrapInFolder){
-      folderVar=v();
-      lines.push(`  var ${folderVar} = p.rootFolder.items.addFolder("${sn}");`);
-    }
-
-    // Root comp (label=3 Yellow)
-    const rootVar=v();
-    const rootCompName=safe(shotName+rootSuffix);
+    if(settings.wrapInFolder){folderVar=v();lines.push(`  var ${folderVar} = p.rootFolder.items.addFolder("${sn}");`)}
+    const rootVar=v();const rootCompName=safe(shotName+rootSuffix);
     lines.push(`  var ${rootVar} = p.items.addComp("${rootCompName}", RW, RH, 1, RDUR, RFPS);`);
     lines.push(`  ${rootVar}.label = 3;`);
     if(folderVar)lines.push(`  ${rootVar}.parentFolder = ${folderVar};`);
-
-    // Track comp vars
     const compVarMap={'root':rootVar};
-
-    // Create precomps per tier (label=4 Green)
     tiers.forEach((tier,tierIdx)=>{
-      // Tier folder
       let tierFolderVar=null;
-      if(tier.wrapInFolder&&folderVar){
-        tierFolderVar=v();
-        const tierFolderName=safe(tier.name||('Group '+(tierIdx+1)));
-        lines.push(`  var ${tierFolderVar} = ${folderVar}.items.addFolder("${tierFolderName}");`);
-      }
-
-      // Tier settings prefix
-      const useTierVars=tier.settings&&!tier.settings.mirrorRoot;
-      const pfx=useTierVars?'T'+tierIdx:'R';
-
+      if(tier.wrapInFolder&&folderVar){tierFolderVar=v();const tierFolderName=safe(tier.name||('Group '+(tierIdx+1)));lines.push(`  var ${tierFolderVar} = ${folderVar}.items.addFolder("${tierFolderName}");`)}
+      const useTierVars=tier.settings&&!tier.settings.mirrorRoot;const pfx=useTierVars?'T'+tierIdx:'R';
       tier.comps.forEach(comp=>{
-        const cv=v();
-        compVarMap[comp.id]=cv;
-        const cn=safe(shotName+comp.suffix);
+        const cv=v();compVarMap[comp.id]=cv;const cn=safe(shotName+comp.suffix);
         lines.push(`  var ${cv} = p.items.addComp("${cn}", ${pfx}W, ${pfx}H, 1, ${pfx}DUR, ${pfx}FPS);`);
         lines.push(`  ${cv}.label = 4;`);
         if(tierFolderVar)lines.push(`  ${cv}.parentFolder = ${tierFolderVar};`);
         else if(folderVar)lines.push(`  ${cv}.parentFolder = ${folderVar};`);
-
-        // Chain: layers.add each source
         const sources=getEffectiveSources(comp,tierIdx);
-        sources.forEach(srcId=>{
-          if(compVarMap[srcId]){
-            lines.push(`  ${cv}.layers.add(${compVarMap[srcId]});`);
-          }
-        });
+        sources.forEach(srcId=>{if(compVarMap[srcId])lines.push(`  ${cv}.layers.add(${compVarMap[srcId]});`)});
       });
     });
-
-    // Add globals to targets
     globals.forEach(g=>{
       g.targetComps.forEach(targetId=>{
         if(compVarMap[targetId]&&globalVars[g.id]){
-          if(g.guideLayer){
-            const lv='lyr'+(vc++);
-            lines.push(`  var ${lv} = ${compVarMap[targetId]}.layers.add(${globalVars[g.id]});`);
-            lines.push(`  ${lv}.guideLayer = true;`);
-          } else {
-            lines.push(`  ${compVarMap[targetId]}.layers.add(${globalVars[g.id]});`);
-          }
+          if(g.guideLayer){const lv='lyr'+(vc++);lines.push(`  var ${lv} = ${compVarMap[targetId]}.layers.add(${globalVars[g.id]});`);lines.push(`  ${lv}.guideLayer = true;`)}
+          else{lines.push(`  ${compVarMap[targetId]}.layers.add(${globalVars[g.id]});`)}
         }
       });
     });
-
     lines.push('');
   });
-
   const totalComps=shots.length*(1+tiers.reduce((s,t)=>s+t.comps.length,0))+globals.length;
   lines.push('  app.endUndoGroup();');
   lines.push(`  alert("Created ${totalComps} compositions!");`);
   lines.push('})();');
-
   return lines.join('\n');
 }
 
 function exportScript(){
-  const script=generateScript();
-  const blob=new Blob([script],{type:'text/plain'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='ae_comp_structure.jsx';
-  a.click();
-  URL.revokeObjectURL(a.href);
+  const script=generateScript();const blob=new Blob([script],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='ae_comp_structure.jsx';a.click();URL.revokeObjectURL(a.href);
 }
 
-// ========================================
-// INIT
-// ========================================
 (function(){
-  // Default Group 1 with input ready
   const t={id:'tier_'+tierIdCounter++,name:null,comps:[],wrapInFolder:false,settings:makeTierSettings()};
-  tiers.push(t);
-  renderAll();
+  tiers.push(t);renderAll();
   requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp-'+t.id);if(inp)inp.focus()});
 })();
 </script>
