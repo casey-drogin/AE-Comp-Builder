@@ -59,6 +59,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tier-settings-row input[type="number"]{background:#0a0a0a;border:1px solid #3f3f46;border-radius:3px;padding:2px 4px;font-size:10px;color:#e4e4e7;width:48px;outline:none}
 .tier-settings-row input[type="number"]:focus{border-color:#52525b}
 .tier-settings-row .mirror-summary{font-size:9px;color:#3f3f46;font-style:italic}
+/* Settings dropdowns */
+.settings-panel{padding:8px 10px;border-bottom:1px solid #1e1e20}
+.settings-panel .comp-settings{margin-top:0}
 /* Source rows per comp */
 .source-row{display:flex;align-items:center;gap:6px;padding:4px 0;flex-wrap:wrap}
 .source-comp-label{font-size:10px;font-weight:600;color:#a1a1aa;min-width:60px;font-family:'SF Mono','Consolas',monospace}
@@ -95,42 +98,28 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 /* Preview */
 .preview-header{padding:14px 20px;border-bottom:1px solid #27272a;display:flex;align-items:center;justify-content:space-between}
 .preview-header h2{font-size:14px;font-weight:600}
-.preview-controls{display:flex;align-items:center;gap:8px}
 .badge{font-size:11px;background:#27272a;color:#a1a1aa;padding:2px 10px;border-radius:10px}
-.view-tabs{display:flex;gap:2px;background:#18181b;border-radius:7px;padding:2px;border:1px solid #27272a}
-.view-tab{font-size:11px;padding:4px 10px;border-radius:5px;cursor:pointer;color:#52525b;border:none;background:none;font-weight:500;transition:all 0.15s}
-.view-tab:hover{color:#a1a1aa}
-.view-tab.active{color:#e4e4e7;background:#27272a}
-.preview-body{flex:1;overflow:auto;padding:16px 20px;font-family:'SF Mono','Consolas',monospace;font-size:12px}
 .preview-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#3f3f46;gap:8px;font-family:-apple-system,sans-serif}
 .preview-empty span{font-size:32px}
 .preview-empty p{font-size:13px}
-/* Tree view */
-.tree-row{display:flex;align-items:center;gap:5px;padding:1.5px 0;white-space:nowrap;cursor:pointer;border-radius:4px}
-.tree-row:hover{background:rgba(255,255,255,0.03)}
-.tree-toggle{width:14px;flex-shrink:0;text-align:center;font-size:9px;color:#52525b;transition:transform 0.15s}
-.tree-toggle.open{transform:rotate(90deg)}
-.tree-toggle.leaf{visibility:hidden}
-.tc{color:#3f3f46;width:18px;flex-shrink:0;text-align:center;font-size:11px}
 .fi{width:13px;height:13px;flex-shrink:0}
-.tree-badge{font-size:9px;padding:1px 6px;border-radius:3px;margin-left:4px}
-.tree-badge.chain{background:rgba(34,211,238,0.12);color:#22d3ee}
-.tree-badge.merge{background:rgba(251,191,36,0.12);color:#fbbf24}
-.tree-badge.global{background:rgba(251,113,133,0.12);color:#fb7185}
-.tree-badge.root-badge{background:rgba(251,191,36,0.12);color:#fbbf24}
 /* DAG Flowchart view */
-.sunburst-container{flex:1;overflow:auto;position:relative;padding:24px}
-.dag-wrap{display:inline-flex;min-width:max-content;position:relative}
-.dag-shot-row{display:flex;align-items:flex-start;gap:0;margin-bottom:20px;position:relative}
-.dag-column{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:100px;padding:0 30px}
-.dag-col-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#52525b;margin-bottom:6px;text-align:center}
-.dag-node{padding:6px 12px;border-radius:7px;font-size:11px;white-space:nowrap;border:1px solid #27272a;background:#18181b;display:inline-flex;align-items:center;gap:5px;position:relative;z-index:1}
+.sunburst-container{flex:1;overflow:auto;position:relative;padding:32px}
+.dag-wrap{display:inline-flex;flex-direction:column;align-items:center;min-width:max-content;position:relative}
+.dag-shot-row{display:flex;align-items:center;gap:0;position:relative}
+.dag-globals-row{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 40px 0;border-top:1px dashed #27272a;margin-top:16px;width:100%}
+.dag-globals-nodes{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.dag-col-sublabel{font-size:9px;color:#3f3f46;margin-top:-4px;margin-bottom:8px;text-align:center}
+.dag-column{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:130px;padding:0 40px}
+.dag-col-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#52525b;margin-bottom:8px;text-align:center}
+.dag-node{padding:8px 16px;border-radius:8px;font-size:12px;white-space:nowrap;border:1px solid #27272a;background:#18181b;display:inline-flex;align-items:center;gap:6px;position:relative;z-index:1}
 .dag-node.root-node{border-color:rgba(251,191,36,0.4);color:#fbbf24}
 .dag-node.precomp-node{border-color:rgba(52,211,153,0.4);color:#34d399}
-.dag-node.global-node{border-color:rgba(251,113,133,0.4);color:#fb7185;font-size:10px;padding:4px 8px}
+.dag-node.global-node{border-color:rgba(251,113,133,0.4);color:#fb7185;font-size:11px;padding:6px 12px}
 .dag-svg{position:absolute;top:0;left:0;pointer-events:none;z-index:0;overflow:visible}
 .dag-svg path{fill:none;stroke:#3f3f46;stroke-width:1.5}
 .dag-svg path.global-line{stroke:#fb718540;stroke-dasharray:4,3;stroke-width:1}
+.dag-count{font-size:10px;color:#52525b;margin-left:4px;font-weight:normal}
 @media(max-width:900px){body{flex-direction:column}.sidebar{width:100%;min-width:0;height:auto;max-height:55vh;border-right:none;border-bottom:1px solid #27272a}.main{height:45vh}}
 </style>
 </head>
@@ -149,20 +138,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="main">
   <div class="preview-header">
     <div style="display:flex;align-items:center;gap:8px">
-      <h2>Project Preview</h2>
+      <h2>Pipeline Preview</h2>
       <span class="badge" id="countBadge">0 items</span>
     </div>
-    <div class="preview-controls">
-      <div class="view-tabs">
-        <button class="view-tab active" onclick="setView('tree')">Tree</button>
-        <button class="view-tab" onclick="setView('htree')">Flowchart</button>
-      </div>
-    </div>
   </div>
-  <div class="preview-body" id="previewBody">
-    <div class="preview-empty"><span>🎬</span><p>Add root comps and precomp tiers to see your AE project</p></div>
-  </div>
-  <div id="sunburstView" class="sunburst-container" style="display:none">
+  <div id="sunburstView" class="sunburst-container">
     <div class="dag-wrap" id="htreeWrap"></div>
   </div>
 </div>
@@ -200,9 +180,12 @@ let globals=[];
 let globalIdCounter=0;
 let settings={wrapInFolder:true,width:1920,height:1080,fps:30,duration:10};
 
-let currentView='tree',treeCollapsed={},editingTag=null;
-let sectionOpen={shots:true,tiers:true,globals:true,settings:false};
-let addingCompToTier=null;
+let editingTag=null;
+let sectionOpen={shots:true,tiers:true,globals:true};
+let rootSettingsOpen=false;
+let tierSettingsOpen=new Set();
+let globalSettingsOpen=false;
+let globalSettings={width:1920,height:1080,fps:30,duration:10,mirrorRoot:true};
 
 // ========================================
 // TIER HELPERS
@@ -219,7 +202,7 @@ function getEffectiveSources(comp,tierIdx){
 function tierColor(tierIdx){return COLORS[(tierIdx+1)%COLORS.length]}
 function getAllCompOptions(){
   const opts=[{id:'root',label:rootSuffix?rootSuffix.replace(/^_/,''):'Root',tierLabel:'Root'}];
-  tiers.forEach((t,i)=>t.comps.forEach(c=>opts.push({id:c.id,label:c.label,tierLabel:'Tier '+(i+1)})));
+  tiers.forEach((t,i)=>t.comps.forEach(c=>opts.push({id:c.id,label:c.label,tierLabel:t.name||('Tier '+(i+1))})));
   return opts;
 }
 function validateAllSources(){
@@ -295,6 +278,7 @@ document.addEventListener('paste',function(e){
 function startEditShot(idx){editingTag={type:'shot',idx};renderAll()}
 function startEditGlobal(idx){editingTag={type:'global',idx};renderAll()}
 function startEditCompSuffix(compId){editingTag={type:'compSuffix',compId};renderAll()}
+function startEditTierName(tierId){editingTag={type:'tierName',tierId};renderAll()}
 
 function commitEdit(inputEl){
   if(!editingTag)return;
@@ -314,6 +298,9 @@ function commitEdit(inputEl){
       comp.suffix=s||'_unnamed';
       comp.label=comp.suffix.replace(/^_/,'').replace(/_/g,' ');
     }
+  } else if(editingTag.type==='tierName'){
+    const tier=tierById(editingTag.tierId);
+    if(tier)tier.name=val||null;
   }
   editingTag=null;renderAll();
 }
@@ -342,11 +329,10 @@ function updateRootSuffix(val){
 // TIER OPERATIONS
 // ========================================
 function addTier(){
-  const t={id:'tier_'+tierIdCounter++,comps:[],wrapInFolder:false,settings:makeTierSettings()};
+  const t={id:'tier_'+tierIdCounter++,name:null,comps:[],wrapInFolder:false,settings:makeTierSettings()};
   tiers.push(t);
-  addingCompToTier=t.id;
   renderAll();
-  requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp');if(inp)inp.focus()});
+  requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp-'+t.id);if(inp)inp.focus()});
 }
 function removeTier(tierId){
   const idx=tiers.findIndex(t=>t.id===tierId);
@@ -368,35 +354,24 @@ function moveTier(tierId,dir){
 function clearTiers(){
   tiers=[];
   globals.forEach(g=>{g.targetComps=g.targetComps.filter(id=>id==='root')});
-  addingCompToTier=null;
   renderAll();
 }
 
 // ========================================
 // COMP-WITHIN-TIER OPERATIONS
 // ========================================
-function addCompToTier(tierId){
-  addingCompToTier=tierId;
-  renderAll();
-  requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp');if(inp)inp.focus()});
-}
-function confirmAddComp(){
-  const inp=document.getElementById('inp-tier-comp');
-  if(!inp){cancelAddComp();return}
+function confirmAddComp(tierId){
+  const inp=document.getElementById('inp-tier-comp-'+tierId);
+  if(!inp)return;
   let s=san(inp.value.trim());
-  if(!s){cancelAddComp();return}
+  if(!s)return;
   if(!s.startsWith('_'))s='_'+s;
   const label=s.replace(/^_/,'').replace(/_/g,' ');
-  const tier=tierById(addingCompToTier);
+  const tier=tierById(tierId);
   if(tier)tier.comps.push({id:'comp_'+compIdCounter++,suffix:s,label,sources:[]});
-  // Keep addingCompToTier set — chain to next input
+  inp.value='';
   renderAll();
-  requestAnimationFrame(()=>{const newInp=document.getElementById('inp-tier-comp');if(newInp){newInp.value='';newInp.focus()}});
-}
-function cancelAddComp(){addingCompToTier=null;renderAll()}
-function addCompKeyHandler(e){
-  if(e.key==='Enter'){e.preventDefault();confirmAddComp()}
-  else if(e.key==='Escape'){cancelAddComp()}
+  requestAnimationFrame(()=>{const newInp=document.getElementById('inp-tier-comp-'+tierId);if(newInp)newInp.focus()});
 }
 function removeCompFromTier(compId){
   tiers.forEach(t=>{t.comps=t.comps.filter(c=>c.id!==compId)});
@@ -446,6 +421,28 @@ function toggleGuideLayer(globalId){
   renderAll();
 }
 function toggleSection(key){sectionOpen[key]=!sectionOpen[key];renderAll()}
+function toggleRootSettings(){rootSettingsOpen=!rootSettingsOpen;renderAll()}
+function toggleTierSettings(tierId){if(tierSettingsOpen.has(tierId))tierSettingsOpen.delete(tierId);else tierSettingsOpen.add(tierId);renderAll()}
+function toggleGlobalSettings(){globalSettingsOpen=!globalSettingsOpen;renderAll()}
+function getGlobalSettings(){
+  if(globalSettings.mirrorRoot)return{width:settings.width,height:settings.height,fps:settings.fps,duration:settings.duration};
+  return{width:globalSettings.width,height:globalSettings.height,fps:globalSettings.fps,duration:globalSettings.duration};
+}
+function syncMirroredGlobals(){
+  if(globalSettings.mirrorRoot){
+    globalSettings.width=settings.width;globalSettings.height=settings.height;
+    globalSettings.fps=settings.fps;globalSettings.duration=settings.duration;
+  }
+}
+function updateGlobalSetting(key,value){globalSettings[key]=value;renderAll()}
+function toggleGlobalMirrorRoot(){
+  globalSettings.mirrorRoot=!globalSettings.mirrorRoot;
+  if(globalSettings.mirrorRoot){
+    globalSettings.width=settings.width;globalSettings.height=settings.height;
+    globalSettings.fps=settings.fps;globalSettings.duration=settings.duration;
+  }
+  renderAll();
+}
 
 // ========================================
 // TREE BUILDING
@@ -566,44 +563,6 @@ function cardClass(n){
 // ========================================
 // VIEW
 // ========================================
-function setView(v){
-  currentView=v;
-  document.querySelectorAll('.view-tab').forEach(t=>{
-    t.classList.toggle('active',t.textContent.toLowerCase()===v||(v==='htree'&&t.textContent==='Flowchart'));
-  });
-  document.getElementById('previewBody').style.display=v==='tree'?'':'none';
-  document.getElementById('sunburstView').style.display=v==='htree'?'':'none';
-  renderPreview();
-}
-function toggleTreeNode(p){treeCollapsed[p]=!treeCollapsed[p];renderPreview()}
-
-// ========================================
-// TREE VIEW
-// ========================================
-function renderTreeView(){
-  const box=document.getElementById('previewBody');
-  const tree=buildDataTree();
-  let html='';
-  function renderNode(node,connectors,isLast,parentPath){
-    if(!node.type){node.children.forEach((ch,i)=>renderNode(ch,[],i===node.children.length-1,''));return}
-    const path=parentPath?parentPath+'/'+node.name:node.name;
-    const hasKids=node.children.length>0;
-    const collapsed=treeCollapsed[path]===true;
-    let h='<div class="tree-row" onclick="toggleTreeNode(\''+esc(path)+'\')">';
-    connectors.forEach(c=>{h+=`<span class="tc">${c}</span>`});
-    h+=hasKids?`<span class="tree-toggle ${collapsed?'':'open'}">▶</span>`:`<span class="tree-toggle leaf"></span>`;
-    h+=nodeIcon(node)+` <span style="${nodeStyle(node)}">${node.name}</span>${nodeBadge(node)}</div>`;
-    html+=h;
-    if(hasKids&&!collapsed){
-      node.children.forEach((ch,i)=>{
-        renderNode(ch,[...connectors,i===node.children.length-1?'&nbsp;':'│'],i===node.children.length-1,path);
-      });
-    }
-  }
-  tree.children.forEach((ch,i)=>{renderNode(ch,[],i===tree.children.length-1,'');html+='<div style="height:4px"></div>'});
-  box.innerHTML=html||`<div class="preview-empty"><span>🎬</span><p>Add root comps and precomp tiers to see your AE project</p></div>`;
-  return tree;
-}
 
 // ========================================
 // DAG FLOWCHART VIEW
@@ -612,135 +571,148 @@ function renderDAGView(){
   const container=document.getElementById('htreeWrap');
   const tree=buildDataTree();
 
-  if(!shots.length||(!tiers.length&&!globals.length)){
+  if(!tiers.length&&!globals.length){
     container.innerHTML=`<div class="preview-empty"><span>🎬</span><p>Add root comps and precomp tiers to see your AE project</p></div>`;
     return tree;
   }
 
-  // Build column structure: Root | Tier0 | Tier1 | ... | Globals
+  // Single representative pipeline using {Shot} placeholder
+  const shotLabel=shots.length?shots[0]:'{Shot}';
   const hasGlobals=globals.length>0;
-  const colCount=1+tiers.length+(hasGlobals?1:0);
 
   let html='';
 
-  natSort(shots).forEach((shotName,shotIdx)=>{
-    html+=`<div class="dag-shot-row" id="dag-shot-${shotIdx}">`;
+  // === MAIN PIPELINE ROW ===
+  html+=`<div class="dag-shot-row" id="dag-row">`;
 
-    // Root column
+  // Root column
+  html+=`<div class="dag-column">`;
+  html+=`<div class="dag-col-label" style="color:#fbbf24">Root</div>`;
+  if(shots.length)html+=`<div class="dag-col-sublabel">${shots.length} comp${shots.length!==1?'s':''}</div>`;
+  const rootName=shotLabel+rootSuffix;
+  html+=`<div class="dag-node root-node" data-dag-id="root">${compSVG('#fbbf24')} ${rootName}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
+  html+=`</div>`;
+
+  // Tier columns
+  tiers.forEach((tier,tierIdx)=>{
+    const col=tierColor(tierIdx);
+    const tierLabel=tier.name||('Tier '+(tierIdx+1));
     html+=`<div class="dag-column">`;
-    if(shotIdx===0)html+=`<div class="dag-col-label" style="color:#fbbf24">Root</div>`;
-    const rootName=shotName+rootSuffix;
-    html+=`<div class="dag-node root-node" data-dag-id="root" data-dag-shot="${shotIdx}">${compSVG('#fbbf24')} ${rootName}</div>`;
-    html+=`</div>`;
-
-    // Tier columns
-    tiers.forEach((tier,tierIdx)=>{
-      const col=tierColor(tierIdx);
-      html+=`<div class="dag-column">`;
-      if(shotIdx===0)html+=`<div class="dag-col-label" style="color:${col.dot}">Tier ${tierIdx+1}</div>`;
-      if(tier.comps.length===0){
-        html+=`<div style="min-height:28px"></div>`;
-      } else {
-        tier.comps.forEach(comp=>{
-          const compName=shotName+comp.suffix;
-          const sources=getEffectiveSources(comp,tierIdx);
-          html+=`<div class="dag-node precomp-node" data-dag-id="${comp.id}" data-dag-shot="${shotIdx}" data-dag-sources="${sources.join(',')}">${compSVG('#34d399')} ${compName}</div>`;
-        });
-      }
-      html+=`</div>`;
-    });
-
-    // Globals column
-    if(hasGlobals){
-      html+=`<div class="dag-column">`;
-      if(shotIdx===0)html+=`<div class="dag-col-label" style="color:#fb7185">Globals</div>`;
-      globals.forEach(g=>{
-        const targets=g.targetComps.filter(tid=>{
-          if(tid==='root')return true;
-          return compById(tid)!==null;
-        });
-        if(targets.length){
-          html+=`<div class="dag-node global-node" data-dag-id="${g.id}" data-dag-shot="${shotIdx}" data-dag-global-targets="${targets.join(',')}">${globSVG('#fb7185')} ${g.name}${g.guideLayer?' (guide)':''}</div>`;
-        }
-      });
-      html+=`</div>`;
+    html+=`<div class="dag-col-label" style="color:${col.dot}">${tierLabel}</div>`;
+    if(tier.comps.length){
+      const nestedCount=shots.length?tier.comps.length*shots.length:tier.comps.length;
+      const sublabel=shots.length?`${tier.comps.length} × ${shots.length} = ${nestedCount}`:`${tier.comps.length} comp${tier.comps.length!==1?'s':''}`;
+      html+=`<div class="dag-col-sublabel">${sublabel}</div>`;
     }
-
-    html+=`<svg class="dag-svg" id="dag-svg-${shotIdx}"></svg>`;
+    if(tier.comps.length===0){
+      html+=`<div style="min-height:36px"></div>`;
+    } else {
+      tier.comps.forEach(comp=>{
+        const compName=shotLabel+comp.suffix;
+        const sources=getEffectiveSources(comp,tierIdx);
+        html+=`<div class="dag-node precomp-node" data-dag-id="${comp.id}" data-dag-sources="${sources.join(',')}">${compSVG('#34d399')} ${compName}${shots.length?`<span class="dag-count">× ${shots.length}</span>`:''}</div>`;
+      });
+    }
     html+=`</div>`;
   });
 
-  container.innerHTML=html;
+  html+=`<svg class="dag-svg" id="dag-svg"></svg>`;
+  html+=`</div>`;
 
+  // === GLOBALS ROW (below main pipeline) ===
+  if(hasGlobals){
+    html+=`<div class="dag-globals-row" id="dag-globals-row">`;
+    html+=`<div class="dag-col-label" style="color:#fb7185">Globals</div>`;
+    html+=`<div class="dag-col-sublabel">${globals.length} comp${globals.length!==1?'s':''}</div>`;
+    html+=`<div class="dag-globals-nodes">`;
+    globals.forEach(g=>{
+      const targets=g.targetComps.filter(tid=>{
+        if(tid==='root')return true;
+        return compById(tid)!==null;
+      });
+      if(targets.length){
+        const gCount=targets.length*shots.length;
+        html+=`<div class="dag-node global-node" data-dag-id="${g.id}" data-dag-global-targets="${targets.join(',')}">${globSVG('#fb7185')} ${g.name}${g.guideLayer?' (guide)':''}${gCount?`<span class="dag-count">× ${gCount}</span>`:''}</div>`;
+      }
+    });
+    html+=`</div>`;
+    html+=`</div>`;
+    html+=`<svg class="dag-svg" id="dag-globals-svg"></svg>`;
+  }
+
+  container.innerHTML=html;
   requestAnimationFrame(drawDAGLines);
   return tree;
 }
 
 function drawDAGLines(){
-  natSort(shots).forEach((shotName,shotIdx)=>{
-    const row=document.getElementById('dag-shot-'+shotIdx);
-    const svg=document.getElementById('dag-svg-'+shotIdx);
-    if(!row||!svg)return;
-    const rr=row.getBoundingClientRect();
-    svg.setAttribute('width',row.scrollWidth);
-    svg.setAttribute('height',row.scrollHeight);
-    svg.innerHTML='';
+  const row=document.getElementById('dag-row');
+  const svg=document.getElementById('dag-svg');
+  if(!row||!svg)return;
+  const rr=row.getBoundingClientRect();
+  svg.setAttribute('width',row.scrollWidth);
+  svg.setAttribute('height',row.scrollHeight);
+  svg.innerHTML='';
 
-    // Draw source→target lines for precomp nodes
-    row.querySelectorAll('[data-dag-sources]').forEach(node=>{
-      const shot=node.dataset.dagShot;
-      const sources=node.dataset.dagSources.split(',').filter(Boolean);
-      const tr=node.getBoundingClientRect();
-      const tx=tr.left-rr.left;
-      const ty=tr.top-rr.top+tr.height/2;
+  // Draw source→target lines for precomp nodes (horizontal beziers)
+  row.querySelectorAll('[data-dag-sources]').forEach(node=>{
+    const sources=node.dataset.dagSources.split(',').filter(Boolean);
+    const tr=node.getBoundingClientRect();
+    const tx=tr.left-rr.left;
+    const ty=tr.top-rr.top+tr.height/2;
 
-      sources.forEach(srcId=>{
-        const src=row.querySelector('[data-dag-id="'+srcId+'"][data-dag-shot="'+shot+'"]');
-        if(!src)return;
-        const sr=src.getBoundingClientRect();
-        const sx=sr.right-rr.left;
-        const sy=sr.top-rr.top+sr.height/2;
-        const mx=(sx+tx)/2;
-        const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-        path.setAttribute('d','M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ty+' '+tx+','+ty);
-        svg.appendChild(path);
-      });
+    sources.forEach(srcId=>{
+      const src=row.querySelector('[data-dag-id="'+srcId+'"]');
+      if(!src)return;
+      const sr=src.getBoundingClientRect();
+      const sx=sr.right-rr.left;
+      const sy=sr.top-rr.top+sr.height/2;
+      const mx=(sx+tx)/2;
+      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d','M'+sx+','+sy+' C'+mx+','+sy+' '+mx+','+ty+' '+tx+','+ty);
+      svg.appendChild(path);
     });
+  });
 
-    // Draw global→target lines
-    row.querySelectorAll('[data-dag-global-targets]').forEach(gNode=>{
-      const shot=gNode.dataset.dagShot;
-      const targets=gNode.dataset.dagGlobalTargets.split(',').filter(Boolean);
-      const gr=gNode.getBoundingClientRect();
-      const gx=gr.left-rr.left;
-      const gy=gr.top-rr.top+gr.height/2;
+  // Draw global→target lines (vertical beziers, globals are below targets)
+  const wrap=document.getElementById('htreeWrap');
+  const gSvg=document.getElementById('dag-globals-svg');
+  const globalsRow=document.getElementById('dag-globals-row');
+  if(!wrap||!gSvg||!globalsRow)return;
+  const wr=wrap.getBoundingClientRect();
+  gSvg.setAttribute('width',wrap.scrollWidth);
+  gSvg.setAttribute('height',wrap.scrollHeight);
+  gSvg.innerHTML='';
 
-      targets.forEach(tid=>{
-        const tgt=row.querySelector('[data-dag-id="'+tid+'"][data-dag-shot="'+shot+'"]');
-        if(!tgt)return;
-        const tr2=tgt.getBoundingClientRect();
-        const tx2=tr2.right-rr.left;
-        const ty2=tr2.top-rr.top+tr2.height/2;
-        const mx2=(tx2+gx)/2;
-        const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-        path.setAttribute('d','M'+tx2+','+ty2+' C'+mx2+','+ty2+' '+mx2+','+gy+' '+gx+','+gy);
-        path.classList.add('global-line');
-        svg.appendChild(path);
-      });
+  globalsRow.querySelectorAll('[data-dag-global-targets]').forEach(gNode=>{
+    const targets=gNode.dataset.dagGlobalTargets.split(',').filter(Boolean);
+    const gr=gNode.getBoundingClientRect();
+    const gx=gr.left-wr.left+gr.width/2; // top-center x of global node
+    const gy=gr.top-wr.top;              // top edge (lines go UP)
+
+    targets.forEach(tid=>{
+      const tgt=row.querySelector('[data-dag-id="'+tid+'"]');
+      if(!tgt)return;
+      const tr2=tgt.getBoundingClientRect();
+      const tx2=tr2.left-wr.left+tr2.width/2; // bottom-center x of target
+      const ty2=tr2.bottom-wr.top;             // bottom edge of target
+
+      const my=(gy+ty2)/2;
+      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d','M'+gx+','+gy+' C'+gx+','+my+' '+tx2+','+my+' '+tx2+','+ty2);
+      path.classList.add('global-line');
+      gSvg.appendChild(path);
     });
   });
 }
 
-window.addEventListener('resize',()=>{if(currentView==='htree')requestAnimationFrame(drawDAGLines)});
+window.addEventListener('resize',()=>{requestAnimationFrame(drawDAGLines)});
 
 // ========================================
 // PREVIEW
 // ========================================
 function renderPreview(){
-  let tree;
-  if(currentView==='tree')tree=renderTreeView();
-  else if(currentView==='htree')tree=renderDAGView();
-  else tree=buildDataTree();
+  let tree=renderDAGView();
 
   const c=countItems(tree);
   const parts=[];
@@ -774,27 +746,37 @@ function renderTierCard(tier,tierIdx){
   let h=`<div class="tier-card" style="border-color:${col.dot}30">`;
 
   // Header
+  const tierDisplayName=tier.name||('Tier '+(tierIdx+1));
+  const isEditingTierName=editingTag&&editingTag.type==='tierName'&&editingTag.tierId===tier.id;
   h+=`<div class="tier-header">`;
-  h+=`<span class="tier-label" style="color:${col.dot}">Tier ${tierIdx+1}</span>`;
+  if(isEditingTierName){
+    h+=`<input type="text" id="edit-tag" value="${tier.name||''}" placeholder="Tier ${tierIdx+1}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:${col.dot};font-size:11px;font-weight:700;outline:none;width:${Math.max(60,(tierDisplayName).length*7+16)}px;font-family:inherit;flex:1">`;
+  } else {
+    h+=`<span class="tier-label" style="color:${col.dot};cursor:pointer" ondblclick="startEditTierName('${tier.id}')">${tierDisplayName}${tier.comps.length?` <span style="font-size:9px;font-weight:normal;color:#52525b">(${tier.comps.length}${shots.length?' \u00b7 '+(tier.comps.length*shots.length)+' nested':''})</span>`:''}</span>`;
+  }
   h+=`<div class="tier-actions">`;
-  h+=`<label style="font-size:9px;color:#71717a;display:flex;align-items:center;gap:3px;cursor:pointer;margin-right:4px"><input type="checkbox" ${tier.wrapInFolder?'checked':''} onchange="toggleTierFolder('${tier.id}')" style="accent-color:${col.dot};width:11px;height:11px;cursor:pointer">Folder</label>`;
+  const tierSettOpen=tierSettingsOpen.has(tier.id);
+  h+=`<button class="tier-btn" onclick="toggleTierSettings('${tier.id}')" title="Settings" style="${tierSettOpen?'color:#a1a1aa':''}">⚙</button>`;
   h+=`<button class="tier-btn" onclick="moveTier('${tier.id}',-1)" ${tierIdx===0?'disabled':''}>↑</button>`;
   h+=`<button class="tier-btn" onclick="moveTier('${tier.id}',1)" ${tierIdx===tiers.length-1?'disabled':''}>↓</button>`;
   h+=`<button class="tier-btn remove" onclick="removeTier('${tier.id}')">×</button>`;
   h+=`</div></div>`;
-
-  // Settings row
-  h+=`<div class="tier-settings-row">`;
-  h+=`<label><input type="checkbox" ${ts.mirrorRoot?'checked':''} onchange="toggleTierMirrorRoot('${tier.id}')">Mirror Root</label>`;
-  if(!ts.mirrorRoot){
-    h+=`<label>W:<input type="number" value="${tset.width}" onchange="updateTierSetting('${tier.id}','width',parseInt(this.value)||1920)"></label>`;
-    h+=`<label>H:<input type="number" value="${tset.height}" onchange="updateTierSetting('${tier.id}','height',parseInt(this.value)||1080)"></label>`;
-    h+=`<label>FPS:<input type="number" value="${tset.fps}" step="0.01" onchange="updateTierSetting('${tier.id}','fps',parseFloat(this.value)||30)"></label>`;
-    h+=`<label>Dur:<input type="number" value="${tset.duration}" onchange="updateTierSetting('${tier.id}','duration',parseFloat(this.value)||10)">s</label>`;
-  } else {
-    h+=`<span class="mirror-summary">${tset.width}×${tset.height} ${tset.fps}fps ${tset.duration}s</span>`;
+  if(tierSettOpen){
+    h+=`<div class="settings-panel">`;
+    h+=`<div class="tier-settings-row" style="border-bottom:none;padding:0">`;
+    h+=`<label style="font-size:9px;color:#71717a;display:flex;align-items:center;gap:3px;cursor:pointer"><input type="checkbox" ${tier.wrapInFolder?'checked':''} onchange="toggleTierFolder('${tier.id}')" style="accent-color:${col.dot};width:11px;height:11px;cursor:pointer">Wrap in Folder</label>`;
+    h+=`<label><input type="checkbox" ${ts.mirrorRoot?'checked':''} onchange="toggleTierMirrorRoot('${tier.id}')">Mirror Root</label>`;
+    if(!ts.mirrorRoot){
+      h+=`<label>W:<input type="number" value="${tset.width}" onchange="updateTierSetting('${tier.id}','width',parseInt(this.value)||1920)"></label>`;
+      h+=`<label>H:<input type="number" value="${tset.height}" onchange="updateTierSetting('${tier.id}','height',parseInt(this.value)||1080)"></label>`;
+      h+=`<label>FPS:<input type="number" value="${tset.fps}" step="0.01" onchange="updateTierSetting('${tier.id}','fps',parseFloat(this.value)||30)"></label>`;
+      h+=`<label>Dur:<input type="number" value="${tset.duration}" onchange="updateTierSetting('${tier.id}','duration',parseFloat(this.value)||10)">s</label>`;
+    } else {
+      h+=`<span class="mirror-summary">${tset.width}×${tset.height} ${tset.fps}fps ${tset.duration}s</span>`;
+    }
+    h+=`</div>`;
+    h+=`</div>`;
   }
-  h+=`</div>`;
 
   // Body
   h+=`<div class="tier-body">`;
@@ -830,12 +812,8 @@ function renderTierCard(tier,tierIdx){
     });
   }
 
-  // Add precomp input
-  if(addingCompToTier===tier.id){
-    h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-tier-comp" placeholder="Suffix e.g. _Overlay" onkeydown="addCompKeyHandler(event)" onblur="setTimeout(()=>{if(addingCompToTier==='${tier.id}')cancelAddComp()},200)"><button class="btn-add" onclick="confirmAddComp()">✓</button><button class="btn-add" onclick="cancelAddComp()">✗</button></div>`;
-  } else {
-    h+=`<div style="margin-top:4px"><button class="btn-add" onclick="addCompToTier('${tier.id}')" style="width:100%;text-align:center">+ Add Precomp</button></div>`;
-  }
+  // Add precomp input (always visible)
+  h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-tier-comp-${tier.id}" placeholder="Suffix e.g. _Overlay" onkeydown="if(event.key==='Enter'){event.preventDefault();confirmAddComp('${tier.id}')}"><button class="btn-add" onclick="confirmAddComp('${tier.id}')">+ Add</button></div>`;
 
   h+=`</div></div>`;
   return h;
@@ -849,18 +827,21 @@ function renderSidebar(){
   if(!sectionOpen.shots){
     h+=`<div class="section collapsed-section" onclick="toggleSection('shots')"><div class="section-header collapsed-header"><span class="section-label" style="color:${SHOT_COL.text}">● Root Comps</span><div class="header-right">${shots.length?`<span class="tag" style="background:${SHOT_COL.tagBg};color:${SHOT_COL.text};border:1px solid ${SHOT_COL.tagBorder}">${shots.length} comp${shots.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
   } else {
-    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${SHOT_COL.text}" onclick="toggleSection('shots')">● Root Comps</span><div class="header-right">${shots.length?`<button class="btn-clear" onclick="clearShots()">Clear</button>`:''}</div></div>`;
-    h+=`<p class="section-hint">Paste shot codes or type individually. Each gets the full precomp pipeline.</p>`;
+    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${SHOT_COL.text}" onclick="toggleSection('shots')">● Root Comps</span><div class="header-right">${shots.length?`<span style="font-size:9px;color:#71717a">${shots.length} comp${shots.length!==1?'s':''}</span>`:''}<span style="display:flex;gap:6px;align-items:center">${shots.length?`<button class="btn-clear" onclick="clearShots()">Clear</button>`:''}<button class="tier-btn" onclick="toggleRootSettings()" title="Settings" style="${rootSettingsOpen?'color:#a1a1aa':''}">⚙</button></span></div></div>`;
     h+=renderShotTags();
     h+=`<div class="input-row"><input type="text" id="inp-shots" placeholder="Paste from spreadsheet or type names..." onkeydown="if(event.key==='Enter'){addShot();return;}"><button class="btn-add" onclick="addShot()">+ Add</button></div>`;
-    h+=`<div class="suffix-row"><label>Suffix:</label><input type="text" id="inp-root-suffix" value="${rootSuffix}" placeholder="e.g. _Animation (optional)" onchange="updateRootSuffix(this.value)" onkeydown="if(event.key==='Enter')this.blur()"></div>`;
-    // Root comp settings
-    h+=`<div class="comp-settings">`;
-    h+=`<label>W:<input type="number" id="setW" value="${settings.width}" onchange="settings.width=parseInt(this.value)||1920;syncMirroredTiers();renderAll()"></label>`;
-    h+=`<label>H:<input type="number" id="setH" value="${settings.height}" onchange="settings.height=parseInt(this.value)||1080;syncMirroredTiers();renderAll()"></label>`;
-    h+=`<label>FPS:<input type="number" id="setFPS" value="${settings.fps}" step="0.01" onchange="settings.fps=parseFloat(this.value)||30;syncMirroredTiers();renderAll()"></label>`;
-    h+=`<label>Dur:<input type="number" id="setDur" value="${settings.duration}" onchange="settings.duration=parseFloat(this.value)||10;syncMirroredTiers();renderAll()">s</label>`;
-    h+=`</div>`;
+    if(rootSettingsOpen){
+      h+=`<div class="settings-panel">`;
+      h+=`<div class="suffix-row"><label>Suffix:</label><input type="text" id="inp-root-suffix" value="${rootSuffix}" placeholder="e.g. _Animation (optional)" onchange="updateRootSuffix(this.value)" onkeydown="if(event.key==='Enter')this.blur()"></div>`;
+      h+=`<div class="settings-check" style="margin-top:6px;margin-bottom:0"><label><input type="checkbox" ${settings.wrapInFolder?'checked':''} onchange="settings.wrapInFolder=this.checked;renderAll()">Wrap each shot's comps in a folder</label></div>`;
+      h+=`<div class="comp-settings">`;
+      h+=`<label>W:<input type="number" id="setW" value="${settings.width}" onchange="settings.width=parseInt(this.value)||1920;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label>`;
+      h+=`<label>H:<input type="number" id="setH" value="${settings.height}" onchange="settings.height=parseInt(this.value)||1080;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label>`;
+      h+=`<label>FPS:<input type="number" id="setFPS" value="${settings.fps}" step="0.01" onchange="settings.fps=parseFloat(this.value)||30;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label>`;
+      h+=`<label>Dur:<input type="number" id="setDur" value="${settings.duration}" onchange="settings.duration=parseFloat(this.value)||10;syncMirroredTiers();syncMirroredGlobals();renderAll()">s</label>`;
+      h+=`</div>`;
+      h+=`</div>`;
+    }
     h+=`</div>`;
   }
 
@@ -870,7 +851,6 @@ function renderSidebar(){
     h+=`<div class="section collapsed-section" onclick="toggleSection('tiers')"><div class="section-header collapsed-header"><span class="section-label" style="color:${TIER_COL.text}">● Precomps</span><div class="header-right"><span class="tag" style="background:${TIER_COL.tagBg};color:${TIER_COL.text};border:1px solid ${TIER_COL.tagBorder}">${tiers.length} tier${tiers.length!==1?'s':''}, ${totalComps} comp${totalComps!==1?'s':''}</span></div></div></div>`;
   } else {
     h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${TIER_COL.text}" onclick="toggleSection('tiers')">● Precomps</span><div class="header-right">${tiers.length?`<button class="btn-clear" onclick="clearTiers()">Reset</button>`:''}</div></div>`;
-    h+=`<p class="section-hint">Add tiers of precomps. Each tier wraps the previous via layers.add().</p>`;
 
     tiers.forEach((tier,idx)=>{h+=renderTierCard(tier,idx)});
 
@@ -882,22 +862,44 @@ function renderSidebar(){
   if(!sectionOpen.globals){
     h+=`<div class="section collapsed-section" onclick="toggleSection('globals')"><div class="section-header collapsed-header"><span class="section-label" style="color:${GLOB_COL.text}">● Global Comps</span><div class="header-right">${globals.length?`<span class="tag" style="background:${GLOB_COL.tagBg};color:${GLOB_COL.text};border:1px solid ${GLOB_COL.tagBorder}">${globals.length} global${globals.length!==1?'s':''}</span>`:`<span class="collapsed-hint">click to expand</span>`}</div></div></div>`;
   } else {
-    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${GLOB_COL.text}" onclick="toggleSection('globals')">● Global Comps</span><div class="header-right">${globals.length?`<button class="btn-clear" onclick="clearGlobals()">Clear</button>`:''}</div></div>`;
-    h+=`<p class="section-hint">Shared comps added as layers into specific comps.</p>`;
+    const gTotalLayers=globals.length?globals.reduce((s,g)=>s+g.targetComps.filter(t=>t==='root'||compById(t)).length,0)*shots.length:0;
+    const gCountText=globals.length?`<span style="font-size:9px;color:#71717a">${globals.length} comp${globals.length!==1?'s':''}${gTotalLayers?', '+gTotalLayers+' layer'+(gTotalLayers!==1?'s':''):''}</span>`:'';
+    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${GLOB_COL.text}" onclick="toggleSection('globals')">● Global Comps</span><div class="header-right">${gCountText}<span style="display:flex;gap:6px;align-items:center">${globals.length?`<button class="btn-clear" onclick="clearGlobals()">Clear</button>`:''}<button class="tier-btn" onclick="toggleGlobalSettings()" title="Settings" style="${globalSettingsOpen?'color:#a1a1aa':''}">⚙</button></span></div></div>`;
+    if(globalSettingsOpen){
+      const gs=getGlobalSettings();
+      h+=`<div class="settings-panel">`;
+      h+=`<div class="tier-settings-row" style="border-bottom:none;padding:4px 0">`;
+      h+=`<label><input type="checkbox" ${globalSettings.mirrorRoot?'checked':''} onchange="toggleGlobalMirrorRoot()" style="accent-color:#fb7185;width:11px;height:11px;cursor:pointer">Mirror Root</label>`;
+      if(!globalSettings.mirrorRoot){
+        h+=`<label>W:<input type="number" value="${gs.width}" onchange="updateGlobalSetting('width',parseInt(this.value)||1920)"></label>`;
+        h+=`<label>H:<input type="number" value="${gs.height}" onchange="updateGlobalSetting('height',parseInt(this.value)||1080)"></label>`;
+        h+=`<label>FPS:<input type="number" value="${gs.fps}" step="0.01" onchange="updateGlobalSetting('fps',parseFloat(this.value)||30)"></label>`;
+        h+=`<label>Dur:<input type="number" value="${gs.duration}" onchange="updateGlobalSetting('duration',parseFloat(this.value)||10)">s</label>`;
+      } else {
+        h+=`<span class="mirror-summary">${gs.width}×${gs.height} ${gs.fps}fps ${gs.duration}s</span>`;
+      }
+      h+=`</div>`;
+      h+=`</div>`;
+    }
 
     const allOpts=getAllCompOptions();
 
     globals.forEach((g,gi)=>{
       const isEditing=editingTag&&editingTag.type==='global'&&editingTag.idx===gi;
+      const validTargets=g.targetComps.filter(tid=>tid==='root'||compById(tid));
+      const layerCount=validTargets.length*shots.length;
       h+=`<div class="global-row">`;
       h+=`<div class="global-top">`;
       if(isEditing){
-        h+=`<input type="text" id="edit-tag" value="${g.name}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:#fb7185;font-size:12px;font-weight:600;outline:none;width:${Math.max(60,g.name.length*8+16)}px;font-family:inherit">`;
+        h+=`<input type="text" id="edit-tag" value="${g.name}" onkeydown="editKeyHandler(event)" onblur="commitEdit(this)" style="background:transparent;border:none;color:#fb7185;font-size:12px;font-weight:600;outline:none;width:${Math.max(60,g.name.length*8+16)}px;font-family:inherit;flex:1">`;
       } else {
-        h+=`<span class="global-name" ondblclick="startEditGlobal(${gi})">${g.name}</span>`;
+        h+=`<span class="global-name" style="flex:1" ondblclick="startEditGlobal(${gi})">${g.name}</span>`;
       }
+      h+=`<div style="display:flex;align-items:center;gap:6px;flex-shrink:0">`;
       h+=`<div class="guide-check"><input type="checkbox" id="guide-${g.id}" ${g.guideLayer?'checked':''} onchange="toggleGuideLayer('${g.id}')"><label for="guide-${g.id}">Guide</label></div>`;
-      h+=`<button class="tag-remove" style="color:#f87171" onclick="removeGlobal(${gi})">&times;</button>`;
+      if(layerCount>0)h+=`<span style="font-size:9px;padding:2px 6px;border-radius:4px;background:rgba(251,113,133,0.12);color:#fb7185;border:1px solid rgba(251,113,133,0.2)">${layerCount} layer${layerCount!==1?'s':''}</span>`;
+      h+=`<button class="tier-btn remove" onclick="removeGlobal(${gi})">×</button>`;
+      h+=`</div>`;
       h+=`</div>`;
       h+=`<span class="global-arrow">into</span>`;
       h+=`<div class="global-targets">`;
@@ -908,7 +910,6 @@ function renderSidebar(){
           lastTierLabel=opt.tierLabel;
         }
         const active=g.targetComps.includes(opt.id);
-        // Global chips use rose color (inline override of green CSS)
         h+=`<span class="target-chip ${active?'active':''}" onclick="toggleGlobalTarget('${g.id}','${opt.id}')" ${active?'style="background:rgba(251,113,133,0.12);color:#fb7185;border-color:rgba(251,113,133,0.3)"':''}>${opt.label}</span>`;
       });
       h+=`</div>`;
@@ -916,17 +917,6 @@ function renderSidebar(){
     });
 
     h+=`<div class="input-row" style="margin-top:4px"><input type="text" id="inp-globals" placeholder="e.g. FX_Overlay, Template_Guide" onkeydown="if(event.key==='Enter'){addGlobal();return;}"><button class="btn-add" onclick="addGlobal()">+ Add</button></div>`;
-    h+=`</div>`;
-  }
-
-  // === SETTINGS ===
-  if(!sectionOpen.settings){
-    const sum=[];
-    if(settings.wrapInFolder)sum.push('folders on');
-    h+=`<div class="section collapsed-section" onclick="toggleSection('settings')"><div class="section-header collapsed-header"><span class="section-label" style="color:${SET_COL.text}">● Settings</span><div class="header-right"><span class="collapsed-hint">${sum.join(', ')||'defaults'}</span></div></div></div>`;
-  } else {
-    h+=`<div class="section"><div class="section-header"><span class="section-label" style="color:${SET_COL.text}" onclick="toggleSection('settings')">● Settings</span></div>`;
-    h+=`<div class="settings-check"><label><input type="checkbox" ${settings.wrapInFolder?'checked':''} onchange="settings.wrapInFolder=this.checked;renderAll()">Wrap each shot's comps in a folder</label></div>`;
     h+=`</div>`;
   }
 
@@ -972,6 +962,11 @@ function generateScript(){
     const ts=getTierSettings(tier);
     lines.push(`  var T${idx}W = ${ts.width}, T${idx}H = ${ts.height}, T${idx}FPS = ${ts.fps}, T${idx}DUR = ${ts.duration};`);
   });
+  // Global comp settings (only emit if different from root)
+  if(!globalSettings.mirrorRoot){
+    const gs=getGlobalSettings();
+    lines.push(`  var GW = ${gs.width}, GH = ${gs.height}, GFPS = ${gs.fps}, GDUR = ${gs.duration};`);
+  }
   lines.push('');
 
   // Create global comps at root (label=1 Red) — use root settings
@@ -979,8 +974,9 @@ function generateScript(){
   globals.forEach(g=>{
     const vn=v();
     globalVars[g.id]=vn;
+    const gpfx=globalSettings.mirrorRoot?'R':'G';
     lines.push(`  // Global: ${safe(g.name)}`);
-    lines.push(`  var ${vn} = p.items.addComp("${safe(g.name)}", RW, RH, 1, RDUR, RFPS);`);
+    lines.push(`  var ${vn} = p.items.addComp("${safe(g.name)}", ${gpfx}W, ${gpfx}H, 1, ${gpfx}DUR, ${gpfx}FPS);`);
     lines.push(`  ${vn}.label = 1;`);
   });
   if(globals.length)lines.push('');
@@ -1012,7 +1008,8 @@ function generateScript(){
       let tierFolderVar=null;
       if(tier.wrapInFolder&&folderVar){
         tierFolderVar=v();
-        lines.push(`  var ${tierFolderVar} = ${folderVar}.items.addFolder("Tier ${tierIdx+1}");`);
+        const tierFolderName=safe(tier.name||('Tier '+(tierIdx+1)));
+        lines.push(`  var ${tierFolderVar} = ${folderVar}.items.addFolder("${tierFolderName}");`);
       }
 
       // Tier settings prefix
@@ -1079,11 +1076,10 @@ function exportScript(){
 // ========================================
 (function(){
   // Default Tier 1 with input ready
-  const t={id:'tier_'+tierIdCounter++,comps:[],wrapInFolder:false,settings:makeTierSettings()};
+  const t={id:'tier_'+tierIdCounter++,name:null,comps:[],wrapInFolder:false,settings:makeTierSettings()};
   tiers.push(t);
-  addingCompToTier=t.id;
   renderAll();
-  requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp');if(inp)inp.focus()});
+  requestAnimationFrame(()=>{const inp=document.getElementById('inp-tier-comp-'+t.id);if(inp)inp.focus()});
 })();
 </script>
 </body>
