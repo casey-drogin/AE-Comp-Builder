@@ -151,15 +151,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="main">
   <div class="preview-header">
     <div style="display:flex;align-items:center;gap:8px">
-      <h2>Preview</h2>
-      <span class="badge" id="countBadge">0 items</span>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px">
       <div class="view-tabs">
         <button class="view-tab active" onclick="setMainView('pipeline')">Pipeline</button>
         <button class="view-tab" onclick="setMainView('structure')">Project Structure</button>
       </div>
     </div>
+    <span class="badge" id="countBadge">0 items</span>
   </div>
   <div class="main-view-area">
     <div id="pipelineView" class="sunburst-container">
@@ -199,7 +196,7 @@ const SHOT_COL=COLORS[0],TIER_COL=COLORS[2],GLOB_COL=COLORS[4];
 let shots=[],rootSuffix='',rootDisplayLabel=null;
 let tiers=[],tierIdCounter=0,compIdCounter=0;
 let globals=[],globalIdCounter=0;
-let settings={wrapInFolder:true,width:1920,height:1080,fps:30,duration:10};
+let settings={width:1920,height:1080,fps:30,duration:10};
 let editingTag=null,sectionOpen={shots:true,tiers:true,globals:true};
 let rootSettingsOpen=false,tierSettingsOpen=new Set(),globalSettingsOpen=false;
 let globalSettings={width:1920,height:1080,fps:30,duration:10,mirrorRoot:true,wrapInFolder:false};
@@ -370,26 +367,19 @@ function buildFolderTree(){
       globals.forEach(g=>{root.children.push({name:g.name,type:'global',children:[]})});
     }
     natSort(shots).forEach(shotName=>{
-      if(settings.wrapInFolder){
-        const shotFolder={name:shotName,type:'folder',children:[]};
-        shotFolder.children.push({name:shotName+rootSuffix,type:'rootComp',children:[]});
-        tiers.forEach((tier,ti)=>{
-          if(!tier.comps.length)return;
-          if(tier.wrapInFolder){
-            const tierFolder={name:tier.name||('Group '+(ti+1)),type:'folder',children:[],tierIdx:ti};
-            tier.comps.forEach(comp=>{tierFolder.children.push({name:shotName+comp.suffix,type:'precomp',children:[],tierIdx:ti})});
-            shotFolder.children.push(tierFolder);
-          } else {
-            tier.comps.forEach(comp=>{shotFolder.children.push({name:shotName+comp.suffix,type:'precomp',children:[],tierIdx:ti})});
-          }
-        });
-        root.children.push(shotFolder);
-      } else {
-        root.children.push({name:shotName+rootSuffix,type:'rootComp',children:[]});
-        tiers.forEach((tier,ti)=>{
-          tier.comps.forEach(comp=>{root.children.push({name:shotName+comp.suffix,type:'precomp',children:[],tierIdx:ti})});
-        });
-      }
+      const shotFolder={name:shotName,type:'folder',children:[]};
+      shotFolder.children.push({name:shotName+rootSuffix,type:'rootComp',children:[]});
+      tiers.forEach((tier,ti)=>{
+        if(!tier.comps.length)return;
+        if(tier.wrapInFolder){
+          const tierFolder={name:tier.name||('Group '+(ti+1)),type:'folder',children:[],tierIdx:ti};
+          tier.comps.forEach(comp=>{tierFolder.children.push({name:shotName+comp.suffix,type:'precomp',children:[],tierIdx:ti})});
+          shotFolder.children.push(tierFolder);
+        } else {
+          tier.comps.forEach(comp=>{shotFolder.children.push({name:shotName+comp.suffix,type:'precomp',children:[],tierIdx:ti})});
+        }
+      });
+      root.children.push(shotFolder);
     });
   } else {
     // --- GROUP BY TIER ---
@@ -558,7 +548,6 @@ function renderSidebar(){
     h+=`<div class="input-row"><input type="text" id="inp-shots" placeholder="Paste from spreadsheet or type names..." onkeydown="if(event.key==='Enter'){addShot();return;}"><button class="btn-add" onclick="addShot()">+ Add</button></div>`;
     if(rootSettingsOpen){
       h+=`<div class="settings-panel"><div class="suffix-row"><label>Suffix:</label><input type="text" id="inp-root-suffix" value="${rootSuffix}" placeholder="e.g. _Animation (optional)" onchange="updateRootSuffix(this.value)" onkeydown="if(event.key==='Enter')this.blur()"></div>`;
-      h+=`<div class="settings-check" style="margin-top:6px;margin-bottom:0"><label><input type="checkbox" ${settings.wrapInFolder?'checked':''} onchange="settings.wrapInFolder=this.checked;renderAll()">Wrap each shot's comps in a folder</label></div>`;
       h+=`<div class="comp-settings"><label>W:<input type="number" id="setW" value="${settings.width}" onchange="settings.width=parseInt(this.value)||1920;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label><label>H:<input type="number" id="setH" value="${settings.height}" onchange="settings.height=parseInt(this.value)||1080;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label><label>FPS:<input type="number" id="setFPS" value="${settings.fps}" step="0.01" onchange="settings.fps=parseFloat(this.value)||30;syncMirroredTiers();syncMirroredGlobals();renderAll()"></label><label>Dur:<input type="number" id="setDur" value="${settings.duration}" onchange="settings.duration=parseFloat(this.value)||10;syncMirroredTiers();syncMirroredGlobals();renderAll()">s</label></div></div>`;
     }
     h+=`</div>`;
@@ -648,7 +637,7 @@ function generateScript(){
     const s=safe(sn);lines.push(`  // --- ${s} ---`);
 
     let fv=null;
-    if(groupMode==='shot'&&settings.wrapInFolder){
+    if(groupMode==='shot'){
       fv=v();lines.push(`  var ${fv} = p.rootFolder.items.addFolder("${s}");`);
     }
 
